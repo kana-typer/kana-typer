@@ -6,11 +6,13 @@ import { app as firebaseApp } from './config/firebase'
 
 
 function App() {
-    console.log(firebaseApp)
+  console.log(firebaseApp)
 
-    return (<>
-        <h1>Kana Typer Test</h1>
-    </>)
+  return (
+    <>
+      <h1>Kana Typer Test</h1>
+    </>
+  )
 }
 
 

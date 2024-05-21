@@ -8,16 +8,14 @@ const canvas = document.createElement('canvas')
  * @param {string | null} pseudoElt 
  * @returns string
  */
-export const getStyle = (elt, prop, pseudoElt = null) => (
-  window.getComputedStyle(elt, pseudoElt).getPropertyValue(prop)
-)
+export const getStyle = (elt, prop, pseudoElt = null) => window.getComputedStyle(elt, pseudoElt).getPropertyValue(prop)
 
 /**
  * Get computed text style of given element.
  * @param {HTMLElement} elt 
  * @returns string
  */
-export const getTextFont = (elt) => {
+export function getTextFont(elt) {
   const font = {
     weight: getStyle(elt, 'font-weight') || 'normal',
     size: getStyle(elt, 'font-size') || '16px',
@@ -32,7 +30,7 @@ export const getTextFont = (elt) => {
  * @param {string} text 
  * @param {HTMLelement} elt 
  */
-export const getTextWidth = (text, elt = document.body) => {
+export function getTextWidth(text, elt = document.body) {
   const context = canvas.getContext('2d')
   context.font = getTextFont(parent)
   return context.measureText(text).width

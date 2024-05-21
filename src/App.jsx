@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { app as firebaseApp } from './config/firebase'
+import Typer from './prototypes/typer-prototype-1/Typer'
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
 
   return (
     <>
-      <h1>Kana Typer Test</h1>
+      <Typer />
     </>
   )
 }

@@ -1,0 +1,25 @@
+{
+  "count": {
+    "start": "3041",
+    "end": "3093",
+    "length": 89
+  },
+  "__comment_1": "table cols: small, gojuon, daktuen, handakuten; col groups: a, i, u, e, o",
+  "table": [
+    "xa",   "a",              "xi", "i",                "xu",   "u",                "xe", "e",              "xo",   "o",
+            "ka", "ga",             "ki",   "gi",               "ku",   "gu",             "ke", "ge",               "ko", "go",
+            "sa", "za",             "shi",  "ji",               "su",   "zu",             "se", "ze",               "so", "zo",
+            "ta", "da",             "chi",  "ji",       "xtsu", "tsu",  "zu",             "te", "de",               "to", "do",
+            "na",                   "ni",                       "nu",                     "ne",                     "no", 
+            "ha", "ba", "pa",       "hi",   "bi", "pi",         "fu",   "bu", "pu",       "he", "be", "pe",         "ho", "bo", "po",
+            "ma",                   "mi",                       "mu",                     "me",                     "mo", 
+    "xya",  "ya",                                       "xyu",  "yu",                                       "xyo",  "yo",
+            "ra",                   "ri",                       "ru",                     "re",                     "ro",
+    "xwa",  "wa",                   "wi",                                                 "we",                     "wo",
+    "n"
+  ],
+  "settings": {
+    "__comment_2": "ignore: [xa, xi, xu, xe, xo, ji(chi\"), zu(tsu\"), xwa, wi, we]",
+    "ignore": ["3041", "3043", "3045", "3047", "3049", "3062", "3065", "308e", "3090", "3091"]
+  }
+}

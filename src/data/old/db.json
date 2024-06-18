@@ -1,0 +1,56 @@
+{
+  "unicodes": {
+    "hiragana": {
+      "__comment_count": "Specifies starting and ending unicode hex as well as length of the whole map.",
+      "count": {
+        "start": "3041",
+        "end": "3093",
+        "length": 89
+      },
+
+      "__comment_array": "Columns: (small mora, gojuon mora, dakuten mora, handakuten mora) x5 as groups (a, i, u, e, o).",
+      "array": [
+        "xa",   "a",              "xi", "i",              "xu",   "u",              "xe", "e",              "xo",   "o",
+                "ka", "ga",             "ki", "gi",               "ku", "gu",             "ke", "ge",               "ko", "go",
+                "sa", "za",             "si", "zi",               "su", "zu",             "se", "ze",               "so", "zo",
+                "ta", "da",             "ti", "di",       "xtu",  "tu", "du",             "te", "de",               "to", "do",
+                "na",                   "ni",                     "nu",                   "ne",                     "no", 
+                "ha", "ba", "pa",       "hi", "bi", "pi",         "hu", "bu", "pu",       "he", "be", "pe",         "ho", "bo", "po",
+                "ma",                   "mi",                     "mu",                   "me",                     "mo", 
+        "xya",  "ya",                                     "xyu",  "yu",                                     "xyo",  "yo",
+                "ra",                   "ri",                     "ru",                   "re",                     "ro",
+        "xwa",  "wa",                   "wi",                                             "we",                     "wo",
+        "n"
+      ],
+
+      "__comment_smallPrefix": "Specifies prefix for typing small morae in this object.",
+      "smallPrefix": "x",
+
+      "__comment_supportedSmallPrefix": "Specifies supported prefixes for writing small morae.",
+      "supportedSmallPrefix": ["x", "l"],
+
+      "__comment_except": "Array of morae to always, indiscriminately ignore in any parsing.",
+      "except": ["xa", "xi", "xu", "xe", "xo", "di", "du", "xwa", "wi", "we"],
+
+      "__comment_map_overview": "Map of additional data for every mora in array.",
+      "__comment_romaji": "Actual representation of how to write this mora.",
+      "__comment_map_forSokuon": "Morae used to write double consonant, e.g. `tte` has small `tsu` and `te`, where small `tsu` is a sokuon.",
+      "__comment_map_forYoon": "Morae used to write different sounds with a palatalized mora, e.g. `hya` uses palatalized `h` with `i` at the end and small `ya` that forms yoon.",
+      "__comment_map_forChoonpu": "Morae used to elongate the previous vowel, e.g. `okaasan` is comprised of 5 morae, where 3rd is a choonpu.",
+      "__comment_map_canSokuon": "Dictates that this mora can be modified with sokuon, e.g. `te` can have a sokuon at the beggining, thus forming `tte`.",
+      "__comment_map_canYoon": "Dictates that this mora can be modified into a yoon, e.g. `hi` can have a small `ya` at the end, this forming `hya`.",
+      "map": {
+        "xa":  { "romaji": "xa",   "forSokuon": false, "forYoon": true,  "forChoonpu": false, "canSokuon": false, "canYoon": false },
+        "a":   { "romaji": "a",    "forSokuon": false, "forYoon": false, "forChoonpu": true,  "canSokuon": false, "canYoon": false },
+        "ka":  { "romaji": "ka",   "forSokuon": false, "forYoon": false, "forChoonpu": false, "canSokuon": true,  "canYoon": false },
+        "zi":  { "romaji": "ji",   "forSokuon": false, "forYoon": false, "forChoonpu": false, "canSokuon": true,  "canYoon": true  },
+        "xtu": { "romaji": "xtsu", "forSokuon": true,  "forYoon": false, "forChoonpu": false, "canSokuon": false, "canYoon": false },
+        "tu":  { "romaji": "tsu",  "forSokuon": false, "forYoon": false, "forChoonpu": false, "canSokuon": true,  "canYoon": false },
+        "ni":  { "romaji": "ni",   "forSokuon": false, "forYoon": false, "forChoonpu": false, "canSokuon": false, "canYoon": true  }
+      }
+    },
+    "katakana": {
+      "...": "..."
+    }
+  }
+}

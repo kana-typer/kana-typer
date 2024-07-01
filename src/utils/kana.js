@@ -14,6 +14,42 @@ export const kanaToUnicode = (char) => char.codePointAt(0)?.toString(16) || '25a
 export const kanaToRomaji = (char) => unicodeToRomaji(kanaToUnicode(char)) // 'か' -> 'ka'
 
 
+export function getRandomKana(moraeLength) {
+  const getInitialMap = () => Object
+    .entries(hiraganaMap)
+    .filter(([_, romaji]) => !romaji.startsWith('x'))
+
+  const getMoraCodes = () => getInitialMap()
+    .map(([code, _]) => [code])
+
+  const getSokuonCodes = () => getInitialMap()
+    .map(([code, _]) => ['3063', code])
+
+  const getYoonCodes = () => getInitialMap()
+    .filter(([_, romaji]) => romaji.endsWith('i'))
+    .map(([code, _]) => [code])
+    .reduce((acc, codes) => [...acc, [...codes, '3083'], [...codes, '3085'], [...codes, '3087']], [])
+
+
+  const pool = new Map([
+    [0.50, getMoraCodes()],
+    [0.70, getSokuonCodes()],
+    [0.90, getYoonCodes()],
+    [1.00, [...getSokuonCodes(), ...getYoonCodes()]],
+  ])
+
+  const moraeArray = Array(moraeLength).fill(undefined).map(_ => {
+    const poolChoice = Math.random()
+    const kanaSetsAvailable = Array.from(pool).filter(([key, _]) => poolChoice <= key)
+    const kanaSet = kanaSetsAvailable?.[0]?.[1] || getMoraCodes()
+
+    const codesChoice = Math.floor(Math.random() * kanaSet.length)
+    return kanaSet[codesChoice]
+  })
+
+  return moraeArray
+}
+
 /**
  * Returns array with valid romaji combinations for given array of morae.
  * @param {Array<string>} moraeUnicodeArray - e.g. ['3063', '3066'] // って

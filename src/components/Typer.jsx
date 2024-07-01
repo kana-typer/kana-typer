@@ -1,6 +1,6 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
-import { unicodeToKana, getInputCombinations, checkRomaji } from '../utils/kana'
+import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../utils/kana'
 
 
 function Typer() {
@@ -37,14 +37,15 @@ function Typer() {
   })
 
   const [kanaIndex, setKanaIndex] = useState(2)
-  const [visibleKana, setVisibleKana] = useState([
-    ['304b'],         // か
-    ['3063', '3066'], // って
-    ['3061', '3083'], // ちゃ
-    ['3093'],         // ん
-    ['306b', '3083'], // にゃ
-    ['3058'],         // じ
-  ])
+  // const [visibleKana, setVisibleKana] = useState([
+  //   ['304b'],         // か
+  //   ['3063', '3066'], // って
+  //   ['3061', '3083'], // ちゃ
+  //   ['3093'],         // ん
+  //   ['306b', '3083'], // にゃ
+  //   ['3058'],         // じ
+  // ])
+  const [visibleKana, setVisibleKana] = useState(getRandomKana(7))
   const [score, setScore] = useState({
     accuracy: 0,
     kana: [true, false]
@@ -70,6 +71,10 @@ function Typer() {
     }
   }
 
+  useEffect(() => {
+    console.log(getRandomKana(5))
+  }, [])
+
   return (
     <div>
       <div className="kana">{visibleKana.map((morae, index) => {
@@ -80,9 +85,9 @@ function Typer() {
           style.color = 'currentColor'
         else if (index > kanaIndex) // next morae to type
           style.color = 'gray'
-        else if (index % 2 === 0)       // previously typed morae correctly // TODO: % 2 only for testing purposes
+        else if (index % 2 === 0)   // previously typed morae correctly // TODO: % 2 only for testing purposes
           style.color = 'lime'
-        else                            // previously typed morae incorrectly
+        else                        // previously typed morae incorrectly
           style.color = 'red'
 
         return (

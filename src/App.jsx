@@ -13,7 +13,7 @@ function App() {
   signInAnonymously(auth)
     .then(() => {
       console.log('Signed in')
-      console.log(firebaseApp)
+      // console.log(firebaseApp)
 
       // TODO: how does it work?! Rules in Firebase are weird
       // onSnapshot(collection(db, 'test'), snapshot => {

@@ -2,7 +2,7 @@ import kanaUnicodes from '../data/unicode-map.json'
 
 
 const LONGEST_MORAE_COMBINATION = 10
-const hiraganaMap = parseUnicodeMap(kanaUnicodes)
+export const hiraganaMap = parseUnicodeMap(kanaUnicodes)
 
 
 export const unicodeToKana = (hex) => String.fromCodePoint(parseInt(hex, 16)) // '304b' -> 'か'

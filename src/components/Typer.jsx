@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../utils/kana'
 import '../css/Typer.css'
+import { getTextWidth } from '../utils/text'
 
 
 function Typer() {
@@ -36,7 +37,8 @@ function Typer() {
     }
   })
 
-  const [kanaIndex, setKanaIndex] = useState(2)
+  const [kanaOffset, setKanaOffset] = useState(0)
+  const [kanaIndex, setKanaIndex] = useState(0)
   // const [visibleKana, setVisibleKana] = useState([
   //   ['304b'],         // か
   //   ['3063', '3066'], // って
@@ -48,7 +50,7 @@ function Typer() {
   const [visibleKana, setVisibleKana] = useState(getRandomKana(7))
   const [score, setScore] = useState({
     accuracy: 0,
-    kana: [true, false]
+    kana: []
   })
 
   const romajiCombinations = useMemo(() => getInputCombinations(visibleKana[kanaIndex]), [kanaIndex])
@@ -63,6 +65,10 @@ function Typer() {
     
     if (result !== undefined) {
       setKanaIndex(prevIndex => prevIndex + 1)
+      setKanaOffset(prevOffset => {
+        const morae = visibleKana[kanaIndex].map(unicodeToKana).join('')
+        return prevOffset + getTextWidth(morae, document.querySelector('.kana'))
+      })
       setScore(prevScore => ({...prevScore, kana: [...prevScore.kana, result]}))
       setUserRomaji('')
     }
@@ -71,30 +77,27 @@ function Typer() {
     }
   }
 
-  useEffect(() => {
-    console.log(getRandomKana(5))
-  }, [])
-
   return (
     <div className='typer'>
       <div className="center-wrapper">
-        <div className='kana'>{visibleKana.map((morae, index) => {
-          const moraeText = morae.map(unicodeToKana).join('')
-          const style = {}
+        <div className='kana' style={{ transform: `translateX(-${kanaOffset}px)` }}>
+          {visibleKana.map((morae, index) => {
+            const moraeText = morae.map(unicodeToKana).join('')
+            const style = {}
 
-          if (index === kanaIndex)    // current morae to type
-            style.color = 'currentColor'
-          else if (index > kanaIndex) // next morae to type
-            style.color = 'gray'
-          else if (index % 2 === 0)   // previously typed morae correctly // TODO: % 2 only for testing purposes
-            style.color = 'lime'
-          else                        // previously typed morae incorrectly
-            style.color = 'red'
+            if (index === kanaIndex)    // current morae to type
+              style.color = 'currentColor'
+            else if (index > kanaIndex) // next morae to type
+              style.color = 'gray'
+            else if (score.kana?.[index] == true)   // previously typed morae correctly // TODO: % 2 only for testing purposes
+              style.color = 'lime'
+            else                        // previously typed morae incorrectly
+              style.color = 'red'
 
-          return (
-            <span key={index} style={style}>{moraeText}</span>
-          )
-        })}
+            return (
+              <span key={index} style={style}>{moraeText}</span>
+            )
+          })}
         </div>
         <input type='text' value={userRomaji} onChange={checkUserRomaji} placeholder='type...' />
       </div>

@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-vl {
+span.vl {
   position: absolute;
   top: 0;
   left: calc(50% - 0.5px);

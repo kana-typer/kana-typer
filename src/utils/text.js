@@ -28,9 +28,9 @@ export function getTextFont(elt) {
 /**
  * Get width a text would take inside element.
  * @param {string} text 
- * @param {HTMLelement} elt 
+ * @param {HTMLelement} parent 
  */
-export function getTextWidth(text, elt = document.body) {
+export function getTextWidth(text, parent = document.body) {
   const context = canvas.getContext('2d')
   context.font = getTextFont(parent)
   return context.measureText(text).width

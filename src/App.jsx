@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <vl />
+      <span className='vl'></span>
       <Typer />
     </>
   )

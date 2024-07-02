@@ -5,7 +5,7 @@ import { app as firebaseApp, db } from './config/firebase'
 import Typer from './components/Typer'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './css/App.css'
 
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
 
   return (
     <>
+      <vl />
       <Typer />
     </>
   )

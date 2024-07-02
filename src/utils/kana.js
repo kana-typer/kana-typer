@@ -15,6 +15,8 @@ export const kanaToRomaji = (char) => unicodeToRomaji(kanaToUnicode(char)) // 'ã
 
 
 export function getRandomKana(moraeLength) {
+  // TODO: add mosibility to specify either length of morae or mora, i.e. `length of array elements in main array` or `length of elements if arrays were flattened`
+
   const getInitialMap = () => Object
     .entries(hiraganaMap)
     .filter(([_, romaji]) => !romaji.startsWith('x'))

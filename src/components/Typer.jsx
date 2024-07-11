@@ -1,14 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../utils/kana'
 import '../css/Typer.css'
 import { getTextWidth } from '../utils/text'
+import useWindowResize from '../hooks/useWindowResize'
 
 
 function Typer() {
   const [kanaOffset, setKanaOffset] = useState(0)
   const [kanaIndex, setKanaIndex] = useState(0)
 
-  const [visibleKana, setVisibleKana] = useState(getRandomKana(7))
+  const [visibleKana, setVisibleKana] = useState(getRandomKana(1))
   const [userRomaji, setUserRomaji] = useState('')
 
   const [score, setScore] = useState({
@@ -37,6 +38,17 @@ function Typer() {
       setUserRomaji(romaji)
     }
   }
+
+  useWindowResize(useCallback((windowSize, _event) => {
+    console.log(`resize ${windowSize.width}x${windowSize.height}`)
+
+    const moraWidth = getTextWidth(unicodeToKana('3042'), document.querySelector('.kana'))
+    const amountOfVisibleMorae = Math.ceil(windowSize.width / moraWidth)
+
+    // TODO: implement a length-checking clause to see if more morae needs to be added
+    // TODO: implement a check to remove morae that was done by user and is out of screen far enough
+    setVisibleKana(getRandomKana(amountOfVisibleMorae))
+  }, []))
 
   return (
     <div className='typer'>

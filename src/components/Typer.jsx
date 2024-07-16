@@ -1,66 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../utils/kana'
-import '../css/Typer.css'
 import { getTextWidth } from '../utils/text'
-import useWindowResize from '../hooks/useWindowResize'
+import '../css/Typer.css'
 
 
 function Typer() {
   const getMoraeWidth = (morae) => getTextWidth(morae, document.querySelector('.kana') || document.body)
 
-  const [kanaOffset, setKanaOffset] = useState(0) // how many previous morae to skip
+  // TODO: unused for now, because shiftingKana is not implemented
+  const [kanaOffset, setKanaOffset] = useState(0) // how many previous morae to skip 
   const [kanaIndex, setKanaIndex] = useState(0) // currently selected morae
-  const [kanaData, setKanaData] = useState([
-    ['304b'],         // か
-    ['3063', '3066'], // って
-    ['3061', '3083'], // ちゃ
-    ['3093'],         // ん
-    ['306b', '3083'], // にゃ
-    ['3058'],         // じ
-  ])
+  const [kanaData, setKanaData] = useState([])
   const [kanaStats, setKanaStats] = useState({
     correct: []
   })
   const [userRomaji, setUserRomaji] = useState('')
 
-  // const transformOffsetRef = useRef(0)
-  // const transformOffset = useMemo(() => {
-  //   const index = kanaOffset - 1
-
-  //   if (index < 0)
-  //     return 0
-
-  //   const morae = kanaData[index]?.map(unicodeToKana)?.join('')
-  //   const addition = morae === undefined ? 0 : getMoraeWidth(morae)
-
-  //   transformOffsetRef.current += addition
-  //   return transformOffsetRef.current
-  // }, [kanaOffset])
-
-  // const transformOffset = useMemoWithRollback(0, (rollback) => {
-  //   const index = kanaOffset - 1
-  //   if (index < 0)
-  //     return 0
-    
-  //   const morae = kanaData[index]?.map(unicodeToKana)?.join('')
-  //   const addition = morae === undefined ? 0 : getMoraeWidth(morae)
-
-  //   rollback.current += addition
-  //   return rollback.current
-  // }, [kanaIndex])
-
-  const romajiCombinations = useMemo(() => getInputCombinations(kanaData[kanaIndex]), [kanaIndex])
-
-  // const kanaOffset = useMemoWithRollback(0, rollback => {
-  //   const bulkSize = 10
-
-  //   const offset = rollback + (rollback * 2 === kanaStats.correct.length)
-
-  //   return { memo: offset, rollback }
-  // }, [kanaIndex])
-
-  const kanaDataToRender = useMemo(() => kanaData.slice(kanaOffset), [kanaOffset])
-
+  const romajiCombinations = useMemo(() => getInputCombinations(kanaData?.[kanaIndex] || []), [kanaData, kanaIndex])
+  const kanaDataToRender = useMemo(() => kanaData.slice(kanaOffset), [kanaData, kanaOffset])
   const kanaTransformOffset = useMemo(() => {
     const morae = kanaDataToRender
       .slice(0, kanaIndex)
@@ -69,23 +26,31 @@ function Typer() {
   }, [kanaIndex, kanaDataToRender])
 
   const shiftKana = () => {
-
+    // TODO: performance was dropping only close to 150k pixels moved, thus not needed
   }
 
   const appendKanaIfPossible = () => {
     const moraWidth = getMoraeWidth(unicodeToKana('3042'))
     const moraeAmount = Math.ceil(window.innerWidth / 2 / moraWidth)
-    console.log('ap', kanaData.length, '>', kanaIndex + 3)
+    const rearMorae = kanaData
+      .slice(kanaIndex)
+      .map(morae => morae.map(unicodeToKana).join('')).join('')
 
-    if (kanaData.length > kanaIndex + 3) // enough morae at rear to not generate new 
-      return
-    
-    console.log('ap', true)
-    // const rearMorae = kanaData
-    //   .slice(kanaIndex)
-    //   .map(morae => morae.map(unicodeToKana).join('')).join('')
+    // amount of morae to still be out of view for new to be generated
+    const moraeBuffer = 10 
 
-    setKanaData(prev => [...prev, ...getRandomKana(moraeAmount)])
+    // minimum amount of morae after currently selected one
+    const minMoraeAtRear = 3
+
+    // failsafe to generate morae with always few left at rear
+    const failsafe = kanaData.length < kanaIndex + minMoraeAtRear
+
+    // half-screen width + buffer has to more than current rear morae amount to generate new morae, e.g.:
+    // |----------------| half-screen width + morae
+    // |------------| rear morae
+    // if that fails, checks failsafe too to never have less than specific amount of morae at rear
+    if (moraeAmount + moraeBuffer > rearMorae.length || failsafe)
+      setKanaData(prev => [...prev, ...getRandomKana(moraeAmount)])
   }
 
   const checkUserRomaji = (e) => {
@@ -98,10 +63,6 @@ function Typer() {
       setKanaIndex(prevIndex => prevIndex + 1)
       setKanaStats(prevStats => ({ ...prevStats, correct: [...prevStats.correct, result] }))
       setUserRomaji('')
-
-      // const isSpaceForMoreKana = 
-
-      // if (kanaIndex + 3 > kanaData.length)
       appendKanaIfPossible()
     }
     else {
@@ -110,7 +71,7 @@ function Typer() {
   }
 
   useEffect(() => {
-    
+    appendKanaIfPossible()
   }, [])
 
   return (
@@ -124,13 +85,13 @@ function Typer() {
             const moraeText = morae.map(unicodeToKana).join('')
             const style = {}
 
-            if (index === kanaIndex)    // current morae to type
+            if (index === kanaIndex) // current morae to type
               style.color = 'currentColor'
             else if (index > kanaIndex) // next morae to type
               style.color = 'gray'
-            else if (kanaStats.correct?.[index] == true)   // previously typed morae correctly // TODO: % 2 only for testing purposes
+            else if (kanaStats.correct?.[index] == true) // previously typed morae correctly
               style.color = 'lime'
-            else                        // previously typed morae incorrectly
+            else // previously typed morae incorrectly
               style.color = 'red'
 
             return (
@@ -147,6 +108,24 @@ function Typer() {
           onChange={checkUserRomaji} 
           placeholder='type...' 
         />
+      </div>
+      <div className="stats">
+        <table>
+          <tbody>
+            <tr>
+              <td>Correct</td>
+              <td>{kanaStats.correct.filter(x => x === true).length}</td>
+            </tr>
+            <tr>
+              <td>Incorrect</td>
+              <td>{kanaStats.correct.filter(x => x === false).length}</td>
+            </tr>
+            <tr>
+              <td>Accuracy</td>
+              <td>{(kanaStats.correct.filter(x => x === true).length / (kanaStats.correct.length || 1)).toFixed(2)}%</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@
   height: 100%;
   position: relative;
 
-  /* overflow-x: hidden; */
+  overflow-x: hidden; /* Hides overflow of generated kana characters horizontally */
 }
 
 .center-wrapper {
@@ -19,4 +19,12 @@
 
 .typer input {
   width: 15ch;
+}
+
+.stats {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  
+  transform: translateX(-50%);
 }

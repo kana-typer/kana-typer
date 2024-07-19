@@ -9,20 +9,20 @@ import './css/App.css'
 
 
 function App() {
-  const auth = getAuth()
-  signInAnonymously(auth)
-    .then(() => {
-      console.log('Signed in')
-      // console.log(firebaseApp)
+  // const auth = getAuth()
+  // signInAnonymously(auth)
+  //   .then(() => {
+  //     console.log('Signed in')
+  //     // console.log(firebaseApp)
 
-      // TODO: how does it work?! Rules in Firebase are weird
-      // onSnapshot(collection(db, 'test'), snapshot => {
-      //   console.log(snapshot)
-      // })
-    })
-    .catch(err => {
-      console.error('Error', err?.code || '', err?.message || 'unknown error')
-    })
+  //     // TODO: how does it work?! Rules in Firebase are weird
+  //     // onSnapshot(collection(db, 'test'), snapshot => {
+  //     //   console.log(snapshot)
+  //     // })
+  //   })
+  //   .catch(err => {
+  //     console.error('Error', err?.code || '', err?.message || 'unknown error')
+  //   })
 
   return (
     <>

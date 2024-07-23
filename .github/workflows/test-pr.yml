@@ -1,0 +1,21 @@
+name: Run tests on PR
+run-name: Run tests for all updates on any Pull Requests
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - name: Clean install
+        run: npm ci
+      - name: Run tests 
+        run: npm run test

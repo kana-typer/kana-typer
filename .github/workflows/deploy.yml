@@ -1,0 +1,29 @@
+name: Deploy to Firebase on release
+run-name: Deploy code to Firebase Live Channel after successful Release's Pull Request merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - name: Clean install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy to live channel
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KANA_TYPER }}"
+          projectId: kana-typer
+          channelId: live

@@ -1,0 +1,47 @@
+name: "Create new release PR"
+run-name: "Update version and create Pull Request for new release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version name"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+permissions: 
+  contents: write
+  discussions: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  new_release_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Git config
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+      - name: Update version
+        id: update_version
+        run: |
+          echo "version=$(npm version ${{ github.event.inputs.version }} --no-git-tag-version)" >> $GITHUB_OUTPUT
+      - name: Create pull request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: release/${{ steps.update_version.outputs.version }}
+          commit-message: "New release branch for version ${{ steps.update_version.outputs.version }}"
+          title: "Release: ${{ steps.update_version.outputs.version }}"
+          body: "Pull request of a new version created via manual workflow dispatch."
+          assignees: ${{ github.actor }}
+          labels: "release"

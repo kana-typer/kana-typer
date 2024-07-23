@@ -13,12 +13,11 @@ function App() {
   signInAnonymously(auth)
     .then(() => {
       console.log('Signed in')
-      console.log(firebaseApp)
 
-      // TODO: how does it work?! Rules in Firebase are weird
-      // onSnapshot(collection(db, 'test'), snapshot => {
-      //   console.log(snapshot)
-      // })
+      onSnapshot(collection(db, 'test'), snapshot => {
+        const docArr = snapshot.docs.map(doc => doc.data())
+        console.log(`connection to db successful = ${docArr?.[0]?.isActive == true}`)
+      })
     })
     .catch(err => {
       console.error('Error', err?.code || '', err?.message || 'unknown error')

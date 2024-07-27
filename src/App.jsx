@@ -9,6 +9,20 @@ import './css/App.css'
 
 
 function App() {
+  const auth = getAuth()
+  signInAnonymously(auth)
+    .then(() => {
+      console.log('Signed in')
+
+      onSnapshot(collection(db, 'test'), snapshot => {
+        const docArr = snapshot.docs.map(doc => doc.data())
+        console.log(`connection to db successful = ${docArr?.[0]?.isActive == true}`)
+      })
+    })
+    .catch(err => {
+      console.error('Error', err?.code || '', err?.message || 'unknown error')
+    })
+
   return (
     <>
       <span className='vl'></span>

@@ -1,16 +1,18 @@
 import { useState } from 'react'
+import { getAuth, signInAnonymously } from 'firebase/auth'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { app as firebaseApp, db } from './config/firebase'
+import Typer from './components/Typer'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
-import { app as firebaseApp } from './config/firebase'
+import './css/App.css'
 
 
 function App() {
-  console.log(firebaseApp)
-
   return (
     <>
-      <h1>Kana Typer Test</h1>
+      <span className='vl'></span>
+      <Typer />
     </>
   )
 }

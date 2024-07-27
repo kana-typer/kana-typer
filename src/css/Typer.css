@@ -1,0 +1,30 @@
+.typer {
+  height: 100%;
+  position: relative;
+
+  overflow-x: hidden; /* Hides overflow of generated kana characters horizontally */
+}
+
+.center-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+.kana {
+  transition: transform .1s linear;
+
+  white-space: nowrap;
+}
+
+.typer input {
+  width: 15ch;
+}
+
+.stats {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  
+  transform: translateX(-50%);
+}

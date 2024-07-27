@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'  // firebase/firestore/lite
 // import { getAnalytics } from 'firebase/analytics'
 
 
@@ -13,10 +14,12 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
+const db = getFirestore()
 // const analytics = getAnalytics(app)  // analytics are not set for a valid sdk yet
 
 
 export { 
   app,
+  db
   // analytics,
 }

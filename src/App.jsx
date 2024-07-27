@@ -1,16 +1,32 @@
 import { useState } from 'react'
+import { getAuth, signInAnonymously } from 'firebase/auth'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { app as firebaseApp, db } from './config/firebase'
+import Typer from './components/Typer'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
-import { app as firebaseApp } from './config/firebase'
+import './css/App.css'
 
 
 function App() {
-  console.log(firebaseApp)
+  const auth = getAuth()
+  signInAnonymously(auth)
+    .then(() => {
+      console.log('Signed in')
+
+      onSnapshot(collection(db, 'test'), snapshot => {
+        const docArr = snapshot.docs.map(doc => doc.data())
+        console.log(`connection to db successful = ${docArr?.[0]?.isActive == true}`)
+      })
+    })
+    .catch(err => {
+      console.error('Error', err?.code || '', err?.message || 'unknown error')
+    })
 
   return (
     <>
-      <h1>Kana Typer Test</h1>
+      <span className='vl'></span>
+      <Typer />
     </>
   )
 }

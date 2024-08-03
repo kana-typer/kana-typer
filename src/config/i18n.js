@@ -1,7 +1,9 @@
 import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import I18NextHttpBackend from 'i18next-http-backend'
 
 i18next
+  .use(I18NextHttpBackend)
   .use(initReactI18next)
   .init({
     // https://www.i18next.com/overview/configuration-options#logging
@@ -11,18 +13,9 @@ i18next
     interpolation: {
       escapeValues: false,
     },
-    resources: {
-      en: {
-        translation: {
-          title: 'This is a locale test',
-        }
-      },
-      pl: {
-        translation: {
-          title: 'To jest test lokali',
-        }
-      },
-    }
+    backend: {
+      loadPath: `/i18n/{{lng}}.json`,
+    },
   })
 
 export default i18next

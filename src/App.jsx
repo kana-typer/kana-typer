@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { getAuth, signInAnonymously } from 'firebase/auth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { app as firebaseApp, db } from './config/firebase'
@@ -30,7 +30,7 @@ function App() {
     })
 
   return (
-    <>
+    <Suspense fallback='loading'>
       <span className='vl'></span>
       <Typer />
       <div>
@@ -42,7 +42,7 @@ function App() {
           <option key={2} value="pl">Polski</option>
         </select>
       </div>
-    </>
+    </Suspense>
   )
 }
 

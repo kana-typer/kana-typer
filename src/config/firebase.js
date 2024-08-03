@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'  // firebase/firestore/lite
 // import { getAnalytics } from 'firebase/analytics'
 
@@ -14,12 +15,14 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
+const auth = getAuth()
 const db = getFirestore()
 // const analytics = getAnalytics(app)  // analytics are not set for a valid sdk yet
 
 
 export { 
   app,
-  db
+  auth,
+  db,
   // analytics,
 }

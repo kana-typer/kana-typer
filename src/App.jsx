@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { getAuth, signInAnonymously } from 'firebase/auth'
-import { collection, doc, getDoc, onSnapshot, runTransaction, setDoc, Timestamp } from 'firebase/firestore'
+import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut } from 'firebase/auth'
+import { collection, doc, getDoc, onSnapshot, setDoc, Timestamp } from 'firebase/firestore'
 import { app as firebaseApp, auth, db } from './config/firebase'
 import Typer from './components/Typer'
 import reactLogo from './assets/react.svg'
@@ -9,7 +9,7 @@ import './css/App.css'
 
 
 function App() {
-  const signIn = async () => {
+  const signInAnon = async () => {
     try {
       if (!auth.currentUser) { // fires on page refresh
         await signInAnonymously(auth)
@@ -35,18 +35,47 @@ function App() {
         const userData = userDoc.data()
         console.log(`First login on ${userData.firstLogin.toDate().toString()}`)
       }
-    }
-    catch (err) {
-      console.error('Error', err?.code || '', err?.message || 'unknown error')
+    } catch (error) {
+      console.error('Error signInAnon', error?.code || '', error?.message || 'unknown error')
     }
   }
 
-  signIn()
+  const signInGoogle = async () => {
+    const provider = new GoogleAuthProvider()
+
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      const user = result.user
+
+      console.log(`Signed in with Google: uid=${auth.currentUser.uid}`)
+      console.log(user, credential)
+    } catch (error) {
+      const credential = GoogleAuthProvider.credentialFromError(err)
+      console.error('Error signInGoogle', error?.code || '', error?.message || 'unknown error')
+    }
+
+    console.log(provider)
+  }
+
+  const signOutGoogle = async () => {
+    try {
+      await signOut(auth)
+      console.log('Signed out from Google')
+      await signInAnon()
+    } catch (error) {
+      console.error('Error signOutGoogle', error?.code || '', error?.message || 'unknown error')
+    }
+  }
+
+  signInAnon()
 
   return (
     <>
       <span className='vl'></span>
       <Typer />
+      <button onClick={signInGoogle}>Sign in with Google</button>
+      <button onClick={signOutGoogle}>Log out from Google</button>
     </>
   )
 }

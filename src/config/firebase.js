@@ -16,6 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth()
+auth.useDeviceLanguage()
 const db = getFirestore()
 // const analytics = getAnalytics(app)  // analytics are not set for a valid sdk yet
 

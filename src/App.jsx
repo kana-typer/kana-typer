@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { getAuth, signInAnonymously } from 'firebase/auth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { app as firebaseApp, db } from './config/firebase'
+import { Outlet } from 'react-router-dom';
 import Typer from './components/Typer'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -24,10 +25,17 @@ function App() {
     })
 
   return (
-    <>
-      <span className='vl'></span>
-      <Typer />
-    </>
+    <main>
+      <nav>
+        <a href="/">HomePage</a> |
+        <a href="typer">Typer</a> |
+        <a href="dict">Dictionary</a> |
+        <a href="progress">Progress</a> |
+        <a href="help">Help</a> |
+        <a href="user">Account</a> |
+      </nav>
+      <Outlet/>
+    </main>
   )
 }
 

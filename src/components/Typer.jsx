@@ -71,8 +71,12 @@ function Typer() {
   }
 
   useEffect(() => {
-    appendKanaIfPossible()
-  }, [])
+    console.log('Kana data:', kanaData);
+    console.log('Kana index:', kanaIndex);
+    console.log('User Romaji:', userRomaji);
+    appendKanaIfPossible();
+  }, []);
+  
 
   return (
     <div className='typer'>

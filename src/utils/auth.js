@@ -1,5 +1,6 @@
-import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut, linkWithCredential, linkWithPopup, signInWithCredential, linkWithRedirect, reauthenticateWithCredential } from "firebase/auth"
-import { auth } from "../config/firebase"
+import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut, linkWithCredential, linkWithPopup, signInWithCredential, linkWithRedirect, reauthenticateWithCredential } from 'firebase/auth'
+import { auth } from '../config/firebase'
+import { forceEmitAuthStateChanged } from '../context/AuthContext'
 
 
 export const signInAnonymous = async () => {
@@ -30,6 +31,8 @@ export const signInGoogle = async () => {
       case 'auth/popup-closed-by-user':
         console.info('Sign in cancelled by the user')
         return
+      case 'auth/popup-blocked':
+        // TODO: implement alert about popup being blocked
       default:
         console.error('signInGoogle.linkWithPopup:', error)
     }
@@ -39,7 +42,7 @@ export const signInGoogle = async () => {
     if (credential) {
       const result = await signInWithCredential(auth, credential)
       if (forceAuthStateChanged) {
-        await auth.currentUser.getIdToken(true)
+        forceEmitAuthStateChanged()
       }
     } else {
       throw Error('Credential is null')

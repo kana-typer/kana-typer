@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
+import mitt from 'mitt'
 import { auth } from '../config/firebase'
 import { signInAnonymous } from '../utils/auth'
 import { createInitialUserData } from '../utils/db'
@@ -7,10 +8,13 @@ import { createInitialUserData } from '../utils/db'
 
 const USER_TYPE_GOOGLE = 'google'
 const USER_TYPE_ANONYMOUS = 'anonymous'
+const MANUAL_EVENT_AUTH_STATE_CHANGED = 'forceAuthStateChanged'
 
 const AuthContext = createContext()
+const eventEmitter = mitt()
 
 export const useAuth = () => useContext(AuthContext)
+export const forceEmitAuthStateChanged = () => eventEmitter.emit(MANUAL_EVENT_AUTH_STATE_CHANGED, auth.currentUser)
 
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
@@ -52,6 +56,13 @@ export default function AuthProvider({ children }) {
 
     setIsSigningIn(false)
   }
+
+  useEffect(() => {
+    eventEmitter.on(MANUAL_EVENT_AUTH_STATE_CHANGED, (user) => updateUser(user))
+    return () => { 
+      eventEmitter.off(MANUAL_EVENT_AUTH_STATE_CHANGED) 
+    }
+  }, [])
 
   const value = {
     currentUser,

@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut, linkWithCredential, linkWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut, linkWithCredential, linkWithPopup, signInWithCredential, linkWithRedirect, reauthenticateWithCredential } from "firebase/auth"
 import { auth } from "../config/firebase"
 
 
@@ -12,44 +12,41 @@ export const signInAnonymous = async () => {
 
 export const signInGoogle = async () => {
   const provider = new GoogleAuthProvider()
+  provider.setCustomParameters({ prompt: 'select_account' })
+  let credential = null
+  let forceAuthStateChanged = false
 
   try {
     const result = await linkWithPopup(auth.currentUser, provider)
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-
-    console.log(`Linked anonymous account (uid=${auth.currentUser.uid}) with Google account (email=${result.user.email})`)
+    credential = GoogleAuthProvider.credentialFromResult(result)
+    forceAuthStateChanged = true
+    console.log(`Linked anonymous account with Google account (uid=${auth.currentUser.uid})`)
   } catch (error) {
-    if (error.code === 'auth/credential-already-in-use') { // TODO: definitely is a better way to check if this google account has a uid in database, right?
-      console.error(`This Google account (uid=${auth.currentUser.uid}) is already linked with another user - signing in without linking...`, error)
-
-      try {
-        const result = await signInWithPopup(auth, provider)
-      } catch (error) {
-        console.error('signInGoogle_2:', error)
-      }
-    } else {
-      console.error('signInGoogle:', error)
+    switch (error.code) {
+      case 'auth/credential-already-in-use': 
+        console.warn(`Used Google account is already linked with another user - signing in without linking...`)
+        credential = GoogleAuthProvider.credentialFromError(error)
+        break
+      case 'auth/popup-closed-by-user':
+        console.info('Sign in cancelled by the user')
+        return
+      default:
+        console.error('signInGoogle.linkWithPopup:', error)
     }
   }
 
-  // try {
-  //   const result = await signInWithPopup(auth, provider)
-  //   const credentials = GoogleAuthProvider.credentialFromResult(result)
-
-  //   if (auth.currentUser?.isAnonymous) {
-  //     await linkWithCredential(auth.currentUser, credentials)
-  //     console.log('Linked user to Google account')
-  //   }
-    
-  // } catch (error) {
-  //   const credentials = GoogleAuthProvider.credentialFromError(error)
-
-  //   if (error.code === 'auth/credential-already-in-use') {
-  //     console.error(`signInGoogle: This Google account (uid=${auth.currentUser.uid}) is already linked with another user.`, error)
-  //   } else {
-  //     console.error('signInGoogle:', error)
-  //   }
-  // }
+  try {
+    if (credential) {
+      const result = await signInWithCredential(auth, credential)
+      if (forceAuthStateChanged) {
+        await auth.currentUser.getIdToken(true)
+      }
+    } else {
+      throw Error('Credential is null')
+    }
+  } catch (error) {
+    console.error('signInGoogle.signInWithCredential:', error)
+  }
 }
 
 export const signOutGoogle = async () => {

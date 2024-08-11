@@ -2,7 +2,11 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../config/firebase'
 import { signInAnonymous } from '../utils/auth'
+import { createInitialUserData } from '../utils/db'
 
+
+const USER_TYPE_GOOGLE = 'google'
+const USER_TYPE_ANONYMOUS = 'anonymous'
 
 const AuthContext = createContext()
 
@@ -10,8 +14,7 @@ export const useAuth = () => useContext(AuthContext)
 
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
-  const [isAnonymous, setIsAnonymous] = useState(false)
-  const [isGoogle, setIsGoogle] = useState(false) // TODO: ^ redo this as a singular state that houses name google|anonymous
+  const [currentUserType, setCurrentUserType] = useState(null)
   const [isSigningIn, setIsSigningIn] = useState(true)
 
   useEffect(() => {
@@ -20,9 +23,15 @@ export default function AuthProvider({ children }) {
   }, [])
 
   const updateUser = async (user) => {
+    setIsSigningIn(true)
+
+    console.log('updateUser')
+
     if (!user) {
       setCurrentUser(null)
-      console.warn('No user signed in - signing in as anonymous...')
+      setCurrentUserType(null)
+
+      console.log('No user signed in - signing in as anonymous...')
       await signInAnonymous()
     } else {
       const signedInViaGoogle = user.providerData.some(
@@ -30,15 +39,15 @@ export default function AuthProvider({ children }) {
       )
 
       if (signedInViaGoogle) {
-        setIsGoogle(true)
+        setCurrentUserType(USER_TYPE_GOOGLE)
         console.log(`Signed in with Google, uid=${user.uid}|${auth.currentUser.uid}`)
       } else {
-        setIsAnonymous(true)
+        setCurrentUserType(USER_TYPE_ANONYMOUS)
         console.log(`Signed in anonymously, uid=${user.uid}|${auth.currentUser.uid}`)
       }
-      // TODO: states seem to only refresh properly after page reload
 
       setCurrentUser(() => ({ ...user }))
+      createInitialUserData(user)
     }
 
     setIsSigningIn(false)
@@ -46,9 +55,9 @@ export default function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    isAnonymous,
-    isGoogle,
+    currentUserType,
     isSigningIn,
+    forceUpdate: () => updateUser(auth.currentUser),
   }
 
   return (

@@ -1,4 +1,4 @@
-import { auth, db } from '../config/firebase'
+import { db } from '../config/firebase'
 import { collection, doc, getDoc, onSnapshot, setDoc, Timestamp } from 'firebase/firestore'
 
 export const testDbStatus = () => {
@@ -13,9 +13,9 @@ export const testDbStatus = () => {
   }
 }
 
-export const createInitialUserData = async () => {
+export const createInitialUserData = async (currentUser) => {
   try {
-    const userRef = doc(db, 'users', auth.currentUser.uid)
+    const userRef = doc(db, 'users', currentUser.uid)
     const userDoc = await getDoc(userRef)
 
     if (!userDoc.exists()) {

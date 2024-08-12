@@ -1,4 +1,4 @@
-import Typer from '../components/Typer';
+import Typer from '../components/Typer'
 
 
 export default function TyperPage() {
@@ -8,4 +8,4 @@ export default function TyperPage() {
       <Typer/>
     </>
   )
-  }
+}

@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5173",
     "build": "vite build",
     "test": "vitest",
     "tests": "vitest",

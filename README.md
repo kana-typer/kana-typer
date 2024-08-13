@@ -1,3 +1,11 @@
+## How to debug code
+1. run `npm run dev` in VSCode integrated terminal
+2. press `CTRL+SHIFT+D` in VSCode
+3. choose preferred browser from the list of available debugger configurations
+4. press play or press `F5`
+
+Debugger will be run in a new window. All debugger output will be present in `Debugger Console` in the integrated terminal. Breakpoints get active only after hot reload (saving the file).
+
 ## Folder structure
 ```
 kana-typer/

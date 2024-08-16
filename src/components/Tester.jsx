@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { useAuth } from '../context/AuthContext'
-import { signInGoogle, signOutGoogle } from '../utils/auth'
+import { emitLoginGoogle, emitLogout, useAuth } from '../context/AuthContext'
 
 function Tester() {
   const { currentUser, currentUserType, isSigningIn } = useAuth()
@@ -14,11 +13,13 @@ function Tester() {
   return isSigningIn ? (
     <span>loading...</span>
   ) : (
-    currentUserType === 'google' ? (
-      <button onClick={signOutGoogle}>Log out from Google</button>
-    ) : (
-      <button onClick={signInGoogle}>Sign in with Google</button>
-    )
+    <>
+      {currentUserType === 'google' ? (
+        <button onClick={emitLogout}>Log out from Google</button>
+      ) : (
+        <button onClick={emitLoginGoogle}>Sign in with Google</button>
+      )}
+    </>
   )
   
 }

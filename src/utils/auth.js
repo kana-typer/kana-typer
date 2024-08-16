@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInAnonymously, signInWithPopup, signOut, linkWithCredential, linkWithPopup, signInWithCredential, linkWithRedirect, reauthenticateWithCredential } from 'firebase/auth'
+import { GoogleAuthProvider, signInAnonymously, signOut as _signOut, linkWithPopup, signInWithCredential } from 'firebase/auth'
 import { auth } from '../config/firebase'
 import { forceEmitAuthStateChanged } from '../context/AuthContext'
 
@@ -52,9 +52,9 @@ export const signInGoogle = async () => {
   }
 }
 
-export const signOutGoogle = async () => {
+export const signOut = async () => {
   try {
-    await signOut(auth)
+    await _signOut(auth)
     console.log('Signed out')
   } catch (error) {
     console.error('signOut:', error)

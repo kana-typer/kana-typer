@@ -1,0 +1,26 @@
+main > nav {
+  padding: .5rem 1rem;
+
+  display: flex;
+
+  border-bottom: 1px solid red;
+}
+
+main > nav > ul {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  gap: .5em;
+
+  list-style-type: none;
+  flex: 1;
+}
+
+main > nav > .v-divider {
+  margin: 0 1rem;
+}
+
+main > nav > .lang-picker > i {
+  margin-right: .5em;
+}

@@ -1,50 +1,99 @@
-import { db } from '../config/firebase'
+import { auth, db } from '../config/firebase'
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, Timestamp, updateDoc } from 'firebase/firestore'
 
-
-const testData = {
-  morae: {
-    hiragana: {
-      count: {
-        start: "3041",
-        end: "3093",
-        length: 83
-      },
-      array: [
-        "xa",   "a",              "xi", "i",                "xu",     "u",                "xe", "e",              "xo",   "o",
-                "ka", "ga",             "ki",   "gi",                 "ku",   "gu",             "ke", "ge",               "ko", "go",
-                "sa", "za",             "shi",  "ji",                 "su",   "zu",             "se", "ze",               "so", "zo",
-                "ta", "da",             "chi",  "ji",       "xtsu",   "tsu",  "zu",             "te", "de",               "to", "do",
-                "na",                   "ni",                         "nu",                     "ne",                     "no", 
-                "ha", "ba", "pa",       "hi",   "bi", "pi",           "fu",   "bu", "pu",       "he", "be", "pe",         "ho", "bo", "po",
-                "ma",                   "mi",                         "mu",                     "me",                     "mo", 
-        "xya",  "ya",                                       "xyu",    "yu",                                       "xyo",  "yo",
-                "ra",                   "ri",                         "ru",                     "re",                     "ro",
-        "xwa",  "wa",                   "wi",                                                   "we",                     "wo",
-        "n"
-      ],
-      except: ["xa", "xi", "xu", "xe", "xo", "xwa", "wi", "we"]
-    },
-    katakana: {}
-  },
-  words: {}
+export const testDbStatus = () => {
+  try {
+    onSnapshot(collection(db, 'test'), snapshot => {
+      const docArr = snapshot.docs.map(doc => doc.data())
+      console.log(`Connection to db successful, isActive=${docArr?.[0]?.isActive}`)
+    })
+  }
+   catch (error) {
+    console.error('testDbStatus:', error)
+  }
 }
 
+export const deleteDocumentAndSubCollections = async (docRef) => {
+  const deleteCollection = async (name, silent = true) => {
+    try {
+      const collectionRef = collection(db, `${docRef.path}/${name}`)
+      const docsSnapshot = await getDocs(collectionRef)
 
-export async function getTest(url)  {
-  const abortController = new AbortController()
+      docsSnapshot.forEach(doc => {
+        console.log('sub:', doc.data())
+      })
+    } catch (error) {
+      if (!silent)
+        console.error('deleteDocumentAndSubCollections.deleteCollection: error deleting collection')
+    }
+  }
 
-  return testData
+  try {
+    const docSnapshot = await getDoc(docRef)
+    const data = docSnapshot.data()
 
-  // try {
-  //   const promise = await fetch(url, {
-  //     headers: { Authorization: '' },
-  //     method: 'GET',
-  //     mode: 'cors',
-  //     signal: abortController.signal,
-  //   })
-  //   const res = res.json()
-  // } 
-  // catch(err => {
-  //   console.error(err)
-  // })
+    console.log(data)
+
+    await deleteCollection('test', false)
+  } catch (error) {
+    console.error('deleteDocumentAndSubCollections:', error)
+  }
+}
+
+export const createOrReadAnonymousUserData = async () => {
+  try {
+    if (!auth.currentUser.isAnonymous)
+      throw Error('function called on non-anonymous user')
+
+    const userRef = doc(db, 'users', auth.currentUser.uid)
+    const userDoc = await getDoc(userRef)
+    const today = new Date()
+
+    if (!userDoc.exists()) {
+      console.log('Signed in today')
+
+      await setDoc(userRef, {
+        signedOn: Timestamp.fromDate(today),
+        lastLoginOn: Timestamp.fromDate(today),
+        isAnonymous: auth.currentUser.isAnonymous,
+      })
+    } else {
+      await updateDoc(userRef, {
+        lastLoginOn: Timestamp.fromDate(today),
+      })
+
+      const userData = userDoc.data()
+      console.log(`First sign in on ${userData?.signedOn?.toDate()?.toString()}`)
+      console.log(`Last login on ${userData?.lastLoginOn?.toDate().toString()}`)
+    }
+  } catch (error) {
+    console.error('createAnonymousUserData:', error)
+  }
+}
+
+export const deleteAnonymousUser = async () => {
+  try {
+    const userRef = doc(db, 'users', auth.currentUser.uid)
+    await deleteDoc(userRef)
+    await auth.currentUser.delete()
+  } catch (error) {
+    console.error('deleteUser:', error)
+  }
+}
+
+export const deleteAnonymousUserData = async () => {
+  try {
+    const userRef = doc(db, 'users', auth.currentUser.uid)
+    await deleteDoc(userRef)
+  } catch (error) {
+    console.error('deleteUser:', error)
+  }
+}
+
+export const deleteAnonymousUserAuth = async (user) => {
+  try {
+    await user.delete()
+  } catch (error) {
+    console.error('deleteUser:', error)
+  }
 }

@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: process.env.NODE_ENV === 'development' ? null : <ErrorPage />, // disabled custom error page in dev, as default one may show useful debug info
     children: [
       {
         index: true,

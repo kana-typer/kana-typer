@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import { getAuth, signInAnonymously } from 'firebase/auth'
-import { collection, onSnapshot } from 'firebase/firestore'
-import { app as firebaseApp, db } from './config/firebase'
-import Typer from './components/Typer'
+import { Suspense, memo } from 'react'
+import { Outlet } from 'react-router-dom'
+
+import { isDev } from './utils/globals'
+
+import AuthProvider from './context/AuthContext'
+
+import useLazyPlaceholder from './hooks/useLazyPlaceholder'
+
+import Nav from './components/Nav'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
 import './css/App.css'
 
 
+const LazyPlaceholder = isDev ? memo(useLazyPlaceholder(1000)) : null
+
 function App() {
-  const auth = getAuth()
-  signInAnonymously(auth)
-    .then(() => {
-      console.log('Signed in')
-
-      onSnapshot(collection(db, 'test'), snapshot => {
-        const docArr = snapshot.docs.map(doc => doc.data())
-        console.log(`connection to db successful = ${docArr?.[0]?.isActive == true}`)
-      })
-    })
-    .catch(err => {
-      console.error('Error', err?.code || '', err?.message || 'unknown error')
-    })
-
   return (
-    <>
-      <span className='vl'></span>
-      <Typer />
-    </>
+    <Suspense fallback={<p>Loading...</p>}>
+      <AuthProvider>
+        <main>
+          <Nav />
+          <Outlet/>
+          {LazyPlaceholder && <LazyPlaceholder />}
+        </main>
+      </AuthProvider>
+    </Suspense>
   )
 }
 

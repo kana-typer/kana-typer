@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../utils/kana'
-import { getTextWidth } from '../utils/text'
-import '../css/Typer.css'
+import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../../utils/kana'
+import { getTextWidth } from '../../utils/text'
+import '../../css/Typer.css'
 
 
 function Typer() {
@@ -71,8 +71,12 @@ function Typer() {
   }
 
   useEffect(() => {
-    appendKanaIfPossible()
-  }, [])
+    console.log('Kana data:', kanaData);
+    console.log('Kana index:', kanaIndex);
+    console.log('User Romaji:', userRomaji);
+    appendKanaIfPossible();
+  }, []);
+  
 
   return (
     <div className='typer'>

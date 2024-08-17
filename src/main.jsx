@@ -4,12 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './config/i18n.js'
 
 import App from './App.jsx'
-import HomePage from './pages/HomePage.jsx'
-import TyperPage from './pages/TyperPage.jsx'
-import Dictionary from './pages/Dictionary.jsx'
-import UserProgress from './pages/UserProgress.jsx'
-import Help from './pages/Help.jsx'
-import UserPage from './pages/UserPage.jsx'
+import HomePage from './pages/home/HomePage.jsx'
+import TyperPage from './pages/typer/TyperPage.jsx'
+import ProgressPage from './pages/progress/ProgressPage.jsx'
+import HelpPage from './pages/help/HelpPage.jsx'
+import UserPage from './pages/user/UserPage.jsx'
+import ErrorPage from './pages/error/ErrorPage.jsx'
 
 import './css/main.css'
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <p>ERROR</p>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -28,16 +28,12 @@ const router = createBrowserRouter([
         element: <TyperPage/>,
       },
       {
-        path: 'dict',
-        element: <Dictionary/>,
-      },
-      {
         path: 'progress',
-        element: <UserProgress/>,
+        element: <ProgressPage/>,
       },
       {
         path: 'help',
-        element: <Help/>,
+        element: <HelpPage/>,
       },
       {
         path: 'user',

@@ -1,7 +1,6 @@
-import Typer from '../components/Typer'
+import Typer from './Typer'
 
-
-export default function TyperPage() {
+function TyperPage() {
   return (
     <>
       <span className='vl'></span>
@@ -9,3 +8,5 @@ export default function TyperPage() {
     </>
   )
 }
+
+export default TyperPage

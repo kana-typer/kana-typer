@@ -1,4 +1,4 @@
-import Typer from './Typer'
+import Typer from './components/Typer'
 
 function TyperPage() {
   return (

@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../../utils/kana'
+import { unicodeToKana, getInputCombinations, checkRomaji, getRandomKana } from '../../utils/kana.old'
 import { getTextWidth } from '../../utils/text'
-import '../../css/Typer.css'
+import '../../css/Typer.old.css'
 
 
 function Typer() {

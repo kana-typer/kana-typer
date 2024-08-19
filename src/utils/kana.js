@@ -1,126 +1,116 @@
-import kanaUnicodes from '../data/unicode-map.json'
+import { createSeededLCGRand } from "./rand"
 
-
-const LONGEST_MORAE_COMBINATION = 10
-export const hiraganaMap = parseUnicodeMap(kanaUnicodes)
-
-
-export const unicodeToKana = (hex) => String.fromCodePoint(parseInt(hex, 16)) // '304b' -> 'か'
-
-export const unicodeToRomaji = (hex) => hiraganaMap?.[hex] || '' // '304b' -> 'ka'
-
-export const kanaToUnicode = (char) => char.codePointAt(0)?.toString(16) || '25a1' // 'か' -> '304b'
-
-export const kanaToRomaji = (char) => unicodeToRomaji(kanaToUnicode(char)) // 'か' -> 'ka'
-
-
-export function getRandomKana(moraeLength) {
-  // TODO: add mosibility to specify either length of morae or mora, i.e. `length of array elements in main array` or `length of elements if arrays were flattened`
-
-  const getInitialMap = () => Object
-    .entries(hiraganaMap)
-    .filter(([_, romaji]) => !romaji.startsWith('x'))
-
-  const getMoraCodes = () => getInitialMap()
-    .map(([code, _]) => [code])
-
-  const getSokuonCodes = () => getInitialMap()
-    .map(([code, _]) => ['3063', code])
-
-  const getYoonCodes = () => getInitialMap()
-    .filter(([_, romaji]) => romaji.endsWith('i'))
-    .map(([code, _]) => [code])
-    .reduce((acc, codes) => [...acc, [...codes, '3083'], [...codes, '3085'], [...codes, '3087']], [])
-
-
-  const pool = new Map([
-    [0.50, getMoraCodes()],
-    [0.70, getSokuonCodes()],
-    [0.90, getYoonCodes()],
-    [1.00, [...getSokuonCodes(), ...getYoonCodes()]],
-  ])
-
-  const moraeArray = Array(moraeLength).fill(undefined).map(_ => {
-    const poolChoice = Math.random()
-    const kanaSetsAvailable = Array.from(pool).filter(([key, _]) => poolChoice <= key)
-    const kanaSet = kanaSetsAvailable?.[0]?.[1] || getMoraCodes()
-
-    const codesChoice = Math.floor(Math.random() * kanaSet.length)
-    return kanaSet[codesChoice]
-  })
-
-  return moraeArray
-}
+export const LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED = 10
 
 /**
- * Returns array with valid romaji combinations for given array of morae.
- * @param {Array<string>} moraeUnicodeArray - e.g. ['3063', '3066'] // って
- * @returns array with possible inputs using romaji
+ * @param {*} moraArr - mora collection from db, e.g. [{ symbol: 'か', ... }, ...]
  */
-export function getInputCombinations(moraeUnicodeArray) {
-  const moraeArray = moraeUnicodeArray.map(code => hiraganaMap[code])
-  const combinations = [moraeArray.join('')]
+export const generateFullMoraMap = (moraArr) => {
+  return new Map(moraArr.map(({ symbol, ...rest }) => [symbol, rest]))
+}
 
-  if (moraeArray.length > 1) {
-    const isSokuon = moraeArray[0] === 'xtsu'
-    const isYoon = moraeArray[moraeArray.length - 1].includes('x')
-
-    const mainMoraIndex = isSokuon ? 1 : 0
-    const mainMora = moraeArray[mainMoraIndex]
-
-    if (isSokuon && isYoon) { // xtsu chi xya -> ccha
-      let doubleConsonant = mainMora.charAt(0) === 'c' ? 't' : mainMora.charAt(0)
-      let yoonSliceValue = ['sh', 'ch'].includes(mainMora.slice(0, 2)) || mainMora.charAt(0) === 'j' ? -1 : 1
-      let morphedYoon = mainMora.slice(0, -1) + moraeArray[moraeArray.length - 1].slice(yoonSliceValue)
-      combinations.push(doubleConsonant + morphedYoon)
-    }
-
-    if (isSokuon) { // xtsu chi -> cchi
-      let doubleConsonant = mainMora.charAt(0) === 'c' ? 't' : mainMora.charAt(0)
-      let rest = moraeArray.slice(mainMoraIndex).join('')
-      combinations.push(doubleConsonant + rest)
-    }
-
-    if (isYoon) { // chi xya -> cha
-      let yoonSliceValue = ['sh', 'ch'].includes(mainMora.slice(0, 2)) || mainMora.charAt(0) === 'j' ? -1 : 1
-      let morphedYoon = mainMora.slice(0, -1) + moraeArray[moraeArray.length - 1].slice(yoonSliceValue)
-      let rest = moraeArray.slice(0, mainMoraIndex).join('')
-      combinations.push(rest + morphedYoon)
-    }
+export const generateSmallModifiers = (moraMap) => {
+  const modifiers = {
+    sokuon: { 
+      hiragana: null, 
+      katakana: null 
+    },
+    yoon: { 
+      hiragana: { ya: null, yu: null, yo: null }, 
+      katakana: { ya: null, yu: null, yo: null },  
+    },
   }
 
-  return combinations
+  moraMap.forEach(mora => {
+    const romaji = mora?.furigana?.romaji 
+    if (romaji === 'tsu') 
+      modifiers.sokuon[mora?.script] = mora?.small
+    else if (['ya', 'yu', 'yo'].includes(romaji))
+      modifiers.yoon[mora?.script][romaji] = mora?.small
+  })
+
+  return modifiers
+}
+
+export const generateFilteredMoraMap = (moraMap, smallModifiers, includeFilers = {}, excludeFilters = {}) => {
+  // TODO: implement filters
+  const yoons = ['ya', 'yu', 'yo']
+  const filteredMora = new Map([])
+
+  moraMap.forEach((mora, symbol) => {
+    const hasSokuon = mora?.sokuon !== undefined
+    const hasYoon = mora?.yoon !== undefined
+    const romaji = mora?.furigana?.romaji
+    const script = mora?.script
+    const items = [{ key: romaji, value: symbol }]
+
+    if (hasSokuon) {
+      items.push({
+        key: mora.sokuon + romaji,
+        value: smallModifiers.sokuon[script] + symbol,
+      })
+    }
+
+    if (hasYoon) {
+      const base = romaji.slice(0, -1)
+
+      yoons.forEach(yoon => {
+        const key = base + (mora.yoon === 'y' ? yoon : yoon.charAt(1))
+        const value = symbol + smallModifiers.yoon[script][yoon]
+
+        items.push({ key, value })
+      
+        if (hasSokuon) {
+          items.push({
+            key: mora.sokuon + key,
+            value: smallModifiers.sokuon[script] + value,
+          })
+        }
+      })
+    }
+
+    items.forEach(({ key, value }) => {
+      if (filteredMora.has(key)) {
+        const oldValue = filteredMora.get(key)
+        filteredMora.set(key, [...oldValue, value])
+      } else {
+        filteredMora.set(key, [value])
+      }
+    })
+  })
+
+  return filteredMora
 }
 
 /**
- * Checks given romaji if its correct, incorrect or unfinished based on array of possible combinations.
- * @param {string} romaji - e.g. cha
- * @param {Array<string>} combinations - possible input combinations of morae, e.g. ['cha', 'chixya']
- * @returns `true` if correct, `false` if incorrect, `undefined` if given romaji is not a valid combination of morae
+ * @param {Map<string, string[]>} moraMap - map of mora to choose from, where key is romaji and value is array of morae
+ * @param {{ amount: number, countingSpecificity: 'mora'|'morae', seed: number }} - specify an amount of mora/morae to generate and how counting will be done: mora - counts each individual symbol (e.g. sha = 2), morae - counts every individual sound (e.g. sha = 1)
  */
-export function checkRomaji(romaji, combinations) {
-  if (romaji.length > LONGEST_MORAE_COMBINATION) // possible longest string one morae combination can create when written in romaji
-    return false
+export const getRandomMora = (moraMap, { amount, countingSpecificity = 'mora', seed }) => {
+  const rand = createSeededLCGRand(seed ?? '12345')
+  const choices = Array.from(moraMap.values()).flat()
+  const chosen = []
 
-  if ('aiueo'.split('').some(mora => romaji.endsWith(mora))) // romaji ends on vowel - may be valid morae
-    return combinations.includes(romaji) // check against valid combinations
+  let size = 0
+  let maxNumOfMisses = 5
 
-  if (romaji === 'n' && combinations.includes(romaji)) // specific check for morae n
-    return true
+  while (size < amount) {
+    const idx = Math.floor(rand() * choices.length)
+    const pick = choices[idx]
 
-  return undefined // not finished typing
-}
+    if (countingSpecificity === 'mora') {
+      if (pick.length + size > amount && maxNumOfMisses > 0) {
+        maxNumOfMisses -= 1
+        continue
+      }
 
-// TODO: change return type from object to Map: https://www.w3schools.com/js/js_maps.asp
-/**
- * Parses an array of romaji and unicode chars tied to it, creating a map. 
- * @param {*} map - unicode map object from db
- * @returns {{ [unicode: string]: string }} map object with unicode as keys and romaji representation as values
- */
-export function parseUnicodeMap(map) {
-  return map.hiragana.array.reduce((acc, kana, index) => (
-    map.hiragana.except.includes(kana)
-      ? acc
-      : { ...acc, [(parseInt(kanaUnicodes.hiragana.count.start, 16) + index).toString(16)]: kana }
-  ), {})
+      size += pick.length
+    } else {
+      size += 1
+    }
+
+    chosen.push(pick)
+  }
+
+  return chosen
 }

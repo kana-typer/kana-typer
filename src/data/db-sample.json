@@ -1,0 +1,1259 @@
+{
+  "mora": [
+    {
+      "symbol": "あ",
+      "furigana": { "romaji": "a" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ぁ"
+    },
+    {
+      "symbol": "い",
+      "furigana": { "romaji": "i" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ぃ"
+    },
+    {
+      "symbol": "う",
+      "furigana": { "romaji": "u" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ぅ"
+    },
+    {
+      "symbol": "え",
+      "furigana": { "romaji": "e" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ぇ"
+    },
+    {
+      "symbol": "お",
+      "furigana": { "romaji": "o" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ぉ"
+    },
+    {
+      "symbol": "か",
+      "furigana": { "romaji": "ka" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ゕ",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "が",
+      "furigana": { "romaji": "ga" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "き",
+      "furigana": { "romaji": "ki" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "k",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ぎ",
+      "furigana": { "romaji": "gi" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "g",
+      "yoon": "y"
+    },
+    {
+      "symbol": "く",
+      "furigana": { "romaji": "ku" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "ぐ",
+      "furigana": { "romaji": "gu" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "け",
+      "furigana": { "romaji": "ke" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ゖ",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "げ",
+      "furigana": { "romaji": "ge" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "こ",
+      "furigana": { "romaji": "ko" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "ご",
+      "furigana": { "romaji": "go" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "さ",
+      "furigana": { "romaji": "sa" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ざ",
+      "furigana": { "romaji": "za" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "し",
+      "furigana": { "romaji": "shi" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "s",
+      "yoon": ""
+    },
+    {
+      "symbol": "じ",
+      "furigana": { "romaji": "ji" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "j",
+      "yoon": ""
+    },
+    {
+      "symbol": "す",
+      "furigana": { "romaji": "su" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ず",
+      "furigana": { "romaji": "zu" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "せ",
+      "furigana": { "romaji": "se" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ぜ",
+      "furigana": { "romaji": "ze" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "そ",
+      "furigana": { "romaji": "so" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ぞ",
+      "furigana": { "romaji": "zo" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "た",
+      "furigana": { "romaji": "ta" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "だ",
+      "furigana": { "romaji": "da" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "ち",
+      "furigana": { "romaji": "chi" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "t",
+      "yoon": ""
+    },
+    {
+      "symbol": "ぢ",
+      "furigana": { "romaji": "ji" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "j",
+      "yoon": ""
+    },
+    {
+      "symbol": "つ",
+      "furigana": { "romaji": "tsu" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "っ",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "づ",
+      "furigana": { "romaji": "zu" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "て",
+      "furigana": { "romaji": "te" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "で",
+      "furigana": { "romaji": "de" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "と",
+      "furigana": { "romaji": "to" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "ど",
+      "furigana": { "romaji": "do" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "な",
+      "furigana": { "romaji": "na" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "に",
+      "furigana": { "romaji": "ni" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ぬ",
+      "furigana": { "romaji": "nu" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ね",
+      "furigana": { "romaji": "ne" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "の",
+      "furigana": { "romaji": "no" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "は",
+      "furigana": { "romaji": "ha" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "ば",
+      "furigana": { "romaji": "ba" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ぱ",
+      "furigana": { "romaji": "pa" },
+      "script": "hiragana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ひ",
+      "furigana": { "romaji": "hi" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "h",
+      "yoon": "y"
+    },
+    {
+      "symbol": "び",
+      "furigana": { "romaji": "bi" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "b",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ぴ",
+      "furigana": { "romaji": "pi" },
+      "script": "hiragana",
+      "type": "handakuten",
+      "sokuon": "p",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ふ",
+      "furigana": { "romaji": "fu" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "f"
+    },
+    {
+      "symbol": "ぶ",
+      "furigana": { "romaji": "bu" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ぷ",
+      "furigana": { "romaji": "pu" },
+      "script": "hiragana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "へ",
+      "furigana": { "romaji": "he" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "べ",
+      "furigana": { "romaji": "be" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ぺ",
+      "furigana": { "romaji": "pe" },
+      "script": "hiragana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ほ",
+      "furigana": { "romaji": "ho" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "ぼ",
+      "furigana": { "romaji": "bo" },
+      "script": "hiragana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ぽ",
+      "furigana": { "romaji": "po" },
+      "script": "hiragana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ま",
+      "furigana": { "romaji": "ma" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "み",
+      "furigana": { "romaji": "mi" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "m",
+      "yoon": "y"
+    },
+    {
+      "symbol": "む",
+      "furigana": { "romaji": "mu" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "め",
+      "furigana": { "romaji": "me" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "も",
+      "furigana": { "romaji": "mo" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "や",
+      "furigana": { "romaji": "ya" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ゃ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "ゆ",
+      "furigana": { "romaji": "yu" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ゅ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "よ",
+      "furigana": { "romaji": "yo" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ょ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "ら",
+      "furigana": { "romaji": "ra" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "り",
+      "furigana": { "romaji": "ri" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "r",
+      "yoon": "y"
+    },
+    {
+      "symbol": "る",
+      "furigana": { "romaji": "ru" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "れ",
+      "furigana": { "romaji": "re" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "ろ",
+      "furigana": { "romaji": "ro" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "わ",
+      "furigana": { "romaji": "wa" },
+      "script": "hiragana",
+      "type": "gojuon",
+      "small": "ゎ",
+      "sokuon": "w"
+    },
+    {
+      "symbol": "を",
+      "furigana": { "romaji": "wo" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ん",
+      "furigana": { "romaji": "n" },
+      "script": "hiragana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ア",
+      "furigana": { "romaji": "a", "hiragana": "あ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ァ"
+    },
+    {
+      "symbol": "イ",
+      "furigana": { "romaji": "i", "hiragana": "い" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ィ"
+    },
+    {
+      "symbol": "ウ",
+      "furigana": { "romaji": "u", "hiragana": "う" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ゥ"
+    },
+    {
+      "symbol": "エ",
+      "furigana": { "romaji": "e", "hiragana": "え" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ェ"
+    },
+    {
+      "symbol": "オ",
+      "furigana": { "romaji": "o", "hiragana": "お" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ォ"
+    },
+    {
+      "symbol": "カ",
+      "furigana": { "romaji": "ka", "hiragana": "か" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ヵ",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "ガ",
+      "furigana": { "romaji": "ga", "hiragana": "が" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "キ",
+      "furigana": { "romaji": "ki", "hiragana": "き" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "k",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ギ",
+      "furigana": { "romaji": "gi", "hiragana": "ぎ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "g",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ク",
+      "furigana": { "romaji": "ku", "hiragana": "く" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "グ",
+      "furigana": { "romaji": "gu", "hiragana": "ぐ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "ケ",
+      "furigana": { "romaji": "ke", "hiragana": "け" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ヶ",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "ゲ",
+      "furigana": { "romaji": "ge", "hiragana": "げ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "コ",
+      "furigana": { "romaji": "ko", "hiragana": "こ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "k"
+    },
+    {
+      "symbol": "ゴ",
+      "furigana": { "romaji": "go", "hiragana": "ご" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "g"
+    },
+    {
+      "symbol": "サ",
+      "furigana": { "romaji": "sa", "hiragana": "さ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ザ",
+      "furigana": { "romaji": "za", "hiragana": "ざ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "シ",
+      "furigana": { "romaji": "shi", "hiragana": "し" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "s",
+      "yoon": ""
+    },
+    {
+      "symbol": "ジ",
+      "furigana": { "romaji": "ji", "hiragana": "じ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "j",
+      "yoon": ""
+    },
+    {
+      "symbol": "ス",
+      "furigana": { "romaji": "su", "hiragana": "す" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ズ",
+      "furigana": { "romaji": "zu", "hiragana": "ず" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "セ",
+      "furigana": { "romaji": "se", "hiragana": "せ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ゼ",
+      "furigana": { "romaji": "ze", "hiragana": "ぜ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "ソ",
+      "furigana": { "romaji": "so", "hiragana": "そ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "s"
+    },
+    {
+      "symbol": "ゾ",
+      "furigana": { "romaji": "zo", "hiragana": "ぞ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "タ",
+      "furigana": { "romaji": "ta", "hiragana": "た" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "ダ",
+      "furigana": { "romaji": "da", "hiragana": "だ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "チ",
+      "furigana": { "romaji": "chi", "hiragana": "ち" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "t",
+      "yoon": ""
+    },
+    {
+      "symbol": "ヂ",
+      "furigana": { "romaji": "ji", "hiragana": "ぢ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "j",
+      "yoon": ""
+    },
+    {
+      "symbol": "ツ",
+      "furigana": { "romaji": "tsu", "hiragana": "つ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ッ",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "ヅ",
+      "furigana": { "romaji": "zu", "hiragana": "づ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "z"
+    },
+    {
+      "symbol": "テ",
+      "furigana": { "romaji": "te", "hiragana": "て" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "デ",
+      "furigana": { "romaji": "de", "hiragana": "で" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "ト",
+      "furigana": { "romaji": "to", "hiragana": "と" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "t"
+    },
+    {
+      "symbol": "ド",
+      "furigana": { "romaji": "do", "hiragana": "ど" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "d"
+    },
+    {
+      "symbol": "ナ",
+      "furigana": { "romaji": "na", "hiragana": "な" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ニ",
+      "furigana": { "romaji": "ni", "hiragana": "に" },
+      "script": "katakana",
+      "type": "gojuon",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ヌ",
+      "furigana": { "romaji": "nu", "hiragana": "ぬ" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ネ",
+      "furigana": { "romaji": "ne", "hiragana": "ね" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ノ",
+      "furigana": { "romaji": "no", "hiragana": "の" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ハ",
+      "furigana": { "romaji": "ha", "hiragana": "は" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "バ",
+      "furigana": { "romaji": "ba", "hiragana": "ば" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "パ",
+      "furigana": { "romaji": "pa", "hiragana": "ぱ" },
+      "script": "katakana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ヒ",
+      "furigana": { "romaji": "hi", "hiragana": "ひ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "h",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ビ",
+      "furigana": { "romaji": "bi", "hiragana": "び" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "b",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ピ",
+      "furigana": { "romaji": "pi", "hiragana": "ぴ" },
+      "script": "katakana",
+      "type": "handakuten",
+      "sokuon": "p",
+      "yoon": "y"
+    },
+    {
+      "symbol": "フ",
+      "furigana": { "romaji": "fu", "hiragana": "ふ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "f"
+    },
+    {
+      "symbol": "ブ",
+      "furigana": { "romaji": "bu", "hiragana": "ぶ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "プ",
+      "furigana": { "romaji": "pu", "hiragana": "ぷ" },
+      "script": "katakana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ヘ",
+      "furigana": { "romaji": "he", "hiragana": "へ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "ベ",
+      "furigana": { "romaji": "be", "hiragana": "べ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ペ",
+      "furigana": { "romaji": "pe", "hiragana": "ぺ" },
+      "script": "katakana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "ホ",
+      "furigana": { "romaji": "ho", "hiragana": "ほ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "h"
+    },
+    {
+      "symbol": "ボ",
+      "furigana": { "romaji": "bo", "hiragana": "ぼ" },
+      "script": "katakana",
+      "type": "dakuten",
+      "sokuon": "b"
+    },
+    {
+      "symbol": "ポ",
+      "furigana": { "romaji": "po", "hiragana": "ぽ" },
+      "script": "katakana",
+      "type": "handakuten",
+      "sokuon": "p"
+    },
+    {
+      "symbol": "マ",
+      "furigana": { "romaji": "ma", "hiragana": "ま" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "ミ",
+      "furigana": { "romaji": "mi", "hiragana": "み" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "m",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ム",
+      "furigana": { "romaji": "mu", "hiragana": "む" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "メ",
+      "furigana": { "romaji": "me", "hiragana": "め" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "モ",
+      "furigana": { "romaji": "mo", "hiragana": "も" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "m"
+    },
+    {
+      "symbol": "ヤ",
+      "furigana": { "romaji": "ya", "hiragana": "や" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ャ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "ユ",
+      "furigana": { "romaji": "yu", "hiragana": "ゆ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ュ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "ヨ",
+      "furigana": { "romaji": "yo", "hiragana": "よ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ョ",
+      "sokuon": "y"
+    },
+    {
+      "symbol": "ラ",
+      "furigana": { "romaji": "ra", "hiragana": "ら" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "リ",
+      "furigana": { "romaji": "ri", "hiragana": "り" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "r",
+      "yoon": "y"
+    },
+    {
+      "symbol": "ル",
+      "furigana": { "romaji": "ru", "hiragana": "る" },
+      "script": "katakana",
+      "type": "gojuon",
+
+      "sokuon": "r"
+    },
+    {
+      "symbol": "レ",
+      "furigana": { "romaji": "re", "hiragana": "れ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "ロ",
+      "furigana": { "romaji": "ro", "hiragana": "ろ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "sokuon": "r"
+    },
+    {
+      "symbol": "ワ",
+      "furigana": { "romaji": "wa", "hiragana": "わ" },
+      "script": "katakana",
+      "type": "gojuon",
+      "small": "ヮ",
+      "sokuon": "w"
+    },
+    {
+      "symbol": "ヲ",
+      "furigana": { "romaji": "wo", "hiragana": "を" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "ン",
+      "furigana": { "romaji": "n", "hiragana": "ん" },
+      "script": "katakana",
+      "type": "gojuon"
+    },
+    {
+      "symbol": "イェ",
+      "furigana": { "romaji": "ye", "hiragana": "いぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "y"
+    }, 
+    {
+      "symbol": "ウィ",
+      "furigana": { "romaji": "wi", "hiragana": "うぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "w"
+    }, 
+    {
+      "symbol": "ウェ",
+      "furigana": { "romaji": "we", "hiragana": "うぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "w"
+    }, 
+    {
+      "symbol": "ウォ",
+      "furigana": { "romaji": "wo", "hiragana": "うぉ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "w"
+    }, 
+    {
+      "symbol": "ヴァ",
+      "furigana": { "romaji": "va", "hiragana": "ゔぁ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "v"
+    }, 
+    {
+      "symbol": "ヴィ",
+      "furigana": { "romaji": "vi", "hiragana": "ゔぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "v"
+    }, 
+    {
+      "symbol": "ヴ",
+      "furigana": { "romaji": "vu", "hiragana": "ゔ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "v"
+    }, 
+    {
+      "symbol": "ヴェ",
+      "furigana": { "romaji": "ve", "hiragana": "ゔぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "v"
+    }, 
+    {
+      "symbol": "ヴォ",
+      "furigana": { "romaji": "vo", "hiragana": "ゔぉ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "v"
+    }, 
+    {
+      "symbol": "シェ",
+      "furigana": { "romaji": "she", "hiragana": "しぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "s"
+    }, 
+    {
+      "symbol": "ジェ",
+      "furigana": { "romaji": "je", "hiragana": "じぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "j"
+    }, 
+    {
+      "symbol": "ヂェ",
+      "furigana": { "romaji": "che", "hiragana": "ちぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ティ",
+      "furigana": { "romaji": "ti", "hiragana": "てぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "トゥ",
+      "furigana": { "romaji": "tu", "hiragana": "とぅ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "テュ",
+      "furigana": { "romaji": "tyu", "hiragana": "てゅ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ディ",
+      "furigana": { "romaji": "di", "hiragana": "でぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "d"
+    }, 
+    {
+      "symbol": "ドゥ",
+      "furigana": { "romaji": "du", "hiragana": "どぅ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "d"
+    }, 
+    {
+      "symbol": "デュ",
+      "furigana": { "romaji": "dyu", "hiragana": "でゅ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "dakuten",
+      "sokuon": "d"
+    }, 
+    {
+      "symbol": "ツァ",
+      "furigana": { "romaji": "tsa", "hiragana": "つぁ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ツィ",
+      "furigana": { "romaji": "tsi", "hiragana": "つぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ツェ",
+      "furigana": { "romaji": "tse", "hiragana": "つぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ツォ",
+      "furigana": { "romaji": "tso", "hiragana": "つぉ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "t"
+    }, 
+    {
+      "symbol": "ファ",
+      "furigana": { "romaji": "fa", "hiragana": "ふぁ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "f"
+    }, 
+    {
+      "symbol": "フィ",
+      "furigana": { "romaji": "fi", "hiragana": "ふぃ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "f"
+    }, 
+    {
+      "symbol": "フュ",
+      "furigana": { "romaji": "fyu", "hiragana": "ふゅ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "f"
+    }, 
+    {
+      "symbol": "フェ",
+      "furigana": { "romaji": "fe", "hiragana": "ふぇ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "f"
+    }, 
+    {
+      "symbol": "フォ",
+      "furigana": { "romaji": "fo", "hiragana": "ふぉ" },
+      "script": "katakana",
+      "extended": true,
+      "type": "gojuon",
+      "sokuon": "f"
+    }
+  ],
+  "words": [
+    {
+      "kana": "私",
+      "furigana": { "romaji": "watashi", "hiragana": "わたし" },
+      "type": "pronoun",
+      "translation": {
+        "en": "I",
+        "pl": "ja"
+      }
+    }, 
+    {
+      "kana": "は",
+      "furigana": { "romaji": "wa" },
+      "type": "particle",
+      "translation": {
+        "en": "topic's particle",
+        "pl": "partykuła tematu"
+      }
+    }
+  ]
+}

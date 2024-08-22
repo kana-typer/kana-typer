@@ -5,11 +5,11 @@ export const LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED = 10
 /**
  * @param {*} moraArr - mora collection from db, e.g. [{ symbol: 'か', ... }, ...]
  */
-export const generateFullMoraMap = (moraArr) => {
-  return new Map(moraArr.map(({ symbol, ...rest }) => [symbol, rest]))
-}
+// export const generateFullMoraMap = (moraArr) => {
+//   return new Map(moraArr.map(({ symbol, ...rest }) => [symbol, rest]))
+// }
 
-export const generateSmallModifiers = (moraMap) => {
+export const generateMoraModifiers = (moraMap) => { // TODO: not a map, an object - change it
   const modifiers = {
     sokuon: { 
       hiragana: null, 
@@ -32,22 +32,61 @@ export const generateSmallModifiers = (moraMap) => {
   return modifiers
 }
 
-export const generateFilteredMoraMap = (moraMap, smallModifiers, includeFilers = {}, excludeFilters = {}) => {
-  // TODO: implement filters
+const pickFurigana = (furigana, progressLevel) => { // TODO: furigana is object, add javadocs
+  const hasHiraganaAsFurigana = furigana?.hiragana !== undefined
+  const quantityOffset = hasHiraganaAsFurigana ? 0 : 5
+
+  if (progressLevel === undefined || progressLevel < 5 + quantityOffset)
+    return furigana?.romaji || ''
+
+  else if (progressLevel < 10 + quantityOffset)
+    return furigana?.hiragana || ''
+
+  return ''
+}
+
+export const generateFilteredMoraMap = (
+  sourceMap, // TODO: not a map, an object - change it
+  userProgressLevels,
+  moraModifiers, 
+  includeFilers = {}, 
+  excludeFilters = {}
+) => {
   const yoons = ['ya', 'yu', 'yo']
   const filteredMora = new Map([])
 
-  moraMap.forEach((mora, symbol) => {
+  sourceMap.forEach(({ symbol, ...mora }) => {
     const hasSokuon = mora?.sokuon !== undefined
     const hasYoon = mora?.yoon !== undefined
     const romaji = mora?.furigana?.romaji
     const script = mora?.script
-    const items = [{ key: romaji, value: symbol }]
+    const furigana = mora?.furigana
+
+    const items = [
+      { 
+        key: romaji, 
+        symbol: symbol,
+        progressLevel: userProgressLevels?.[symbol] || 0, // TODO: change?
+        furigana: pickFurigana(furigana, userProgressLevels?.[symbol]),
+      },
+    ]
 
     if (hasSokuon) {
+      const sokuonRomaji = mora.sokuon + romaji
+      const sokuonSymbol = moraModifiers.sokuon[script] + symbol
+      const sokuonFurigana = {}
+
+      if (furigana?.romaji !== undefined)
+        sokuonFurigana.romaji = sokuonRomaji
+
+      if (furigana?.hiragana !== undefined)
+        sokuonFurigana.hiragana = moraModifiers.sokuon.hiragana + furigana.hiragana
+
       items.push({
-        key: mora.sokuon + romaji,
-        value: smallModifiers.sokuon[script] + symbol,
+        key: sokuonRomaji, 
+        symbol: sokuonSymbol,
+        progressLevel: userProgressLevels?.[symbol] || 0, // TODO: ka or kka? To be specified still so replace it later if needed
+        furigana: pickFurigana(sokuonFurigana, userProgressLevels?.[symbol]),
       })
     }
 
@@ -55,26 +94,49 @@ export const generateFilteredMoraMap = (moraMap, smallModifiers, includeFilers =
       const base = romaji.slice(0, -1)
 
       yoons.forEach(yoon => {
-        const key = base + (mora.yoon === 'y' ? yoon : yoon.charAt(1))
-        const value = symbol + smallModifiers.yoon[script][yoon]
+        const yoonRomaji = base + (mora.yoon === 'y' ? yoon : yoon.charAt(1))
+        const yoonSymbol = symbol + moraModifiers.yoon[script][yoon]
+        const yoonFurigana = {}
 
-        items.push({ key, value })
+        if (furigana?.romaji !== undefined)
+          yoonFurigana.romaji = yoonRomaji
+
+        if (furigana?.hiragana !== undefined)
+          yoonFurigana.hiragana = furigana.hiragana + moraModifiers.yoon.hiragana[yoon]
+
+        items.push({ 
+          key: yoonRomaji, 
+          symbol: yoonSymbol,
+          progressLevel: userProgressLevels?.[symbol] || 0, // TODO: change?
+          furigana: pickFurigana(yoonFurigana, userProgressLevels?.[symbol]),
+        })
       
         if (hasSokuon) {
+          const sokuonYoonRomaji = mora.sokuon + yoonRomaji
+          const sokuonYoonSymbol = moraModifiers.sokuon[script] + yoonSymbol
+          const sokuonYoonFurigana = {}
+
+          if (furigana?.romaji !== undefined)
+            sokuonYoonFurigana.romaji = sokuonYoonRomaji
+  
+          if (furigana?.hiragana !== undefined)
+            sokuonYoonFurigana.hiragana = moraModifiers.sokuon.hiragana + yoonFurigana.hiragana
+
           items.push({
-            key: mora.sokuon + key,
-            value: smallModifiers.sokuon[script] + value,
+            key: sokuonYoonRomaji, 
+            symbol: sokuonYoonSymbol,
+            progressLevel: userProgressLevels?.[symbol] || 0, // TODO: change?
+            furigana: pickFurigana(sokuonYoonFurigana, userProgressLevels?.[symbol]),
           })
         }
       })
     }
 
-    items.forEach(({ key, value }) => {
+    items.forEach(({ key, ...data }) => {
       if (filteredMora.has(key)) {
-        const oldValue = filteredMora.get(key)
-        filteredMora.set(key, [...oldValue, value])
+        filteredMora.set(key, [...filteredMora.get(key), data])
       } else {
-        filteredMora.set(key, [value])
+        filteredMora.set(key, [data])
       }
     })
   })
@@ -88,8 +150,12 @@ export const generateFilteredMoraMap = (moraMap, smallModifiers, includeFilers =
  */
 export const getRandomMora = (moraMap, { amount, countingSpecificity = 'mora', seed }) => {
   const rand = createSeededLCGRand(seed ?? '12345')
-  const choices = Array.from(moraMap.values()).flat()
+
   const chosen = []
+  const choices = Array
+    .from(moraMap.values())
+    .flat()
+    .map(({ symbol, furigana }) => ({ symbol, furigana }))
 
   let size = 0
   let maxNumOfMisses = 5
@@ -99,12 +165,11 @@ export const getRandomMora = (moraMap, { amount, countingSpecificity = 'mora', s
     const pick = choices[idx]
 
     if (countingSpecificity === 'mora') {
-      if (pick.length + size > amount && maxNumOfMisses > 0) {
+      if (pick.symbol.length + size > amount && maxNumOfMisses > 0) {
         maxNumOfMisses -= 1
         continue
       }
-
-      size += pick.length
+      size += pick.symbol.length
     } else {
       size += 1
     }
@@ -113,4 +178,26 @@ export const getRandomMora = (moraMap, { amount, countingSpecificity = 'mora', s
   }
 
   return chosen
+}
+
+export const checkRomajiValidity = (romaji, target, map) => {
+  // possible longest string one morae combination can create when written in romaji
+  if (romaji.length > LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED)
+    return false
+
+  const getSymbols = (key) => map.get(key).map(({ symbol }) => symbol)
+  const endsOnVowel = 'aiueo'.split('').some(mora => romaji.endsWith(mora))
+  const validRomaji = map.has(romaji)
+
+  // romaji ends on vowel - may be valid morae
+  if (endsOnVowel && validRomaji) {
+    return getSymbols(romaji).includes(target) // check for valid morae
+  }
+
+  // specific check for n to not conflict with na, ni, etc.
+  if (romaji === 'n' && validRomaji && getSymbols(romaji).includes(target))
+    return true
+
+  // romaji might be partial
+  return undefined
 }

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-import { generateFilteredMoraMap, generateFullMoraMap, generateSmallModifiers } from '../utils/kana'
+import { generateFilteredMoraMap, generateMoraModifiers } from '../utils/kana'
 import { objectsEqual } from '../utils/types'
 
 const TyperDataContext = createContext()
@@ -8,10 +8,11 @@ const TyperDataContext = createContext()
 export const useTyperData = () => useContext(TyperDataContext)
 
 export default function TyperDataProvider({ children }) {
-  const [mora, setMora] = useState({ 
-    all: null, 
-    filtered: null, 
-    modifiers: null,
+  const [mora, setMora] = useState({
+    raw: null,
+    data: null,
+    modifierData: null,
+    userData: null,
     includeFilters: {},
     excludeFilters: {},
   })
@@ -31,15 +32,25 @@ export default function TyperDataProvider({ children }) {
     // if this object is empty it means DO NOT update mora state
     let newMora = {}
 
-    if (mora.all === null) {
-      console.debug('TyperDataContext.updateMora: updating mora.all')
+    if (mora.raw === null) {
+      console.debug('TyperDataContext.updateMora: getting mora.data from db')
       const sample = await import('../data/db-sample.json') // TODO: implement fetch from actual DB
-      newMora.all = generateFullMoraMap(sample.mora)
+      newMora.raw = sample?.mora || []
     }
   
-    if (mora.modifiers === null) {
-      console.debug('TyperDataContext.updateMora: updating mora.modifiers')
-      newMora.modifiers = generateSmallModifiers(mora.all ?? newMora.all)
+    if (mora.modifierData === null) {
+      console.debug('TyperDataContext.updateMora: updating mora.modifierData')
+      newMora.modifierData = generateMoraModifiers(mora.raw ?? newMora.raw)
+    }
+
+    if (mora.userData === null) {
+      console.debug('TyperDataContext.updateMora: getting mora.userData from db')
+      newMora.userData = { // TODO: implement fetch from actual DB
+        'オ': 5,
+        'エ': 1,
+        'ッヴ': 9,
+        'ヒョ': 6,
+      }
     }
 
     if (!objectsEqual(mora.includeFilters, includeFiltersObj)) {
@@ -54,24 +65,36 @@ export default function TyperDataProvider({ children }) {
 
     if (!objectsEqual(newMora, {})) {
       console.debug('TyperDataContext.updateMora: running setState')
-      setMora(prev => ({
+      setMora(prev =>({
         ...prev,
         ...newMora,
-        filtered: generateFilteredMoraMap(
-          mora.all ?? newMora.all, 
-          mora.modifiers ?? newMora.modifiers, 
+        data: generateFilteredMoraMap(
+          mora.raw ?? newMora.raw,
+          mora.userData ?? newMora.userData,
+          mora.modifierData ?? newMora.modifierData,
           newMora.includeFilters,
           newMora.excludeFilters,
-        )
+        ),
       }))
     } else {
       console.debug('TyperDataContext.updateMora: state does not have to change')
     }
   }
 
+  const updateUserData = (symbol, value, isAdditive = true) => {
+    setMora(prev => ({
+      ...prev,
+      userData: { 
+        ...prev.userData,
+        [symbol]: isAdditive ? ((prev.userData?.[symbol] || 0) + value) : value,
+      },
+    }))
+  }
+
   const value = {
-    mora,
+    mora: mora.data,
     updateMora,
+    updateUserData,
   }
 
   return (

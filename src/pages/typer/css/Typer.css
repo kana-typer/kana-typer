@@ -5,30 +5,64 @@
 }
 
 .typer {
+  --kana-font-size: 4rem;
+
   position: relative;
 
-  transform: translateX(50%);
+  transform: translateX(calc(50% - var(--kana-font-size) / 2));
 }
 
 .typer > .kana {
-  font-size: 2rem;
-  color: gray;
+  display: flex;
 
+  font-size: var(--kana-font-size);
+  
   transition: transform .1s linear;
 
   white-space: nowrap;
 }
 
-.typer > .kana .current {
-  color: gray;
+.typer > .kana > .morae {
+  --morae-color: gray;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--morae-color);
 }
 
-.typer > .kana .correct {
-  color: lime;
+.typer > .kana > .morae.current {
+  --morae-color: white;
 }
 
-.typer > .kana .incorrect {
-  color: red;
+.typer > .kana > .morae.correct {
+  --morae-color: lime;
+}
+
+.typer > .kana > .morae.incorrect {
+  --morae-color: red;
+}
+
+.typer > .kana .morae__furigana {
+  font-size: .3em;
+}
+
+.typer > .kana .morae__translation {
+  font-size: .2em;
+}
+
+.typer > .kana > .morae > hr {
+  margin: .05em 0;
+  width: calc(100% - .2em);
+
+  border: none;
+  border-bottom: 1px solid var(--morae-color);
+}
+
+.typer > .kana .morae__symbol {
+  font-size: 1em;
+  letter-spacing: .1em;
 }
 
 .typer > input[type=text] {
@@ -39,16 +73,14 @@
   border: none;
 
   font-family: inherit;
-  font-size: 1.2rem;
+  font-size: 1.2em;
 
-  transform: translateX(-.3em);
+  transform: translateX(.7em);
 }
 
-.typer > .stats {
+.stats {
   margin-top: 3rem;
   
   display: flex;
   justify-content: center;
-
-  transform: translateX(-50%);
 }

@@ -26,12 +26,40 @@ export function getTextFont(elt) {
 }
 
 /**
+ * Get size of letter spacing of given element/
+ * @param {HTMLElement} elt 
+ * @returns number
+ */
+export function getLetterSpacing(elt) {
+  const valueString = getStyle(elt, 'letter-spacing') || '0px'
+  const value = parseFloat(valueString)
+  return value
+}
+
+/**
  * Get width a text would take inside element.
  * @param {string} text 
  * @param {HTMLelement} parent 
  */
-export function getTextWidth(text, parent = document.body) {
+export function getTextWidth(text, parent = document.body, letterSpacing) {
   const context = canvas.getContext('2d')
   context.font = getTextFont(parent)
-  return context.measureText(text).width
+
+  const totalLetterSpacing = text.length * letterSpacing
+  const width = context.measureText(text).width
+  
+  return width + totalLetterSpacing
+}
+
+function __old__getTextWidth(text, parent = document.body, letterSpacingEm = 0) {
+  const context = canvas.getContext('2d')
+  const font = getTextFont(parent)
+  context.font = font
+
+  const fontSizeMatch = font.match(/(\d+)px/)
+  const fontSize = fontSizeMatch ? parseInt(fontSizeMatch[1], 10) : 16
+  const totalLetterSpacing = text.length * (fontSize * letterSpacingEm)
+
+  const width = context.measureText(text).width
+  return width + totalLetterSpacing
 }

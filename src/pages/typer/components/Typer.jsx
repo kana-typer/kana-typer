@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, useRef } from 'react'
 
 import { useTyperData } from '../../../context/TyperDataContext'
 
@@ -8,12 +8,14 @@ import { getLetterSpacing, getTextWidth } from '../../../utils/text'
 import { checkRomajiValidity, getRandomMora } from '../../../utils/kana'
 
 import '../css/Typer.css'
+import useWindowResize from '../../../hooks/useWindowResize'
 
 function Typer() {
+  const getMoraeLetterSpacing = getLetterSpacing(document.querySelector('.morae__symbol') || document.body)
   const getMoraeWidth = (morae) => getTextWidth(
     morae, 
     document.querySelector('.kana') || document.body, 
-    getLetterSpacing(document.querySelector('.morae__symbol') || document.body),
+    getMoraeLetterSpacing,
   )
 
   const { mora, updateMora, updateUserData } = useTyperData()
@@ -36,9 +38,23 @@ function Typer() {
 
     if (typerIndex === 0) 
       return getRandomMora(mora, { amount: 20 })
-    else 
+
+    const moraWidth = getMoraeWidth('オ')
+    const moraToFitOnScreen = Math.ceil(window.innerWidth / (moraWidth + getMoraeLetterSpacing))
+    const moraeOnRight = prevValue 
+      ? prevValue
+        .slice(typerIndex)
+        .map(({ symbol }) => symbol)
+        .join('')
+      : []
+    
+    const generateMore = moraeOnRight.length < moraToFitOnScreen
+
+    if (prevValue?.length && generateMore)
       return [...prevValue, ...getRandomMora(mora, { amount: 20 })]
-  }, [mora])
+    
+    return prevValue
+  }, [mora, typerIndex])
 
   const transformOffset = useMemo(() => {
     const moraeOnTheLeft = typerData
@@ -50,12 +66,11 @@ function Typer() {
 
   const updateUserInput = (e) => {
     if (isLoading)
-      return
+      return // block typing on typer loading
 
     const text = e.target.value
     const symbol = typerData[typerIndex].symbol
     const result = checkRomajiValidity(text, symbol, mora)
-    console.log('TEST', text, '<>', symbol, '=', result)
 
     if (result === undefined)
       return setUserInput(text)
@@ -81,7 +96,7 @@ function Typer() {
           style={{ transform: `translateX(-${transformOffset}px)` }}
         >
           {typerData.map(({ symbol, furigana }, index) => {
-            const translation = index % 2 == 0 ? ' ' : 'text'
+            const translation = index % 2 == 0 ? ' ' : 'text text' // TODO: if translation is too long, it breaks the width of the .morae box
             let colorClassName = ''
 
             if (index === typerIndex)

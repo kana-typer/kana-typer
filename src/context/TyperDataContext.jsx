@@ -32,6 +32,8 @@ export default function TyperDataProvider({ children }) {
     // if this object is empty it means DO NOT update mora state
     let newMora = {}
 
+    // TODO: make chances for yoon, sokuon etc a function: filters or something will have a place for a function that will take a symbol and based on its values it will give it a proper chance. All of that will be passed as a function which will be created wherever and passed into the creation of the content.
+
     if (mora.raw === null) {
       console.debug('TyperDataContext.updateMora: getting mora.data from db')
       const sample = await import('../data/db-sample.json') // TODO: implement fetch from actual DB

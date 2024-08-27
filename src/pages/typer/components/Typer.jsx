@@ -3,12 +3,12 @@ import React, { useEffect, useState, useMemo, useRef } from 'react'
 import { useTyperData } from '../../../context/TyperDataContext'
 
 import useMemoWithPreviousValue from '../../../hooks/useMemoWithPreviousValue'
+import useTimer from '../../../hooks/useTimer'
 
-import { getLetterSpacing, getTextWidth } from '../../../utils/text'
+import { getLetterSpacing, getStyle, getTextWidth } from '../../../utils/text'
 import { checkRomajiValidity, getRandomMora } from '../../../utils/kana'
 
 import '../css/Typer.css'
-import useWindowResize from '../../../hooks/useWindowResize'
 
 function Typer() {
   const getMoraeLetterSpacing = getLetterSpacing(document.querySelector('.morae__symbol') || document.body)
@@ -21,8 +21,10 @@ function Typer() {
   const { mora, updateMora, updateUserData } = useTyperData()
 
   const [isLoading, setIsLoading] = useState(true)
+  const [isFinished, setIsFinished] = useState(false)
   const [typerIndex, setTyperIndex] = useState(0)
   const [userInput, setUserInput] = useState('')
+  const [timer, startTimer] = useTimer(60, () => setIsFinished(true))
   const [userStats, setUserStats] = useState({
     correct: {},
     incorrect: {},
@@ -65,8 +67,8 @@ function Typer() {
   }, [typerIndex])
 
   const updateUserInput = (e) => {
-    if (isLoading)
-      return // block typing on typer loading
+    if (isLoading || isFinished)
+      return // block typing on typer loading or timer running out
 
     const text = e.target.value
     const symbol = typerData[typerIndex].symbol
@@ -86,13 +88,14 @@ function Typer() {
   useEffect(() => {
     // TODO: example of a slowly generating kana - implement some form of visual loading for such case
     new Promise(resolve => setTimeout(resolve, 3000)).then(() => updateMora())
+    // console.log(getStyle(document.querySelector('.progress-bar'), '--progress-bar-hue'))
   }, [])
 
   return (
-    <div className="typer-wrapper">
+    <div className='typer-wrapper'>
       <div className='typer'>
         <div 
-          className="kana"
+          className='kana'
           style={{ transform: `translateX(-${transformOffset}px)` }}
         >
           {typerData.map(({ symbol, furigana }, index) => {
@@ -120,13 +123,31 @@ function Typer() {
           })}
         </div>
         <input 
-          type="text" 
+          type='text' 
           value={userInput} 
           onChange={updateUserInput} 
           placeholder='type...'
         />
       </div>
-      <div className="stats">
+      <div className='progress-bar'>
+        <div className='bar' style={{ 
+          width: `${timer * 100 / 60}%`,
+          backgroundColor: `hsl(${((timer - 60) * 100 / 60) + 110}, 100%, 40%)`,
+        }}>
+          <span className='icon'>
+            {
+              isFinished 
+                ? '😿' 
+                : timer * 100 / 60 > 66
+                  ? '😸'
+                  : timer * 100 / 60 > 33
+                    ? '😾'
+                    : '🙀'
+            }
+          </span>
+        </div>
+      </div>
+      <div className='stats'>
         <table>
           <tbody>
             <tr>
@@ -144,6 +165,7 @@ function Typer() {
           </tbody>
         </table>
       </div>
+      <button onClick={startTimer}>Start</button>
     </div>
   )
 }

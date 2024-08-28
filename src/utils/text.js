@@ -26,13 +26,13 @@ export function getTextFont(elt) {
 }
 
 /**
- * Get size of letter spacing of given element/
+ * Get size of letter spacing of given element.
  * @param {HTMLElement} elt 
- * @returns number
+ * @returns {number} 0 for `letter-spacing: normal`, number otherwise.
  */
 export function getLetterSpacing(elt) {
   const valueString = getStyle(elt, 'letter-spacing') || '0px'
-  const value = parseFloat(valueString)
+  const value = valueString === 'normal' ? 0 : parseFloat(valueString)
   return value
 }
 

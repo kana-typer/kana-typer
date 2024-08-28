@@ -4,7 +4,7 @@ function TyperPage() {
   return (
     <>
       <span className='vl'></span>
-      <Typer/>
+      <Typer />
     </>
   )
 }

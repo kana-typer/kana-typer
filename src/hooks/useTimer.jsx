@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 
-function useTimer(initialSeconds, onComplete) {
+function useTimer(initialSeconds, onStart, onComplete) {
   const [seconds, setSeconds] = useState(initialSeconds)
   const timerRef = useRef(null)
 
   const startTimer = () => {
     if (timerRef.current)
       return
+
+    onStart()
 
     timerRef.current = setInterval(() => {
       setSeconds(prevSeconds => {

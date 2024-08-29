@@ -2,6 +2,8 @@ import React, { useMemo } from 'react'
 
 import { getPercFromValue } from '../../../utils/math'
 
+import '../css/ProgressBar.css'
+
 function ProgressBar({ timer, maxTimer, isFinished }) {
   const percentage = useMemo(() => getPercFromValue(timer, maxTimer), [timer])
 

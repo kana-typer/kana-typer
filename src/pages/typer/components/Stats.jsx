@@ -1,3 +1,5 @@
+import '../css/Stats.css'
+
 function Stats({ stats }) {
   return (
     <div className='stats'>

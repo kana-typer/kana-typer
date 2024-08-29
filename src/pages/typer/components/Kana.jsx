@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
+
+import '../css/Kana.css'
 
 function Kana({
   typerIndex, 

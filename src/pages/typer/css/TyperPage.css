@@ -1,0 +1,15 @@
+main {
+  display: flex;
+}
+
+main > nav + * {
+  flex: 1;
+}
+
+.typer-settings > form {
+  display: flex;
+}
+
+.typer-settings > form > * {
+  flex-grow: 1;
+}

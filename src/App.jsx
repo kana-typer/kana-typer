@@ -23,8 +23,8 @@ function App() {
     <Suspense fallback={<p>Loading...</p>}>
       <AuthProvider>
         <TyperDataProvider>
+          <Nav />
           <main>
-            <Nav />
             <Outlet/>
             {LazyPlaceholder && <LazyPlaceholder />}
           </main>

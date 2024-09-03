@@ -84,7 +84,7 @@ export default function TyperDataProvider({ children }) {
   }
 
   const updateUserData = (symbol, value, isAdditive = true) => {
-    setMora(prev => ({
+    setMora(prev => ({ // TODO: add saving to db
       ...prev,
       userData: { 
         ...prev.userData,

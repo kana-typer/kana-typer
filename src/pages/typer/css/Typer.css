@@ -12,59 +12,6 @@
   transform: translateX(calc(50% - var(--kana-font-size) / 2));
 }
 
-.typer > .kana {
-  display: flex;
-
-  font-size: var(--kana-font-size);
-  
-  transition: transform .1s linear;
-
-  white-space: nowrap;
-}
-
-.typer > .kana > .morae {
-  --morae-color: gray;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: var(--morae-color);
-}
-
-.typer > .kana > .morae.current {
-  --morae-color: white;
-}
-
-.typer > .kana > .morae.correct {
-  --morae-color: lime;
-}
-
-.typer > .kana > .morae.incorrect {
-  --morae-color: red;
-}
-
-.typer > .kana .morae__furigana {
-  font-size: .3em;
-}
-
-.typer > .kana .morae__translation {
-  font-size: .2em;
-}
-
-.typer > .kana > .morae > hr {
-  margin: .05em 0;
-  width: calc(100% - .2em);
-
-  border: none;
-  border-bottom: 1px solid var(--morae-color);
-}
-
-.typer > .kana .morae__symbol {
-  font-size: 1em;
-  letter-spacing: .1em;
-}
-
 .typer > input[type=text] {
   padding: .3em .3em;
 
@@ -76,39 +23,4 @@
   font-size: 1.2em;
 
   transform: translateX(.7em);
-}
-
-.progress-bar {
-  --progress-bar-height: .7rem;
-  --progress-bar-hue-start: 110;
-  --progress-bar-hue-end: 10;
-  --progress-bar-hue: var(--progress-bar-hue-start);
-
-  margin: 1rem;
-  margin-right: 2rem;
-}
-
-.progress-bar .bar {
-  position: relative;
-
-  width: 0%;
-  height: var(--progress-bar-height);
-
-  background-color: hsl(var(--progress-bar-hue), 100%, 40%);
-  border-radius: calc(var(--progress-bar-height) / 2);
-
-  transition: width 1s linear;
-}
-
-.progress-bar .icon {
-  position: absolute;
-  top: calc(var(--progress-bar-height) * -1 * 2);
-  right: -2rem;
-
-  font-size: 2rem;
-}
-
-.stats {
-  display: flex;
-  justify-content: center;
 }

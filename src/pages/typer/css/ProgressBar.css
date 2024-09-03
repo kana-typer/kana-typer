@@ -1,0 +1,29 @@
+.progress-bar {
+  --progress-bar-height: .7rem;
+  --progress-bar-hue-start: 110;
+  --progress-bar-hue-end: 10;
+  --progress-bar-hue: var(--progress-bar-hue-start);
+
+  margin: 1rem;
+  margin-right: 2rem;
+}
+
+.progress-bar .bar {
+  position: relative;
+
+  width: 0%;
+  height: var(--progress-bar-height);
+
+  background-color: hsl(var(--progress-bar-hue), 100%, 40%);
+  border-radius: calc(var(--progress-bar-height) / 2);
+
+  transition: width 1s linear;
+}
+
+.progress-bar .icon {
+  position: absolute;
+  top: calc(var(--progress-bar-height) * -1 * 2);
+  right: -2rem;
+
+  font-size: 2rem;
+}

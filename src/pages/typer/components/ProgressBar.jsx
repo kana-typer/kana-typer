@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import { getPercFromValue } from '../../../utils/math'
 
 import '../css/ProgressBar.css'
 
-function ProgressBar({ timer, maxTimer, isFinished }) {
+function ProgressBar({ timer, maxTimer, isFinished, hueStart = 110, hueEnd = 10 }) {
   const percentage = useMemo(() => getPercFromValue(timer, maxTimer), [timer])
 
   const icon = useMemo(() => {
@@ -20,9 +20,7 @@ function ProgressBar({ timer, maxTimer, isFinished }) {
     return '🙀'
   }, [percentage, isFinished])
 
-  // TODO: hue boundaries are [10, 110] - implement it somehow
-  // or maybe just add better hsl support down in the styles?
-  const hue = useMemo(() => getPercFromValue(timer - maxTimer, maxTimer) + 110, [timer])
+  const hue = useMemo(() => hueEnd + ((hueStart - hueEnd) * percentage / 100), [percentage])
 
   return (
     <div className='progress-bar'>

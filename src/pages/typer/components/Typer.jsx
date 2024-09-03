@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useTyperData } from '../../../context/TyperDataContext'
 
 import useMemoWithPreviousValue from '../../../hooks/useMemoWithPreviousValue'
-import useTimer from '../../../hooks/useTimer'
+import useCountdown from '../../../hooks/useCountdown'
 
 import Stats from './Stats'
 import ProgressBar from './ProgressBar'
@@ -14,7 +14,9 @@ import { checkRomajiValidity, getRandomMora } from '../../../utils/kana'
 
 import '../css/Typer.css'
 
-function Typer() {
+const DEFAULT_TIME = 12
+
+function Typer({ moraFilters, wordsFilters, typerSettings }) {
   const moraeLetterSpacing = getLetterSpacing(
     document.querySelector('.morae__symbol') || document.body
   )
@@ -30,13 +32,15 @@ function Typer() {
   const [isStarted, setIsStarted] = useState(false) // typing started
   const [isFinished, setIsFinished] = useState(false) // typing finished
 
-  const [typerIndex, setTyperIndex] = useState(0)
+  const [typerIndex, setTyperIndex] = useState(0) // specifies currently selected morae
   const [userInput, setUserInput] = useState('')
-  const [timer, startTimer] = useTimer(60, () => setIsStarted(true), () => setIsFinished(true))
-  const [userStats, setUserStats] = useState({
-    correct: {},
-    incorrect: {},
-  })
+  const [countdown, startCountdown] = useCountdown(
+    typerSettings?.time ?? DEFAULT_TIME, 
+    () => setIsStarted(true), 
+    () => setIsFinished(true),
+  )
+  const [userCorrectHits, setUserCorrectHits] = useState({}) // correct morae
+  const [userIncorrectHits, setUserIncorrectHits] = useState({}) // incorrect morae
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
     if (mora === null) {
@@ -81,10 +85,17 @@ function Typer() {
 
     setTyperIndex(prevIndex => prevIndex + 1)
     setUserInput('')
-    setUserStats(prevStats => {
-      prevStats[result ? 'correct' : 'incorrect'][typerIndex] = symbol
-      return prevStats
-    })
+
+    if (result === true)
+      setUserCorrectHits(prev => ({
+        ...prev,
+        [typerIndex]: symbol,
+      }))
+    else if (result === false)
+      setUserIncorrectHits(prev => ({
+        ...prev,
+        [typerIndex]: symbol,
+      }))
   }
 
   useEffect(() => {
@@ -98,7 +109,8 @@ function Typer() {
         <Kana 
           typerIndex={typerIndex}
           typerData={typerData}
-          userStats={userStats}
+          correctHits={userCorrectHits}
+          incorrectHits={userIncorrectHits}
           getMoraeWidth={getMoraeWidth}
         />
         <input 
@@ -108,9 +120,18 @@ function Typer() {
           placeholder='type...'
         />
       </div>
-      <ProgressBar timer={timer} maxTimer={60} isFinished={isFinished} />
-      <Stats stats={userStats} />
-      <button onClick={startTimer}>Start</button>
+      <ProgressBar 
+        timer={countdown} 
+        maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
+        isFinished={isFinished} 
+      />
+      <Stats 
+        correctHits={userCorrectHits}
+        incorrectHits={userIncorrectHits}
+        isStarted={isStarted} 
+        isFinished={isFinished} 
+      />
+      <button onClick={startCountdown}>Start</button>
     </div>
   )
 }

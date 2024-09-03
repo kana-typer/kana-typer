@@ -5,7 +5,8 @@ import '../css/Kana.css'
 function Kana({
   typerIndex, 
   typerData, 
-  userStats, 
+  correctHits,
+  incorrectHits,
   getMoraeWidth,
 }) {
   const transformOffset = useMemo(() => {
@@ -29,9 +30,9 @@ function Kana({
           colorClassName = 'current'
         
         if (index < typerIndex) {
-          if (userStats.correct?.[index])
+          if (correctHits?.[index])
             colorClassName = 'correct'
-          if (userStats.incorrect?.[index])
+          if (incorrectHits?.[index])
             colorClassName = 'incorrect'
         }
 

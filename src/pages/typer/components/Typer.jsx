@@ -36,8 +36,13 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
   const [userInput, setUserInput] = useState('')
   const [countdown, startCountdown] = useCountdown(
     typerSettings?.time ?? DEFAULT_TIME, 
-    () => setIsStarted(true), 
-    () => setIsFinished(true),
+    () => setIsStarted(true),
+    () => setTimeout(() => setIsFinished(true), 1000), // timeout to wait for ProgressBar animation to finish
+  )
+  const [preCountdown, startPreCountdown] = useCountdown(
+    3, 
+    undefined, 
+    () => startCountdown(),
   )
   const [userCorrectHits, setUserCorrectHits] = useState({}) // correct morae
   const [userIncorrectHits, setUserIncorrectHits] = useState({}) // incorrect morae
@@ -103,6 +108,13 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
     new Promise(resolve => setTimeout(resolve, 3000)).then(() => updateMora())
   }, [])
 
+  useEffect(() => {
+    if (isLoading)
+      return
+
+    startPreCountdown()
+  }, [isLoading])
+
   return (
     <div className='typer-wrapper'>
       <div className='typer'>
@@ -131,7 +143,10 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
         isStarted={isStarted} 
         isFinished={isFinished} 
       />
-      <button onClick={startCountdown}>Start</button>
+      <div className={`pre-countdown ${isStarted ? 'hidden' : ''}`}>
+        {isLoading ? 'Loading' : preCountdown + 1}
+      </div>
+      {/* <button onClick={startCountdown}>Start</button> */}
     </div>
   )
 }

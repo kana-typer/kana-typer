@@ -8,7 +8,7 @@ function Nav() {
   const { i18n, t } = useTranslation()
 
   return (
-    <nav>
+    <nav id='main-navigation'>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="typer">Typer</a></li>

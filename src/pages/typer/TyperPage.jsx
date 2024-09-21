@@ -15,6 +15,12 @@ const MORA_TYPES = {
   handakuten: 'handakuten',
 }
 
+const WORDS_GROUPS = {
+  clothes: 'clothes',
+  numbers: 'numbers',
+  colors: 'colors',
+}
+
 const WORDS_TAGS = {
   verbs: 'verbs',
   nouns: 'nouns',
@@ -39,7 +45,8 @@ function TyperPage() {
   })
   const [wordsFilters, setWordsFilters] = useState({
     use: false,
-    tags: [], // MORA_TAGS
+    groups: [], // WORDS_GROUPS
+    tags: [], // WORDS_TAGS
   })
   const [typerSettings, setTyperSettings] = useState({
     time: 20, // in seconds, or null|undefined for no timer
@@ -98,7 +105,7 @@ function TyperPage() {
     }))
   }
 
-  const onWords = (tags) => {
+  const onWords = (groups) => {
     setMoraFilters(prev => ({
       ...prev,
       use: false,
@@ -106,9 +113,10 @@ function TyperPage() {
     setWordsFilters(prev => ({
       ...prev,
       use: true,
-      tags: tags.length < 2 
-        ? [WORDS_TAGS.particles] 
-        : tags,
+      groups: groups,
+      tags: prev?.tags?.length < 2 
+        ? [WORDS_TAGS.nouns] 
+        : prev.tags,
     }))
   }
 
@@ -120,7 +128,7 @@ function TyperPage() {
     setWordsFilters(prev => ({
       ...prev,
       use: true,
-      tags: Object.values(WORDS_TAGS),
+      groups: Object.values(WORDS_GROUPS),
     }))
   }
 
@@ -137,7 +145,7 @@ function TyperPage() {
     setWordsFilters(prev => ({
       ...prev,
       use: true,
-      tags: Object.values(WORDS_TAGS),
+      groups: Object.values(WORDS_GROUPS),
     }))
   }
 
@@ -249,6 +257,46 @@ function TyperPage() {
       <>
         {settingsContent}
         <fieldset className='typer-settings__words-filters-form'>
+          <legend>Word categories</legend>
+
+          {Object.entries(WORDS_GROUPS).map(([key, value]) => (
+            <div key={`filter-words-group-${key}`}>
+              <label 
+                htmlFor={`filter-words-group-${key}`} 
+              >{value}</label>
+              <input 
+                type='checkbox' 
+                name={`filter-words-group-${key}`} 
+                id={`filter-words-group-${key}`} 
+                checked={wordsFilters?.groups?.includes(value) ?? false}
+                  onChange={event => {
+                    const { checked } = event.target
+
+                    setWordsFilters(prev => {
+                      let newGroups = []
+                      const oldGroups = prev?.groups ?? []
+                      const isIncluded = oldGroups.includes(value)
+                      const isLastItem = oldGroups.length < 2
+
+                      if (checked && !isIncluded) 
+                        newGroups = [...oldGroups, value]
+                      else if (!checked && isIncluded)
+                        newGroups = isLastItem 
+                          ? oldGroups 
+                          : oldGroups.filter(item => item !== value)
+
+                      return {
+                        ...prev,
+                        groups: newGroups,
+                      }
+                    })
+                  }}
+              />
+              <br />
+            </div>
+          ))}
+        </fieldset>
+        <fieldset>
           <legend>Word types</legend>
 
           {Object.entries(WORDS_TAGS).map(([key, value]) => (
@@ -299,8 +347,11 @@ function TyperPage() {
         <ul>
           <li><button onClick={onHiragana}>Hiragana</button></li>
           <li><button onClick={onKatakana}>Katakana</button></li>
+          <li><hr /></li>
+          <li><button onClick={() => onWords([WORDS_GROUPS.clothes])}>Clothes</button></li>
+          <li><button onClick={() => onWords([WORDS_GROUPS.numbers])}>Numbers</button></li>
+          <li><hr /></li>
           <li><button onClick={onKana}>All kana</button></li>
-          <li><button onClick={() => onWords([WORDS_TAGS.particles])}>Particles</button></li>
           <li><button onClick={onAllWords}>All words</button></li>
           <li><button onClick={onEverything}>Everything</button></li>
         </ul>
@@ -317,6 +368,7 @@ function TyperPage() {
             <form action=''>
               {settingsContent}
             </form>
+            <button onClick={() => setShowTyper(true)}>Start</button>
           </section>
         )
       }

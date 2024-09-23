@@ -3,6 +3,10 @@ import { useState } from 'react'
 import Typer from './components/Typer'
 
 import './css/TyperPage.css'
+import FromGroup from '../../components/FormGroup'
+import FormCheckbox from '../../components/FormCheckbox'
+import FormRadiobox from '../../components/FormRadiobox'
+import FormText from '../../components/FormText'
 
 const MORA_SCRIPTS = {
   hiragana: 'hiragana',
@@ -200,6 +204,7 @@ function TyperPage() {
 
           {moraFilters?.scripts?.includes(MORA_SCRIPTS.katakana) ?? false
             ? (
+
               <>
                 <label htmlFor='filter-mora-extended'>extended</label>
                 <input 
@@ -219,7 +224,17 @@ function TyperPage() {
             ) : (null)
           }
 
-          <label htmlFor='filter-mora-sokuon'>sokuon</label>
+          <FormCheckbox 
+            uid='filter-mora-sokuon'
+            label='Sokuon'
+            checked={moraFilters?.sokuon ?? false}
+            onChange={e => setMoraFilters(prev => ({
+              ...prev,
+              sokuon: e.target.checked
+            }))}
+          />
+
+          {/* <label htmlFor='filter-mora-sokuon'>sokuon</label>
           <input 
             type='checkbox' 
             name='filter-mora-sokuon' 
@@ -232,7 +247,7 @@ function TyperPage() {
               }))
             }}
           />
-          <br />
+          <br /> */}
 
           <label htmlFor='filter-mora-yoon'>yoon</label>
           <input 

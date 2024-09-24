@@ -249,6 +249,7 @@ function TyperPage() {
           />
           <br /> */}
 
+
           <label htmlFor='filter-mora-yoon'>yoon</label>
           <input 
             type='checkbox' 
@@ -357,7 +358,6 @@ function TyperPage() {
 
   return (
     <>
-      {/* <span className='vl'></span> */}
       <nav>
         <ul>
           <li><button onClick={onHiragana}>Hiragana</button></li>

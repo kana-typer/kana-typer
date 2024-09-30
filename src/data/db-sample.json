@@ -1239,6 +1239,7 @@
     {
       "kana": "私",
       "furigana": { "romaji": "watashi", "hiragana": "わたし" },
+      "category": "test",
       "type": "pronoun",
       "translation": {
         "en": "I",
@@ -1248,6 +1249,7 @@
     {
       "kana": "は",
       "furigana": { "romaji": "wa" },
+      "category": "test",
       "type": "particle",
       "translation": {
         "en": "topic's particle",

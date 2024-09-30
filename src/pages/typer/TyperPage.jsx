@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { collection, onSnapshot, query, where } from 'firebase/firestore'
+
+import { db } from '../../config/firebase'
 
 import Typer from './components/Typer'
 
@@ -33,6 +36,51 @@ const WORDS_TAGS = {
 }
 
 function TyperPage() {
+  function Tester() {
+    const [filtersMora, setFiltersMora] = useState({
+      use: false,
+      scripts: ['hiragana'], // MORA_SCRIPTS
+      types: [], // MORA_TYPES
+      extended: true, // only for katakana, e.g. che, ti, tsa
+      sokuon: true, // e.g. kka, dde, hhya
+      yoon: true, // e.g. kya, ju, hhyo
+    })
+
+    const [rawData, setRawData] = useState({ mora: [], words: [] })
+  
+    const getRawDataFromDb = () => {
+      // TODO: remove after testing
+      const uniqueArrayFilter = (arr, obj) => arr.length > 0 && arr.length < Object.keys(obj).length
+
+      const getSmallSymbol = (source, script, target) => source
+        .filter(obj => obj.script === script)
+        .find(obj => obj.furigana.romaji == target)
+        ?.small || null
+
+      const _modifiers = {
+        sokuon: { hiragana: null, katakana: null },
+        yoon: {
+          hiragana: { ya: null, yu: null, yo: null },
+          katakana: { ya: null, yu: null, yo: null },
+        },
+      }
+
+      // const _res = Object.fromEntries(
+      //   Object.entries(_modifiers).map(([type, obj]) => {
+      //     if ()
+      //   })
+      // )
+
+      console.log(_modifiers)
+    }
+
+    return (
+      <div>
+        {getRawDataFromDb()}
+      </div>
+    )
+  }
+
   let settingsContent = (
     <div>Nothing chosen</div>
   )
@@ -384,6 +432,7 @@ function TyperPage() {
               {settingsContent}
             </form>
             <button onClick={() => setShowTyper(true)}>Start</button>
+            <Tester />
           </section>
         )
       }

@@ -2,6 +2,30 @@ import { createSeededLCGRand } from "./rand"
 
 export const LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED = 10
 
+export const MORA_SCRIPTS = {
+  hiragana: 'hiragana',
+  katakana: 'katakana',
+}
+
+export const MORA_TYPES = {
+  gojuon: 'gojuon',
+  dakuten: 'dakuten',
+  handakuten: 'handakuten',
+}
+
+export const WORDS_CATEGORIES = {
+  clothes: 'clothes',
+  numbers: 'numbers',
+  colors: 'colors',
+}
+
+export const WORDS_TYPES = {
+  verbs: 'verbs',
+  nouns: 'nouns',
+  adjectives: 'adjectives',
+  particles: 'particles',
+}
+
 /**
  * Generates an object of small symbols for specific kana modifications in specific scripts, e.g. turning `'か'` to `'っか'`.
  * @param {Array<{ furigana?: { romaji?: string, hiragana?: string }, script?: string, small?: string }>} moraObj - an array of objects, in which any of the listed properties can be null, but will lead to incomplete data, rather than an error.

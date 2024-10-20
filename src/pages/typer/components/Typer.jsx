@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useTyperData } from '../../../context/TyperDataContext'
+import { useTyperData } from '../../../context/TyperDataContext.old'
 
 import useMemoWithPreviousValue from '../../../hooks/useMemoWithPreviousValue'
 import useCountdown from '../../../hooks/useCountdown'

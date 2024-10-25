@@ -34,12 +34,12 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
 
   const [typerIndex, setTyperIndex] = useState(0) // specifies currently selected morae
   const [userInput, setUserInput] = useState('')
-  const [countdown, startCountdown] = useCountdown(
+  const [countdown, startCountdown] = useCountdown( // timer for when user it typing
     typerSettings?.time ?? DEFAULT_TIME, 
     () => setIsStarted(true),
     () => setTimeout(() => setIsFinished(true), 1000), // timeout to wait for ProgressBar animation to finish
   )
-  const [preCountdown, startPreCountdown] = useCountdown(
+  const [preCountdown, startPreCountdown] = useCountdown( // timer to get user ready for typing
     3, 
     undefined, 
     () => startCountdown(),

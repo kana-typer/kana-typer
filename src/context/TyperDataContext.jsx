@@ -53,6 +53,7 @@ export default function TyperDataProvider({ children }) {
     progress: {}
   })
 
+  // i: holds words and mora maps in one place, typerData state is used as readonly-from-outside reference
   const [typerPool, setTyperPool] = useState({})
 
   const loadProgressDataFromDb = async () => {
@@ -175,8 +176,10 @@ export default function TyperDataProvider({ children }) {
       if (!skip) {
         items.push({
           key: romaji,
-          symbol: symbol,
+          kana: symbol,
           furigana: pickFurigana(furigana, progress?.[symbol]),
+          translation: null,
+          reading: null,
         })
       }
 
@@ -193,9 +196,10 @@ export default function TyperDataProvider({ children }) {
 
         items.push({
           key: sokuonRomaji,
-          symbol: sokuonSymbol,
-          furigana: pickFurigana(sokuonFurigana, progress?.[symbol]),
-          // i: kka is treated as ka; tte as te; etc.
+          kana: sokuonSymbol,
+          furigana: pickFurigana(sokuonFurigana, progress?.[symbol]), // i: kka is treated as ka; tte as te; etc.
+          translation: null,
+          reading: null,
         })
       }
 
@@ -215,9 +219,10 @@ export default function TyperDataProvider({ children }) {
 
           items.push({
             key: yoonRomaji,
-            symbol: yoonSymbol,
-            furigana: pickFurigana(yoonFurigana, progress?.[symbol]),
-            // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
+            kana: yoonSymbol,
+            furigana: pickFurigana(yoonFurigana, progress?.[symbol]), // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
+            translation: null,
+            reading: null,
           })
         })
       }
@@ -235,9 +240,10 @@ export default function TyperDataProvider({ children }) {
 
         items.push({
           key: bothRomaji,
-          symbol: bothSymbol,
-          furigana: pickFurigana(bothFurigana, progress?.[symbol]),
-          // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
+          kana: bothSymbol,
+          furigana: pickFurigana(bothFurigana, progress?.[symbol]), // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
+          translation: null,
+          reading: null,
         })
       }
 
@@ -257,7 +263,33 @@ export default function TyperDataProvider({ children }) {
 
     source.forEach(({ kana, ...word }) => {
       const romaji = word?.furigana?.romaji || ''
+      const furigana = word?.furigana
+      const items = []
+
+      let skip = false
+      if (!filters.categories.includes(word?.category || '') || 
+          !filters.types.includes(word?.type || ''))
+        skip = true
+
+      if (!skip) {
+        items.push({
+          key: romaji,
+          kana: kana,
+          furigana: pickFurigana(furigana, progress?.[kana]),
+          translation: word?.translation?.en || '',
+          reading: word?.furigana?.reading || null,
+        })
+      }
+
+      items.forEach(({ key, ...data }) => {
+        if (map.has(key))
+          map.set(key, [...map.get(key), data])
+        else
+          map.set(key, [data])
+      })
     })
+
+    return map
   }
 
   const updateTyperData = async (prevData) => {
@@ -307,18 +339,29 @@ export default function TyperDataProvider({ children }) {
       data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
     }
 
-    setTyperData(prev => ({
-      mora: {
-        raw: data?.mora?.raw ?? prev.mora.raw,
-        map: data?.mora?.map ?? null,
-      },
-      words: {
-        raw: data?.words?.raw ?? prev.words.raw,
-        map: data?.words?.map ?? null,
-      },
-      modifiers: data?.modifiers ?? prev.modifiers,
-      progress: data?.progress ?? prev.progress,
-    }))
+    setTyperData(prev => {
+      const newTyperData = {
+        mora: {
+          raw: data?.mora?.raw ?? prev.mora.raw,
+          map: data?.mora?.map ?? null,
+        },
+        words: {
+          raw: data?.words?.raw ?? prev.words.raw,
+          map: data?.words?.map ?? null,
+        },
+        modifiers: data?.modifiers ?? prev.modifiers,
+        progress: data?.progress ?? prev.progress,
+      }
+
+      setTyperPool(() => {
+        const moraPool = newTyperData.mora.map ?? []
+        const wordsPool = newTyperData.words.map ?? []
+        const pool = new Map([...moraPool, wordsPool])
+        return pool
+      })
+
+      return newTyperData
+    })
   }
 
   const setFilters = (mode) => {

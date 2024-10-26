@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useTyperData } from '../../../context/TyperDataContext.old'
+import { useTyperData } from '../../../context/TyperDataContext'
 
 import useMemoWithPreviousValue from '../../../hooks/useMemoWithPreviousValue'
 import useCountdown from '../../../hooks/useCountdown'
@@ -10,13 +10,14 @@ import ProgressBar from './ProgressBar'
 import Kana from './Kana'
 
 import { getLetterSpacing, getTextWidth } from '../../../utils/text'
-import { checkRomajiValidity, getRandomMora } from '../../../utils/kana'
+import { checkRomajiValidity, getRandomMora, LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED } from '../../../utils/kana'
 
 import '../css/Typer.css'
+import { createSeededLCGRand } from '../../../utils/rand'
 
 const DEFAULT_TIME = 12
 
-function Typer({ moraFilters, wordsFilters, typerSettings }) {
+function Typer({ typerSettings }) {
   const moraeLetterSpacing = getLetterSpacing(
     document.querySelector('.morae__symbol') || document.body
   )
@@ -26,7 +27,59 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
     moraeLetterSpacing,
   )
 
-  const { mora, updateMora, updateUserData } = useTyperData()
+  const getRandomTyperItem = (amount, sourceMap, { countingSpecificity = 'mora', seed = '12345', maxNumOfMisses = 5 } = {}) => {
+    const rand = createSeededLCGRand(seed)
+
+    const chosen = []
+    const choices = Array
+      .from(sourceMap.values())
+      .flat()
+      .map(({ kana, furigana }) => ({ kana, furigana }))
+    
+    let size = 0
+    while (size < amount) {
+      const idx = Math.floor(rand() * choices.length)
+      const pick = choices[idx]
+
+      if (countingSpecificity === 'mora') {
+        if (pick.kana.length + size > amount && maxNumOfMisses > 0) {
+          maxNumOfMisses -= 1
+          continue
+        }
+        size += pick.kana.length
+      } else {
+        size += 1
+      }
+
+      chosen.push(pick)
+    }
+
+    return chosen
+  }
+
+  const checkMoraRomajiValidity = (givenRomaji, targetKana, sourceMap) => {
+    // possible longest string one morae combination can create when written in romaji
+    if (givenRomaji.length > LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED)
+      return false
+
+    const getKana = (key) => sourceMap.get(key)?.map(({ kana }) => kana) || []
+    const endsOnVowel = 'aiueo'.split('').some(vowel => givenRomaji.endsWith(vowel))
+    const validRomaji = sourceMap.has(givenRomaji)
+    const kanaInMap = getKana(givenRomaji).includes(targetKana)
+
+    // romaji ends on vowel - may be valid morae
+    if (endsOnVowel && validRomaji)
+      return kanaInMap // may be valid but not in map - return inclusion result
+
+    // specific check for n to not conflict with na, ni, etc.
+    if (givenRomaji === 'n' && validRomaji && kanaInMap)
+      return true
+
+    // romaji might be partial, i.e. user not finished writing it
+    return undefined
+  }
+
+  const { typerMap, updateTyperMap } = useTyperData()
 
   const [isLoading, setIsLoading] = useState(true) // kana is loading
   const [isStarted, setIsStarted] = useState(false) // typing started
@@ -48,7 +101,7 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
   const [userIncorrectHits, setUserIncorrectHits] = useState({}) // incorrect morae
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
-    if (mora === null) {
+    if (typerMap === null) {
       setIsLoading(true)
       return prevValue
     }
@@ -59,21 +112,21 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
     const moraToFitOnScreen = Math.ceil(window.innerWidth / (moraWidth + moraeLetterSpacing))
 
     if (typerIndex === 0) 
-      return getRandomMora(mora, { amount: moraToFitOnScreen })
+      return getRandomTyperItem(moraToFitOnScreen, typerMap)
 
     const moraeOnRight = prevValue 
       ? prevValue
         .slice(typerIndex)
-        .map(({ symbol }) => symbol)
+        .map(({ kana }) => kana)
         .join('')
       : []
     
     const generateMore = moraeOnRight.length < moraToFitOnScreen
 
     if (prevValue?.length && generateMore)
-      return [...prevValue, ...getRandomMora(mora, { amount: moraToFitOnScreen })]
+      return [...prevValue, ...getRandomTyperItem(moraToFitOnScreen, typerMap)]
     return prevValue
-  }, [mora, typerIndex])
+  }, [typerMap, typerIndex])
 
   const updateUserInput = (e) => {
     // TODO: set userInput as what they typed and then give them at least 100ms before checking the kana, so that they can glimpse at what they typed into the field
@@ -82,8 +135,8 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
       return // block typing on typer loading or timer not yet running or finished
 
     const text = e.target.value
-    const symbol = typerData[typerIndex].symbol
-    const result = checkRomajiValidity(text, symbol, mora)
+    const kana = typerData[typerIndex].kana
+    const result = checkMoraRomajiValidity(text, kana, typerMap)
 
     if (result === undefined)
       return setUserInput(text)
@@ -94,18 +147,18 @@ function Typer({ moraFilters, wordsFilters, typerSettings }) {
     if (result === true)
       setUserCorrectHits(prev => ({
         ...prev,
-        [typerIndex]: symbol,
+        [typerIndex]: kana,
       }))
     else if (result === false)
       setUserIncorrectHits(prev => ({
         ...prev,
-        [typerIndex]: symbol,
+        [typerIndex]: kana,
       }))
   }
 
   useEffect(() => {
     // TODO: example of a slowly generating kana - implement some form of visual loading for such case
-    new Promise(resolve => setTimeout(resolve, 3000)).then(() => updateMora())
+    new Promise(resolve => setTimeout(resolve, 3000)).then(() => updateTyperMap())
   }, [])
 
   useEffect(() => {

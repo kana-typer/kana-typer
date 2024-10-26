@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 
 import { db, auth } from '../config/firebase'
@@ -34,11 +34,11 @@ export default function TyperDataProvider({ children }) {
   const [typerData, setTyperData] = useState({
     mora: {
       raw: [], // raw data of every hiragana and katakana mora (no kya, chu, etc.)
-      map: null, // only mora and morae for typer pool (might have kya, chu, etc.)
+      map: new Map([]), // only mora and morae for typer pool (might have kya, chu, etc.)
     },
     words: {
       raw: [], // raw data of every word (has all verbs, nouns, etc.)
-      map: null, // only words for typer pool (might have verbs, nouns, etc.)
+      map: new Map([]), // only words for typer pool (might have verbs, nouns, etc.)
     },
     modifiers: {
       sokuon: { 
@@ -54,7 +54,7 @@ export default function TyperDataProvider({ children }) {
   })
 
   // i: holds words and mora maps in one place, typerData state is used as readonly-from-outside reference
-  const [typerPool, setTyperPool] = useState({})
+  const [typerPool, setTyperPool] = useState(null)
 
   const loadProgressDataFromDb = async () => {
     // TODO: use this code after testing
@@ -109,28 +109,28 @@ export default function TyperDataProvider({ children }) {
 
     const data = { ...prevModifiers }
 
-    if (data.sokuon.hiragana !== null)
+    if (data.sokuon.hiragana === null)
       data.sokuon.hiragana = getSmallSymbol(source, 'hiragana', 'tsu')
 
-    if (data.sokuon.katakana !== null)
+    if (data.sokuon.katakana === null)
       data.sokuon.katakana = getSmallSymbol(source, 'katakana', 'tsu')
 
-    if (data.yoon.hiragana.ya !== null)
+    if (data.yoon.hiragana.ya === null)
       data.yoon.hiragana.ya = getSmallSymbol(source, 'hiragana', 'ya')
 
-    if (data.yoon.hiragana.yu !== null)
+    if (data.yoon.hiragana.yu === null)
       data.yoon.hiragana.yu = getSmallSymbol(source, 'hiragana', 'yu')
 
-    if (data.yoon.hiragana.yo !== null)
+    if (data.yoon.hiragana.yo === null)
       data.yoon.hiragana.yo = getSmallSymbol(source, 'hiragana', 'yo')
 
-    if (data.yoon.katakana.ya !== null)
+    if (data.yoon.katakana.ya === null)
       data.yoon.katakana.ya = getSmallSymbol(source, 'katakana', 'ya')
 
-    if (data.yoon.katakana.yu !== null)
+    if (data.yoon.katakana.yu === null)
       data.yoon.katakana.yu = getSmallSymbol(source, 'katakana', 'yu')
 
-    if (data.yoon.katakana.yo !== null)
+    if (data.yoon.katakana.yo === null)
       data.yoon.katakana.yo = getSmallSymbol(source, 'katakana', 'yo')
 
     return data
@@ -152,6 +152,7 @@ export default function TyperDataProvider({ children }) {
   }
 
   const generateMoraMap = (source, modifiers, progress, filters) => {
+    const yoons = ['ya', 'yu', 'yo']
     const map = new Map([])
 
     source.forEach(({ symbol, ...mora }) => {
@@ -292,11 +293,11 @@ export default function TyperDataProvider({ children }) {
     return map
   }
 
-  const updateTyperData = async (prevData) => {
-    const data = { ...prevData }
+  const updateTyperData = async () => {
+    const data = { ...typerData }
 
     // Get user progress first as it is needed to generate proper furigana for maps
-    data.progress = loadProgressDataFromDb()
+    data.progress = await loadProgressDataFromDb()
 
     // Get mora only if specified by filters
     const newRawMora = await loadFromDbByFilter(
@@ -316,7 +317,7 @@ export default function TyperDataProvider({ children }) {
         ...Object.values(data.modifiers.yoon.hiragana),
         ...Object.values(data.modifiers.yoon.katakana),
       ]
-      const modifiersMissing = modifierValues.some(x => x === undefined)
+      const modifiersMissing = modifierValues.some(x => [null, undefined].includes(x))
       if (modifiersMissing)
         data.modifiers = generateModifiers(data.mora.raw, data.modifiers)
 
@@ -339,29 +340,9 @@ export default function TyperDataProvider({ children }) {
       data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
     }
 
-    setTyperData(prev => {
-      const newTyperData = {
-        mora: {
-          raw: data?.mora?.raw ?? prev.mora.raw,
-          map: data?.mora?.map ?? null,
-        },
-        words: {
-          raw: data?.words?.raw ?? prev.words.raw,
-          map: data?.words?.map ?? null,
-        },
-        modifiers: data?.modifiers ?? prev.modifiers,
-        progress: data?.progress ?? prev.progress,
-      }
+    setTyperData(prev => data)
 
-      setTyperPool(() => {
-        const moraPool = newTyperData.mora.map ?? []
-        const wordsPool = newTyperData.words.map ?? []
-        const pool = new Map([...moraPool, wordsPool])
-        return pool
-      })
-
-      return newTyperData
-    })
+    setTyperPool(() => new Map([...data.mora.map, ...data.words.map]))
   }
 
   const setFilters = (mode) => {
@@ -447,9 +428,11 @@ export default function TyperDataProvider({ children }) {
       allWords: 'allWords',
       all: 'all'
     },
-    typerFilters,
+    typerFilters: typerFilters,
     setTyperFilters: setFilters,
     setTyperFiltersProp: setFiltersProp,
+    typerMap: typerPool,
+    updateTyperMap: updateTyperData // TODO: check if this can be rewritten to use prevValue from SetState as the object to be based off of rather than typerData directly
   }
 
   return (

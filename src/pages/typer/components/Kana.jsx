@@ -12,7 +12,7 @@ function Kana({
   const transformOffset = useMemo(() => {
     const moraeOnTheLeft = typerData
       .slice(0, typerIndex)
-      .map(({ symbol }) => symbol)
+      .map(({ kana }) => kana)
       .join('')
     return getMoraeWidth(moraeOnTheLeft)
   }, [typerIndex])
@@ -22,7 +22,7 @@ function Kana({
       className='kana'
       style={{ transform: `translateX(-${transformOffset}px)` }}
     >
-      {typerData.map(({ symbol, furigana }, index) => {
+      {typerData.map(({ kana, furigana }, index) => {
         const translation = index % 2 == 0 ? ' ' : 'text text' // TODO: if translation is too long, it breaks the width of the .morae box
         let colorClassName = ''
 
@@ -41,7 +41,7 @@ function Kana({
             <i className='morae__furigana'>{furigana}</i>
             <hr />
             <i className='morae__translation'>{translation}</i>
-            <span className='morae__symbol'>{symbol}</span>
+            <span className='morae__symbol'>{kana}</span>
           </span>
         )
       })}

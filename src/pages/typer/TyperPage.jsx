@@ -5,6 +5,7 @@ import { useTyperData } from '../../context/TyperDataContext'
 import TyperSettings from './components/TyperSettings'
 
 import './css/TyperPage.css'
+import Typer from './components/Typer'
 
 
 function TyperPage() {
@@ -23,7 +24,7 @@ function TyperPage() {
 
   if (showTyper) {
     content = (
-      <div>Typer here</div>
+      <Typer typerSettings={typerFilters.typer} />
     )
   } else if (settingSelected) {
     content = (

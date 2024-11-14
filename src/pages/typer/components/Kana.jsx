@@ -22,8 +22,9 @@ function Kana({
       className='kana'
       style={{ transform: `translateX(-${transformOffset}px)` }}
     >
-      {typerData.map(({ kana, furigana }, index) => {
-        const translation = index % 2 == 0 ? ' ' : 'text text' // TODO: if translation is too long, it breaks the width of the .morae box
+      {typerData.map(({ kana, furigana, reading, translation }, index) => {
+        const fullFurigana = reading ? `${furigana} (${reading})` : furigana
+        // const translation = index % 2 == 0 ? ' ' : 'text text' // TODO: if translation is too long, it breaks the width of the .morae box
         let colorClassName = ''
 
         if (index === typerIndex)
@@ -38,7 +39,7 @@ function Kana({
 
         return (
           <span key={index} className={`morae ${colorClassName}`}>
-            <i className='morae__furigana'>{furigana}</i>
+            <i className='morae__furigana'>{fullFurigana}</i>
             <hr />
             <i className='morae__translation'>{translation}</i>
             <span className='morae__symbol'>{kana}</span>

@@ -1695,8 +1695,8 @@
     {
       "kana": "私",
       "furigana": { "romaji": "watashi", "hiragana": "わたし", "reading": null },
-      "category": "test",
-      "type": "pronoun",
+      "category": "clothes",
+      "type": "pronouns",
       "translation": {
         "en": "I",
         "pl": "ja"
@@ -1705,8 +1705,8 @@
     {
       "kana": "は",
       "furigana": { "romaji": "ha", "hiragana": null, "reading": "wa" },
-      "category": "test",
-      "type": "particle",
+      "category": "clothes",
+      "type": "particles",
       "translation": {
         "en": "topic's particle",
         "pl": "partykuła tematu"

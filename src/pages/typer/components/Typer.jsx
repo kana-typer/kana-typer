@@ -28,14 +28,20 @@ function Typer({ typerSettings }) {
   )
 
   const getRandomTyperItem = (amount, sourceMap, { countingSpecificity = 'mora', seed = '12345', maxNumOfMisses = 5 } = {}) => {
+    if (sourceMap === null || sourceMap.size === 0) {
+      console.error(`source map is empty - ${sourceMap}`)
+      return []
+    }
+
     const rand = createSeededLCGRand(seed)
 
     const chosen = []
     const choices = Array
       .from(sourceMap.values())
       .flat()
-      .map(({ kana, furigana }) => ({ kana, furigana }))
-    
+
+    console.debug(`${amount} to generate, ${choices.length} to pick from`)
+
     let size = 0
     while (size < amount) {
       const idx = Math.floor(rand() * choices.length)

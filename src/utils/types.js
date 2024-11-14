@@ -24,3 +24,5 @@ export const objectsEqual = (obj1, obj2, recursiveDepth = Number.MAX_SAFE_INTEGE
 
   return true
 }
+
+export const isNullOrUndefined = (value) => [null, undefined].includes(value)

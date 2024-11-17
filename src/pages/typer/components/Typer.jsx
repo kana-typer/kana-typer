@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useBlocker } from 'react-router-dom'
 
 import { useTyperData } from '../../../context/TyperDataContext'
 
@@ -140,6 +141,10 @@ function Typer({ typerSettings }) {
     return prevValue
   }, [typerMap, typerIndex])
 
+  let blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    return isStarted && !isFinished && currentLocation.pathname !== nextLocation.pathname
+  })
+
   const updateUserInput = (e) => {
     // TODO: set userInput as what they typed and then give them at least 100ms before checking the kana, so that they can glimpse at what they typed into the field
 
@@ -212,6 +217,13 @@ function Typer({ typerSettings }) {
         {isLoading ? 'Loading' : preCountdown + 1}
       </div>
       {/* <button onClick={startCountdown}>Start</button> */}
+      {blocker.state === 'blocked' ? (
+        <div>
+          <p>Are you sure you want to leave?</p>
+          <button onClick={() => blocker.proceed()}>Leave</button>
+          <button onClick={() => blocker.reset()}>Cancel</button>
+        </div>
+      ) : null}
     </div>
   )
 }

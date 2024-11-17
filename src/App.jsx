@@ -1,5 +1,5 @@
-import { Suspense, memo } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense, memo, useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import { isDev } from './utils/globals'
 

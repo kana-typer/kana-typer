@@ -28,6 +28,8 @@ function Typer({ typerSettings }) {
   )
 
   const getRandomTyperItem = (amount, sourceMap, { countingSpecificity = 'mora', seed = '12345', maxNumOfMisses = 5 } = {}) => {
+    console.debug(`generate ${amount} random kana`)
+
     if (sourceMap === null || sourceMap.size === 0) {
       console.error(`source map is empty - ${sourceMap}`)
       return []
@@ -64,6 +66,8 @@ function Typer({ typerSettings }) {
   }
 
   const checkMoraRomajiValidity = (givenRomaji, targetKana, sourceMap) => {
+    console.debug(`check romaji=${givenRomaji} in target=${targetKana}`)
+
     // possible longest string one morae combination can create when written in romaji
     if (givenRomaji.length > LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED)
       return false
@@ -108,11 +112,13 @@ function Typer({ typerSettings }) {
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
     if (typerMap === null) {
+      console.debug(`typerPool is null - loading`)
       setIsLoading(true)
       return prevValue
     }
 
     setIsLoading(false)
+    console.debug(`typerPool finished loading`)
 
     const moraWidth = getMoraeWidth('オ')
     const moraToFitOnScreen = Math.ceil(window.innerWidth / (moraWidth + moraeLetterSpacing))

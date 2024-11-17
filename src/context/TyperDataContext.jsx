@@ -4,12 +4,15 @@ import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 import { db, auth } from '../config/firebase'
 
 import { MORA_SCRIPTS, MORA_TYPES, WORDS_CATEGORIES, WORDS_TYPES } from '../utils/kana'
+import { useLocation } from 'react-router-dom'
 
 const TyperDataContext = createContext()
 
 export const useTyperData = () => useContext(TyperDataContext)
 
 export default function TyperDataProvider({ children }) {
+  const { pathname } = useLocation()
+
   const [typerFilters, setTyperFilters] = useState({
     mora: {
       use: false,
@@ -203,73 +206,73 @@ export default function TyperDataProvider({ children }) {
           translation: null,
           reading: null,
         })
-      }
 
-      if (hasSokuon && filters.sokuon === true) {
-        const sokuonRomaji = mora.sokuon + romaji
-        const sokuonSymbol = modifiers.sokuon[script] + symbol
-        const sokuonFurigana = {}
-
-        if (furigana?.romaji !== undefined)
-          sokuonFurigana.romaji = sokuonRomaji
-
-        if (furigana?.hiragana !== undefined)
-          sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
-
-        console.debug(`staging ${sokuonRomaji} mora map data item`)
-        items.push({
-          key: sokuonRomaji,
-          kana: sokuonSymbol,
-          furigana: pickFurigana(sokuonFurigana, progress?.[symbol]), // i: kka is treated as ka; tte as te; etc.
-          translation: null,
-          reading: null,
-        })
-      }
-
-      if (hasYoon && filters.yoon === true) {
-        const base = romaji.slice(0, -1)
-
-        yoons.forEach(yoon => {
-          const yoonRomaji = base + (mora.yoon === 'y' ? yoon : yoon.charAt(1))
-          const yoonSymbol = symbol + modifiers.yoon[script][yoon]
-          const yoonFurigana = {}
-
+        if (hasSokuon && filters.sokuon === true) {
+          const sokuonRomaji = mora.sokuon + romaji
+          const sokuonSymbol = modifiers.sokuon[script] + symbol
+          const sokuonFurigana = {}
+  
           if (furigana?.romaji !== undefined)
-            yoonFurigana.romaji = yoonRomaji
-
+            sokuonFurigana.romaji = sokuonRomaji
+  
           if (furigana?.hiragana !== undefined)
-            yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
-
-          console.debug(`staging ${yoonRomaji} mora map data item`)
+            sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
+  
+          console.debug(`staging ${sokuonRomaji} mora map data item`)
           items.push({
-            key: yoonRomaji,
-            kana: yoonSymbol,
-            furigana: pickFurigana(yoonFurigana, progress?.[symbol]), // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
+            key: sokuonRomaji,
+            kana: sokuonSymbol,
+            furigana: pickFurigana(sokuonFurigana, progress?.[symbol]), // i: kka is treated as ka; tte as te; etc.
             translation: null,
             reading: null,
           })
-
-          if (hasSokuon && filters.sokuon === true) {
-            const bothRomaji = mora.sokuon + yoonRomaji
-            const bothSymbol = modifiers.sokuon[script] + yoonSymbol
-            const bothFurigana = {}
-
+        }
+  
+        if (hasYoon && filters.yoon === true) {
+          const base = romaji.slice(0, -1)
+  
+          yoons.forEach(yoon => {
+            const yoonRomaji = base + (mora.yoon === 'y' ? yoon : yoon.charAt(1))
+            const yoonSymbol = symbol + modifiers.yoon[script][yoon]
+            const yoonFurigana = {}
+  
             if (furigana?.romaji !== undefined)
-              bothFurigana.romaji = bothRomaji
-    
+              yoonFurigana.romaji = yoonRomaji
+  
             if (furigana?.hiragana !== undefined)
-              bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
-
-            console.debug(`staging ${bothRomaji} mora map data item`)
+              yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
+  
+            console.debug(`staging ${yoonRomaji} mora map data item`)
             items.push({
-              key: bothRomaji,
-              kana: bothSymbol,
-              furigana: pickFurigana(bothFurigana, progress?.[symbol]), // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
+              key: yoonRomaji,
+              kana: yoonSymbol,
+              furigana: pickFurigana(yoonFurigana, progress?.[symbol]), // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
               translation: null,
               reading: null,
             })
-          }
-        })
+  
+            if (hasSokuon && filters.sokuon === true) {
+              const bothRomaji = mora.sokuon + yoonRomaji
+              const bothSymbol = modifiers.sokuon[script] + yoonSymbol
+              const bothFurigana = {}
+  
+              if (furigana?.romaji !== undefined)
+                bothFurigana.romaji = bothRomaji
+      
+              if (furigana?.hiragana !== undefined)
+                bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
+  
+              console.debug(`staging ${bothRomaji} mora map data item`)
+              items.push({
+                key: bothRomaji,
+                kana: bothSymbol,
+                furigana: pickFurigana(bothFurigana, progress?.[symbol]), // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
+                translation: null,
+                reading: null,
+              })
+            }
+          })
+        }
       }
 
       items.forEach(({ key, ...data }) => { // TODO: not too optimal :/
@@ -487,8 +490,14 @@ export default function TyperDataProvider({ children }) {
     setTyperFilters: setFilters,
     setTyperFiltersProp: setFiltersProp,
     typerMap: typerPool,
-    updateTyperMap: updateTyperData // TODO: check if this can be rewritten to use prevValue from SetState as the object to be based off of rather than typerData directly
+    updateTyperMap: updateTyperData, // TODO: check if this can be rewritten to use prevValue from SetState as the object to be based off of rather than typerData directly
+    resetTyperMap: () => setTyperPool(null)
   }
+
+  useEffect(() => {
+    if (pathname.includes('/typer') && typerPool !== null)
+      setTyperPool(null)
+  }, [pathname])
 
   return (
     <TyperDataContext.Provider value={value}>

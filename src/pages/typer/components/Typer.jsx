@@ -18,7 +18,7 @@ import { createSeededLCGRand } from '../../../utils/rand'
 
 const DEFAULT_TIME = 12
 
-function Typer({ typerSettings }) {
+function Typer({ typerSettings, toggleFiltersClickability }) {
   const moraeLetterSpacing = getLetterSpacing(
     document.querySelector('.morae__symbol') || document.body
   )
@@ -179,11 +179,16 @@ function Typer({ typerSettings }) {
   }, [])
 
   useEffect(() => {
-    if (isLoading)
-      return
-
-    startPreCountdown()
+    if (!isLoading) {
+      toggleFiltersClickability(false)
+      startPreCountdown()
+    }
   }, [isLoading])
+
+  useEffect(() => {
+    if (isFinished)
+      toggleFiltersClickability(true)
+  }, [isFinished])
 
   return (
     <div className='typer-wrapper'>

@@ -13,6 +13,7 @@ function TyperPage() {
 
   const [showTyper, setShowTyper] = useState(false)
   const [settingSelected, setSettingSelected] = useState(false)
+  const [filtersActive, setFiltersActive] = useState(true)
 
   const sel = (filterName) => {
     if (settingSelected === false)
@@ -20,11 +21,20 @@ function TyperPage() {
     setTyperFilters(filterName)
   }
 
+  const toggleFiltersClickability = (state) => setFiltersActive(state)
+
+  const FilterButton = ({ label, group }) => (
+    <button onClick={() => sel(group)} disabled={!filtersActive}>{label}</button>
+  )
+
   let content = null
 
   if (showTyper) {
     content = (
-      <Typer typerSettings={typerFilters.typer} />
+      <Typer 
+        typerSettings={typerFilters.typer} 
+        toggleFiltersClickability={toggleFiltersClickability}
+      />
     )
   } else if (settingSelected) {
     content = (
@@ -46,15 +56,15 @@ function TyperPage() {
     <>
       <nav>
         <ul>
-          <li><button onClick={() => sel(filterNames.hiragana)}>Hiragana</button></li>
-          <li><button onClick={() => sel(filterNames.katakana)}>Katakana</button></li>
+          <li><FilterButton label='Hiragana' group={filterNames.hiragana} /></li>
+          <li><FilterButton label='Katakana' group={filterNames.katakana} /></li>
           <li><hr /></li>
-          <li><button onClick={() => sel(filterNames.clothes)}>Clothes</button></li>
-          <li><button onClick={() => sel(filterNames.numbers)}>Numbers</button></li>
+          <li><FilterButton label='Clothes' group={filterNames.clothes} /></li>
+          <li><FilterButton label='Numbers' group={filterNames.numbers} /></li>
           <li><hr /></li>
-          <li><button onClick={() => sel(filterNames.allKana)}>All kana</button></li>
-          <li><button onClick={() => sel(filterNames.allWords)}>All words</button></li>
-          <li><button onClick={() => sel(filterNames.all)}>Everything</button></li>
+          <li><FilterButton label='All kana' group={filterNames.allKana} /></li>
+          <li><FilterButton label='All words' group={filterNames.allWords} /></li>
+          <li><FilterButton label='Everything' group={filterNames.all} /></li>
         </ul>
       </nav>
       {content}

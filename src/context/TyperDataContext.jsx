@@ -1,10 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 
 import { db, auth } from '../config/firebase'
-
 import { MORA_SCRIPTS, MORA_TYPES, WORDS_CATEGORIES, WORDS_TYPES } from '../utils/kana'
-import { useLocation } from 'react-router-dom'
 
 const TyperDataContext = createContext()
 
@@ -13,9 +12,9 @@ export const useTyperData = () => useContext(TyperDataContext)
 export default function TyperDataProvider({ children }) {
   const { pathname } = useLocation()
 
-  const [typerFilters, setTyperFilters] = useState({
+  const [typerFilters, setTyperFilters] = useState({ // stotes user-defined filters for typer game
     mora: {
-      use: false,
+      use: false, // if set of symbols should be generated
       scripts: [], // MORA_SCRIPTS, non-empty
       types: [], // MORA_TYPES, non-empty
       extended: true, // only for katakana, e.g. che, ti, tsa
@@ -23,7 +22,7 @@ export default function TyperDataProvider({ children }) {
       yoon: true, // e.g. kya, ju, hhyo
     },
     words: {
-      use: false,
+      use: false, // if set of symbols should be generated
       categories: [], // WORDS_CATEGORIES, non-empty
       types: [], // WORDS_TYPES, non-empty
     },
@@ -34,7 +33,7 @@ export default function TyperDataProvider({ children }) {
     },
   })
 
-  const [typerData, setTyperData] = useState({
+  const [typerData, setTyperData] = useState({ // stores raw data from database, generated maps of symbols for typer game, mora modifiers (e.g. xya) and user's current progress
     mora: {
       raw: [], // raw data of every hiragana and katakana mora (no kya, chu, etc.)
       map: new Map([]), // only mora and morae for typer pool (might have kya, chu, etc.)
@@ -56,9 +55,12 @@ export default function TyperDataProvider({ children }) {
     progress: {}
   })
 
-  // i: holds words and mora maps in one place, typerData state is used as readonly-from-outside reference
-  const [typerPool, setTyperPool] = useState(null)
+  const [typerPool, setTyperPool] = useState(null) // holds words and mora maps in one place, typerData state is used as readonly-from-outside reference
 
+  /**
+   * Loads user typer progress from database.
+   * @returns {{ [key: string]: number }} object with user-known symbols as keys and their respective progress as values.
+   */
   const loadProgressDataFromDb = async () => {
     console.debug(`loading user progress data from db`)
     // TODO: use this code after testing
@@ -70,6 +72,15 @@ export default function TyperDataProvider({ children }) {
     return data
   }
 
+  /**
+   * Loads a specified collection from database only if data, relating to filter with which it is queried from db, is not already stored in source.
+   * @param {{ use: boolean, scripts?: string[], categories?: string[] }} filters - typerFilter subobject, either typerFilter.mora or typerFilter.words
+   * @param {'scripts' | 'categories'} group - specific group key's name (not value) that needs to be checked against from filters object, where filters object needs to have it as key
+   * @param {Array<{ script?: string, category?: string }>} source - readonly reference to an object that will store result of this function to check for duplicates
+   * @param {'mora' | 'words'} collectionName - name of the collection in database
+   * @param {'script' | 'category'} propertyName - specific group key's name (not value) that items in db's collection need to have to be queried
+   * @returns {null | object[]} array of objects from databse, or null if no additional data was needed to be queried
+   */
   const loadFromDbByFilter = async (filters, group, source, collectionName, propertyName) => {
     console.debug(`loading ${collectionName} from db`)
     const sample = await import('../data/db-sample.json')
@@ -106,10 +117,24 @@ export default function TyperDataProvider({ children }) {
     return data
   }
 
+  /**
+   * Filters old data based off of identifiably unique values of given key, to check for duplicates and return only new objects based off of that identifiable unique value of specified key.
+   * Will take a long time depending on the size of the data. In worse case scenario O(n^2).
+   * @param {object[]} newData - new data with possible duplicates
+   * @param {object[]} oldData - old data to check against for duplicates
+   * @param {string} key - object's property in both data sets to check against its value
+   * @returns {object[]} filtered new data array that contains either only unique objects or is an empty array.
+   */
   const getUniqueRawData = (newData, oldData, key) => (
     newData.filter(newObj => !oldData.some(oldObj => oldObj?.[key] === newObj?.[key]))
   )
 
+  /**
+   * Generates still missing mora modifiers based off of given source object.
+   * @param {object[]} source - array of objects that might store object that are required to create other, modified mora symbols (e.g. ya)
+   * @param {{ sokuon: { hiragana: string | null, katakana: string | null }, yoon: { hiragana: { ya: string | null, yu: string | null, yo: string | null }, katakana: { ya: string | null, yu: string | null, yo: string | null } } }} prevModifiers - object of mora modifiers
+   * @returns {{ sokuon: { hiragana: string | null, katakana: string | null }, yoon: { hiragana: { ya: string | null, yu: string | null, yo: string | null }, katakana: { ya: string | null, yu: string | null, yo: string | null } } }} object with mora modifiers set to a string value if any missing (null) modifiers were found and their respective data source found in source object.
+   */
   const generateModifiers = (source, prevModifiers) => {
     console.debug(`loading modifiers from source`)
     const getSmallSymbol = (source, script, target) => source
@@ -162,6 +187,12 @@ export default function TyperDataProvider({ children }) {
     return data
   }
 
+  /**
+   * Based off of hard-coded ranges, returns either romaji furigana, hiragana furigana or no furigana based off of user progress data.
+   * @param {{ hiragana: string | null, reading: string | null }} furigana - object with additional reading information
+   * @param {{ [key: string]: number }} progress - user's progress object on symbol whose currently passed furigana is part of
+   * @returns {string} proper furigana in text format or an empty string in case of an unexpected behavior.
+   */
   const pickFurigana = (furigana, progress) => {
     const hasHiragana = furigana?.hiragana !== undefined
     const quantityOffset = hasHiragana ? 0 : 5
@@ -177,6 +208,16 @@ export default function TyperDataProvider({ children }) {
     return ''
   }
 
+  /**
+   * Generates a map of parsed mora objects based off of given filters, modifiers and user's progress.
+   * It consists of every possible mora combination supported by the spoken language, given filters and modifiers.
+   * This map will be used to generate a pool of randomly chosen symbols.
+   * @param {object[]} source - source object that has all unmodified symbols straight from the database
+   * @param {object} modifiers - object with mora modifiers
+   * @param {{ [key: string]: number }} progress - user's progress object for every symbol // TODO: inefficient, filter user's progress beforehand?
+   * @param {object[]} filters - user-selected filters to generate only those symbols that were specified by the user - if accepted symbols are not included in source object and therefore cannot be generated, there is likely a bug somewhere else before this function call
+   * @returns {Map<string, Array<{ key: string, kana: string, furigana: string, translation: string | null, reading: string | null }>>} a map of all possible combinations with only the data necessary to generate a randomly chosen typer pool and proper UX
+   */
   const generateMoraMap = (source, modifiers, progress, filters) => {
     const yoons = ['ya', 'yu', 'yo']
     const map = new Map([])
@@ -289,6 +330,15 @@ export default function TyperDataProvider({ children }) {
     return map
   }
 
+  /**
+  * Generates a map of parsed words objects based off of given filters and user's progress.
+   * It consists of every word that consists in the database after being filtered by user's picks and user's progress.
+   * This map will be used to generate a pool of randomly chosen symbols.
+   * @param {object[]} source - source object that has all unmodified words straight from the database
+   * @param {{ [key: string]: number }} progress - user's progress object for every word // TODO: inefficient, filter user's progress beforehand?
+   * @param {object[]} filters - user-selected filters to generate only those words that were specified by the user - if accepted words are not included in source object and therefore cannot be generated, there is likely a bug somewhere else before this function call
+   * @returns {Map<string, Array<{ key: string, kana: string, furigana: string, translation: string | null, reading: string | null }>>} a map of all possible combinations with only the data necessary to generate a randomly chosen typer pool and proper UX
+   */
   const generateWordsMap = (source, progress, filters) => {
     const map = new Map([])
 
@@ -329,6 +379,11 @@ export default function TyperDataProvider({ children }) {
     return map
   }
 
+  /**
+   * Updates the whole typerData object based off of typerFilters.
+   * It fetched data from database, fills specific objects with data, generated map objects for mora and words and fills typerPool with only required objects.
+   * Updates typerData and typerPool.
+   */
   const updateTyperData = async () => {
     console.debug('updating typer context data')
 
@@ -403,6 +458,12 @@ export default function TyperDataProvider({ children }) {
     })
   }
 
+  /**
+   * Helper function to set a specific hard-coded set of filters for specific categories.
+   * It is done to make the UX simpler and faster for the user, rather than having to select everything one by one.
+   * Updates typerFilters with new mora and word filters if any changes were found.
+   * @param {string} mode - name of a selected set of filters, it consists of specific mora scripts, specific word categories, allKana, allWords and all (all kana and all words)
+   */
   const setFilters = (mode) => {
     const scriptValues = Object.values(MORA_SCRIPTS)
     const categoryValues = Object.values(WORDS_CATEGORIES)
@@ -444,7 +505,12 @@ export default function TyperDataProvider({ children }) {
 
   /**
    * Sets specific prop in specified set (mora | words | typer) with given value.
-   * If `checked` param is not undefined, prop is treated as an array that cannot be empty.
+   * If param checked is not undefined, prop is treated as an array that cannot be empty.
+   * Updates typerFilters
+   * @param {'mora' | 'words' | 'typer'} set - specific grouping/set of typerFilters
+   * @param {string} prop - name of property in specified set to update its value to something else
+   * @param {any} value - new value of specified property
+   * @param {boolean} checked - flag for toggle-able elements (input:checkbox) so that there is always at least one element checked for the checkbox grouping
    */
   const setFiltersProp = (set, prop, value, checked) => {
     if (!Object.keys(typerFilters).includes(set)) {
@@ -482,22 +548,22 @@ export default function TyperDataProvider({ children }) {
   }
 
   const value = {
-    filterNames: {
+    filterNames: { // sets of filters to display for user to choose from in a side navigation
       ...MORA_SCRIPTS,
       ...WORDS_CATEGORIES,
       allKana: 'allKana',
       allWords: 'allWords',
       all: 'all'
     },
-    typerFilters: typerFilters,
-    setTyperFilters: setFilters,
-    setTyperFiltersProp: setFiltersProp,
-    typerMap: typerPool,
+    typerFilters: typerFilters, // object with typer filters
+    setTyperFilters: setFilters, // function to set typer filters to a specific pre-defined set
+    setTyperFiltersProp: setFiltersProp, // function to set a property of filter object
+    typerMap: typerPool, // Map object of all the symbols (kana or words) to pick from for typer game
     updateTyperMap: updateTyperData, // TODO: check if this can be rewritten to use prevValue from SetState as the object to be based off of rather than typerData directly
-    resetTyperMap: () => setTyperPool(null)
+    resetTyperMap: () => setTyperPool(null) // hard fix to reset typer pool to null when the game is done, so that a new game can start loading after checking that pool is null
   }
 
-  useEffect(() => {
+  useEffect(() => { // fix to set typer pool to null when we enter/refresh the /typer page and the pool is not null, since by then the user clearly wants to play anew
     if (pathname.includes('/typer') && typerPool !== null)
       setTyperPool(null)
   }, [pathname])

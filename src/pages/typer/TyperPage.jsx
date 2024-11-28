@@ -11,9 +11,9 @@ import './css/TyperPage.css'
 function TyperPage() {
   const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp, typerMap, resetTyperMap } = useTyperData()
 
-  const [showTyper, setShowTyper] = useState(false)
-  const [settingSelected, setSettingSelected] = useState(false)
-  const [filtersActive, setFiltersActive] = useState(true)
+  const [showTyper, setShowTyper] = useState(false)             // false - filtering phase; true - gaming phase
+  const [settingSelected, setSettingSelected] = useState(false) // false - show screen to let user know to pick a set of filtering options; true - user is modifying their typer experience
+  const [filtersActive, setFiltersActive] = useState(true)      // false - set filters to being inactive / unable to be clicked; true - filter buttons are clickable
 
   const sel = (filterName) => {
     if (settingSelected === false)
@@ -35,6 +35,7 @@ function TyperPage() {
   let content = null
 
   if (showTyper) {
+    // typer game screen
     content = (
       <Typer 
         typerSettings={typerFilters.typer} 
@@ -42,6 +43,7 @@ function TyperPage() {
       />
     )
   } else if (settingSelected) {
+    // typer settings and filters screen
     content = (
       <>
         <TyperSettings 
@@ -52,6 +54,7 @@ function TyperPage() {
       </>
     )
   } else {
+    // pre-game and pre-settings screen, AKA welcome screen
     content = (
       <div>Select modes from the side nav</div>
     )

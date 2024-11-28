@@ -11,14 +11,16 @@ import ProgressBar from './ProgressBar'
 import Kana from './Kana'
 
 import { getLetterSpacing, getTextWidth } from '../../../utils/text'
-import { checkRomajiValidity, getRandomMora, LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED } from '../../../utils/kana'
+import { LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED } from '../../../utils/kana'
+import { createSeededLCGRand } from '../../../utils/rand'
 
 import '../css/Typer.css'
-import { createSeededLCGRand } from '../../../utils/rand'
 
 const DEFAULT_TIME = 12
 
 function Typer({ typerSettings, toggleFiltersClickability }) {
+  // JSDOM-specific functions that need to be regenerated every time, sadly
+  // TODO: find a fix for this - regenerating function definitions every time is unoptimized
   const moraeLetterSpacing = getLetterSpacing(
     document.querySelector('.morae__symbol') || document.body
   )
@@ -28,6 +30,16 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     moraeLetterSpacing,
   )
 
+  /**
+   * Picks a random object from the given map.
+   * TODO: function might sometimes not be able to pick any item if we are unlucky enoug, I think...
+   * @param {number} amount - how many kana to generate
+   * @param {Map<string, Array<{ kana: string }>>} sourceMap - source of random picking
+   * @param countingSpecificity - what type of kana counting should be used: 'mora' - counts every single mora in kana string, so that amount is roughly equal to total count of mora in picks; 'morae' - counts every pick to be decremented by 1 from amount
+   * @param seed - seed for LCG pseudo-random number generator
+   * @param maxNumOfMisses - maximum number of possible misses, after which random-picker loop stops executing
+   * @returns {object[]} array of randomly picked objects.
+   */
   const getRandomTyperItem = (amount, sourceMap, { countingSpecificity = 'mora', seed = '12345', maxNumOfMisses = 5 } = {}) => {
     console.debug(`generate ${amount} random kana`)
 
@@ -66,6 +78,13 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     return chosen
   }
 
+  /**
+   * Checks validity of given romaji against source map based on the actual kana (hiragana, katakana or kanji).
+   * @param {string} givenRomaji - romaji to check for validity
+   * @param {string} targetKana - actual hiragana, katakana or kanji to check against
+   * @param {Map<string, Array<{ kana: string }>>} sourceMap - a map of all possible combinations in current typer game
+   * @returns {boolean} true if romaji is valid with kana, false if it is not valid or undefined if it could not yet be specified, because of, for example, not yet valid romaji sequence
+   */
   const checkMoraRomajiValidity = (givenRomaji, targetKana, sourceMap) => {
     console.debug(`check romaji=${givenRomaji} in target=${targetKana}`)
 

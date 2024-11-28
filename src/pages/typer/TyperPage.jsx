@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { useTyperData } from '../../context/TyperDataContext'
 
+import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
 
 import './css/TyperPage.css'
-import Typer from './components/Typer'
 
 
 function TyperPage() {
@@ -18,7 +18,9 @@ function TyperPage() {
   const sel = (filterName) => {
     if (settingSelected === false)
       setSettingSelected(true)
+    
     setTyperFilters(filterName)
+    setShowTyper(false)
   }
 
   const toggleFiltersClickability = (state) => setFiltersActive(state)

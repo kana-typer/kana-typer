@@ -9,7 +9,7 @@ import './css/TyperPage.css'
 
 
 function TyperPage() {
-  const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp } = useTyperData()
+  const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp, typerMap, resetTyperMap } = useTyperData()
 
   const [showTyper, setShowTyper] = useState(false)
   const [settingSelected, setSettingSelected] = useState(false)
@@ -18,7 +18,10 @@ function TyperPage() {
   const sel = (filterName) => {
     if (settingSelected === false)
       setSettingSelected(true)
-    
+
+    if (typerMap !== null)
+      resetTyperMap()
+
     setTyperFilters(filterName)
     setShowTyper(false)
   }

@@ -365,11 +365,12 @@ export default function TyperDataProvider({ children }) {
       } else {
         console.debug(`no new mora modifiers added`)
       }
-
-      // Create new mora map
-      data.mora.map = generateMoraMap(data.mora.raw, data.modifiers, data.progress, typerFilters.mora)
-      console.debug(`generated new mora map of size ${data.mora.map.size}`)
     }
+
+    // Create new mora map
+    // TODO: needs to be done so that we generate only what we need from filters - once generated, we cannot filter it, which is bad - needs to change
+    data.mora.map = generateMoraMap(data.mora.raw, data.modifiers, data.progress, typerFilters.mora)
+    console.debug(`generated new mora map of size ${data.mora.map.size}`)
 
     // Get words only if specified by filters
     const newRawWords = await loadFromDbByFilter(
@@ -384,13 +385,15 @@ export default function TyperDataProvider({ children }) {
       const uniqueWords = getUniqueRawData(newRawWords, data.words.raw, 'kana')
       data.words.raw.push(...uniqueWords)
       console.debug(`added ${uniqueWords?.length || 0} new raw mora items`)
-
-      data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
-      console.debug(`generated new words map of size ${data.words.map.size}`)
     }
 
+    // Create new words map
+    // TODO: same as with creating new more map
+    data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
+      console.debug(`generated new words map of size ${data.words.map.size}`)
+
     setTyperData(() => {
-      console.debug(`staging state change for typer data`)
+      console.debug(`staging state change for typer data`, data)
       return data
     })
 

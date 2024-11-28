@@ -146,6 +146,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   })
 
   const updateUserInput = (e) => {
+    console.debug(`update user input`)
     // TODO: set userInput as what they typed and then give them at least 100ms before checking the kana, so that they can glimpse at what they typed into the field
 
     if (isLoading || isFinished || !isStarted)
@@ -221,7 +222,6 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
       <div className={`pre-countdown ${isStarted ? 'hidden' : ''}`}>
         {isLoading ? 'Loading' : preCountdown + 1}
       </div>
-      {/* <button onClick={startCountdown}>Start</button> */}
       {blocker.state === 'blocked' ? (
         <div>
           <p>Are you sure you want to leave?</p>

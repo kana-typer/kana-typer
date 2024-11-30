@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 
-import { db, auth } from '../config/firebase'
 import { MORA_SCRIPTS, MORA_TYPES, WORDS_CATEGORIES, WORDS_TYPES } from '../utils/kana'
+import { getDocuments, getUserField, updateUserMapField } from '../utils/db'
 
 const TyperDataContext = createContext()
 
@@ -59,17 +58,12 @@ export default function TyperDataProvider({ children }) {
 
   /**
    * Loads user typer progress from database.
-   * @returns {{ [key: string]: number }} object with user-known symbols as keys and their respective progress as values.
+   * @returns object with user-known symbols as keys and their respective progress as values.
    */
   const loadProgressDataFromDb = async () => {
     console.debug(`loading user progress data from db`)
-    // TODO: use this code after testing
-    // const ref = doc(db, 'users', auth.currentUser.uid)
-    // const q = query(ref, select('progress'))
-    // const doc = await getDoc(q)
-    // const data = doc.data().progress
-    const data = { 'あ': 5 }
-    return data
+    // // const sampleData = { 'あ': 5 }
+    return await getUserField('progress') || {}
   }
 
   /**
@@ -79,11 +73,11 @@ export default function TyperDataProvider({ children }) {
    * @param {Array<{ script?: string, category?: string }>} source - readonly reference to an object that will store result of this function to check for duplicates
    * @param {'mora' | 'words'} collectionName - name of the collection in database
    * @param {'script' | 'category'} propertyName - specific group key's name (not value) that items in db's collection need to have to be queried
-   * @returns {null | object[]} array of objects from databse, or null if no additional data was needed to be queried
+   * @returns array of objects from databse, or null if no additional data was needed to be queried
    */
   const loadFromDbByFilter = async (filters, group, source, collectionName, propertyName) => {
-    console.debug(`loading ${collectionName} from db`)
-    const sample = await import('../data/db-sample.json')
+    // console.debug(`loading ${collectionName} from db`)
+    // // const sample = await import('../data/db-sample.json')
 
     let data = null
 
@@ -101,12 +95,9 @@ export default function TyperDataProvider({ children }) {
 
       // If specific groups already occur in source, connection to db will be skipped
       if (occurences.length < 1 || occurences.some(x => x === false)) {
-        // TODO: use this code after testing
-        // const ref = collection(db, collectionName)
-        // const q = query(ref, where(group, 'in', uniqueGroups))
-        // const docs = await getDocs(q)
-        // data = docs.map(doc => doc.data())
-        data = sample?.[collectionName]?.filter(obj => uniqueGroups.includes(obj?.[propertyName])) || null
+        // // data = sample?.[collectionName]?.filter(obj => uniqueGroups.includes(obj?.[propertyName])) || null
+        console.warn(group, uniqueGroups)
+        data = await getDocuments(collectionName, [[propertyName, 'in', uniqueGroups]])
       } else {
         console.debug(`loading ${collectionName} aborted - raw data of ${group} already exists in context`)
       }
@@ -136,7 +127,7 @@ export default function TyperDataProvider({ children }) {
    * @returns {{ sokuon: { hiragana: string | null, katakana: string | null }, yoon: { hiragana: { ya: string | null, yu: string | null, yo: string | null }, katakana: { ya: string | null, yu: string | null, yo: string | null } } }} object with mora modifiers set to a string value if any missing (null) modifiers were found and their respective data source found in source object.
    */
   const generateModifiers = (source, prevModifiers) => {
-    console.debug(`loading modifiers from source`)
+    // console.debug(`loading modifiers from source`)
     const getSmallSymbol = (source, script, target) => source
       .filter(obj => obj.script === script)
       .find(obj => obj.furigana.romaji == target)
@@ -146,42 +137,42 @@ export default function TyperDataProvider({ children }) {
 
     if (data.sokuon.hiragana === null) {
       data.sokuon.hiragana = getSmallSymbol(source, 'hiragana', 'tsu')
-      console.debug(`added hiragana tsu modifier`)
+      // console.debug(`added hiragana tsu modifier`)
     }
 
     if (data.sokuon.katakana === null) {
       data.sokuon.katakana = getSmallSymbol(source, 'katakana', 'tsu')
-      console.debug(`added katakana tsu modifier`)
+      // console.debug(`added katakana tsu modifier`)
     }
 
     if (data.yoon.hiragana.ya === null) {
       data.yoon.hiragana.ya = getSmallSymbol(source, 'hiragana', 'ya')
-      console.debug(`added hiragana ya modifier`)
+      // console.debug(`added hiragana ya modifier`)
     }
 
     if (data.yoon.hiragana.yu === null) {
       data.yoon.hiragana.yu = getSmallSymbol(source, 'hiragana', 'yu')
-      console.debug(`added hiragana yu modifier`)
+      // console.debug(`added hiragana yu modifier`)
     }
 
     if (data.yoon.hiragana.yo === null) {
       data.yoon.hiragana.yo = getSmallSymbol(source, 'hiragana', 'yo')
-      console.debug(`added hiragana yo modifier`)
+      // console.debug(`added hiragana yo modifier`)
     }
 
     if (data.yoon.katakana.ya === null) {
       data.yoon.katakana.ya = getSmallSymbol(source, 'katakana', 'ya')
-      console.debug(`added katakana ya modifier`)
+      // console.debug(`added katakana ya modifier`)
     }
 
     if (data.yoon.katakana.yu === null) {
       data.yoon.katakana.yu = getSmallSymbol(source, 'katakana', 'yu')
-      console.debug(`added katakana yu modifier`)
+      // console.debug(`added katakana yu modifier`)
     }
 
     if (data.yoon.katakana.yo === null) {
       data.yoon.katakana.yo = getSmallSymbol(source, 'katakana', 'yo')
-      console.debug(`added katakana yo modifier`)
+      // console.debug(`added katakana yo modifier`)
     }
 
     return data
@@ -223,7 +214,7 @@ export default function TyperDataProvider({ children }) {
     const map = new Map([])
 
     source.forEach(({ symbol, ...mora }) => {
-      console.debug(`generating mora map data for ${symbol}`)
+      // console.debug(`generating mora map data for ${symbol}`)
 
       const hasSokuon = mora?.sokuon !== undefined && mora.sokuon !== null
       const hasYoon = mora?.yoon !== undefined && mora.yoon !== null
@@ -239,7 +230,7 @@ export default function TyperDataProvider({ children }) {
         skip = true
 
       if (!skip) {
-        console.debug(`staging ${romaji} mora map data item`)
+        // console.debug(`staging ${romaji} mora map data item`)
         items.push({
           key: romaji,
           kana: symbol,
@@ -259,7 +250,7 @@ export default function TyperDataProvider({ children }) {
           if (furigana?.hiragana !== undefined)
             sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
   
-          console.debug(`staging ${sokuonRomaji} mora map data item`)
+          // console.debug(`staging ${sokuonRomaji} mora map data item`)
           items.push({
             key: sokuonRomaji,
             kana: sokuonSymbol,
@@ -283,7 +274,7 @@ export default function TyperDataProvider({ children }) {
             if (furigana?.hiragana !== undefined)
               yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
   
-            console.debug(`staging ${yoonRomaji} mora map data item`)
+            // console.debug(`staging ${yoonRomaji} mora map data item`)
             items.push({
               key: yoonRomaji,
               kana: yoonSymbol,
@@ -303,7 +294,7 @@ export default function TyperDataProvider({ children }) {
               if (furigana?.hiragana !== undefined)
                 bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
   
-              console.debug(`staging ${bothRomaji} mora map data item`)
+              // console.debug(`staging ${bothRomaji} mora map data item`)
               items.push({
                 key: bothRomaji,
                 kana: bothSymbol,
@@ -319,10 +310,10 @@ export default function TyperDataProvider({ children }) {
       items.forEach(({ key, ...data }) => { // TODO: not too optimal :/
         if (map.has(key)) {
           map.set(key, [...map.get(key), data])
-          console.debug(`appending more data to ${key} mora map item (${data.kana})`)
+          // console.debug(`appending more data to ${key} mora map item (${data.kana})`)
         } else {
           map.set(key, [data])
-          console.debug(`adding ${key} mora map data item (${data.kana})`)
+          // console.debug(`adding ${key} mora map data item (${data.kana})`)
         }
       })
     })
@@ -343,7 +334,7 @@ export default function TyperDataProvider({ children }) {
     const map = new Map([])
 
     source.forEach(({ kana, ...word }) => {
-      console.debug(`generating words map data for ${kana}`)
+      // console.debug(`generating words map data for ${kana}`)
 
       const romaji = word?.furigana?.romaji || ''
       const furigana = word?.furigana
@@ -355,7 +346,7 @@ export default function TyperDataProvider({ children }) {
         skip = true
 
       if (!skip) {
-        console.debug(`staging ${romaji} words map data item`)
+        // console.debug(`staging ${romaji} words map data item`)
         items.push({
           key: romaji,
           kana: kana,
@@ -368,10 +359,10 @@ export default function TyperDataProvider({ children }) {
       items.forEach(({ key, ...data }) => {
         if (map.has(key)) {
           map.set(key, [...map.get(key), data])
-          console.debug(`appending more data to ${key} words map item (${data.kana})`)
+          // console.debug(`appending more data to ${key} words map item (${data.kana})`)
         } else {
           map.set(key, [data])
-          console.debug(`adding ${key} words map data item (${data.kana})`)
+          // console.debug(`adding ${key} words map data item (${data.kana})`)
         }
       })
     })
@@ -385,7 +376,7 @@ export default function TyperDataProvider({ children }) {
    * Updates typerData and typerPool.
    */
   const updateTyperData = async () => {
-    console.debug('updating typer context data')
+    // console.debug('updating typer context data')
 
     const data = { ...typerData }
 
@@ -404,7 +395,7 @@ export default function TyperDataProvider({ children }) {
       // Append only new objects
       const uniqueMora = getUniqueRawData(newRawMora, data.mora.raw, 'symbol')
       data.mora.raw.push(...uniqueMora)
-      console.debug(`added ${uniqueMora?.length || 0} new raw mora items`)
+      // console.debug(`added ${uniqueMora?.length || 0} new raw mora items`)
 
       // Update modifiers if there is a need to
       const modifierValues = [
@@ -416,16 +407,16 @@ export default function TyperDataProvider({ children }) {
 
       if (modifiersMissing) {
         data.modifiers = generateModifiers(data.mora.raw, data.modifiers)
-        console.debug(`added missing mora modifiers`)
+        // console.debug(`added missing mora modifiers`)
       } else {
-        console.debug(`no new mora modifiers added`)
+        // console.debug(`no new mora modifiers added`)
       }
     }
 
     // Create new mora map
     // TODO: needs to be done so that we generate only what we need from filters - once generated, we cannot filter it, which is bad - needs to change
     data.mora.map = generateMoraMap(data.mora.raw, data.modifiers, data.progress, typerFilters.mora)
-    console.debug(`generated new mora map of size ${data.mora.map.size}`)
+    // console.debug(`generated new mora map of size ${data.mora.map.size}`)
 
     // Get words only if specified by filters
     const newRawWords = await loadFromDbByFilter(
@@ -439,23 +430,42 @@ export default function TyperDataProvider({ children }) {
       // Append only new objects
       const uniqueWords = getUniqueRawData(newRawWords, data.words.raw, 'kana')
       data.words.raw.push(...uniqueWords)
-      console.debug(`added ${uniqueWords?.length || 0} new raw mora items`)
+      // console.debug(`added ${uniqueWords?.length || 0} new raw mora items`)
     }
 
     // Create new words map
     // TODO: same as with creating new more map
     data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
-      console.debug(`generated new words map of size ${data.words.map.size}`)
+      // console.debug(`generated new words map of size ${data.words.map.size}`)
 
     setTyperData(() => {
-      console.debug(`staging state change for typer data`, data)
+      // console.debug(`staging state change for typer data`, data)
       return data
     })
 
     setTyperPool(() => {
-      console.debug(`staging state change for typer pool using generated data maps`)
+      // console.debug(`staging state change for typer pool using generated data maps`)
       return new Map([...data.mora.map, ...data.words.map])
     })
+  }
+
+  const updateUserProgress = async (correctHits, incorrectHits) => {
+    const addToMapOfOccurences = (map, x) => {
+      map.set(x, (map.get(x) || 0 ) + 1)
+      return map
+    }
+
+    const correct = Object.values(correctHits).reduce(addToMapOfOccurences, new Map())
+    const incorrect = Object.values(incorrectHits).reduce(addToMapOfOccurences, new Map())
+    const newProgress = { ...typerData.progress }
+    
+    for (const [kana, times] of correct)
+      newProgress[kana] = (newProgress[kana] || 0) + times
+    
+    for (const [kana, times] of incorrect)
+      newProgress[kana] = Math.abs((newProgress[kana] || 0) - times)
+
+    await updateUserMapField('progress', newProgress)
   }
 
   /**
@@ -498,7 +508,7 @@ export default function TyperDataProvider({ children }) {
           : prev.words.types,
         categories: wordsCategories,
       }
-      console.debug(`staging state change for typer filters with new mode ${mode}`)
+      // console.debug(`staging state change for typer filters with new mode ${mode}`)
       return { ...prev, mora: newMora, words: newWords }
     })
   }
@@ -535,7 +545,7 @@ export default function TyperDataProvider({ children }) {
             : oldValue.filter(item => item !== value)
       }
 
-      console.debug(`staging state chage for typer filters with new filter ${prop}=${value} in ${set}`)
+      // console.debug(`staging state chage for typer filters with new filter ${prop}=${value} in ${set}`)
 
       return {
         ...prev,
@@ -560,6 +570,7 @@ export default function TyperDataProvider({ children }) {
     setTyperFiltersProp: setFiltersProp, // function to set a property of filter object
     typerMap: typerPool, // Map object of all the symbols (kana or words) to pick from for typer game
     updateTyperMap: updateTyperData, // TODO: check if this can be rewritten to use prevValue from SetState as the object to be based off of rather than typerData directly
+    updateUserProgress: updateUserProgress,
     resetTyperMap: () => setTyperPool(null) // hard fix to reset typer pool to null when the game is done, so that a new game can start loading after checking that pool is null
   }
 

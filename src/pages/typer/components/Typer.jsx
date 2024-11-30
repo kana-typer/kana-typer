@@ -109,7 +109,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     return undefined
   }
 
-  const { typerMap, updateTyperMap } = useTyperData()
+  const { typerMap, updateTyperMap, updateUserProgress } = useTyperData()
 
   const [isLoading, setIsLoading] = useState(true) // kana is loading
   const [isStarted, setIsStarted] = useState(false) // typing started
@@ -206,8 +206,10 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   }, [isLoading])
 
   useEffect(() => {
-    if (isFinished)
+    if (isFinished) {
       toggleFiltersClickability(true)
+      updateUserProgress(userCorrectHits, userIncorrectHits)
+    }
   }, [isFinished])
 
   return (

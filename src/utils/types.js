@@ -1,3 +1,11 @@
+/**
+ * Checks if both objects are equal by recursive depth search.
+ * Everything in those objects must be the same: keys, values and types of values.
+ * If an object is encountered, this function gets called recursively.
+ * @param {object} obj1 - first object
+ * @param {object} obj2 - second object
+ * @param {number} recursiveDepth - controls recursive depth //TODO: implement recursive bound check
+ */
 export const objectsEqual = (obj1, obj2, recursiveDepth = Number.MAX_SAFE_INTEGER) => {
   const keys1 = Object.keys(obj1).sort()
   const keys2 = Object.keys(obj2).sort()
@@ -25,4 +33,8 @@ export const objectsEqual = (obj1, obj2, recursiveDepth = Number.MAX_SAFE_INTEGE
   return true
 }
 
+/**
+ * Checks if given value array has null or undefined inside.
+ * @param {any[]} value - array of any values
+ */
 export const isNullOrUndefined = (value) => [null, undefined].includes(value)

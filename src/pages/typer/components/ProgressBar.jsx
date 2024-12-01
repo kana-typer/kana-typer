@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { getPercFromValue } from '../../../utils/math'
 

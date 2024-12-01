@@ -5,7 +5,7 @@ import { useTyperData } from '../../context/TyperDataContext'
 import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
 
-import './css/TyperPage.css'
+import '../css/TyperPage.css'
 
 
 function TyperPage() {

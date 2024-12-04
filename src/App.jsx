@@ -1,9 +1,10 @@
-import { Suspense, memo } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense, memo, useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import { isDev } from './utils/globals'
 
 import AuthProvider from './context/AuthContext'
+import TyperDataProvider from './context/TyperDataContext'
 
 import useLazyPlaceholder from './hooks/useLazyPlaceholder'
 
@@ -21,11 +22,13 @@ function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <AuthProvider>
-        <main>
+        <TyperDataProvider>
           <Nav />
-          <Outlet/>
-          {LazyPlaceholder && <LazyPlaceholder />}
-        </main>
+          <main>
+            <Outlet/>
+            {LazyPlaceholder && <LazyPlaceholder />}
+          </main>
+        </TyperDataProvider>
       </AuthProvider>
     </Suspense>
   )

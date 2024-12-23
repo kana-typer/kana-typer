@@ -1,0 +1,182 @@
+main {
+    display: flex;
+    flex-direction: column;
+  
+    align-items: center;
+  
+    margin-left: 4em;
+    margin-right: 4em;
+    width: auto;
+  }
+
+  section.user-page__box-top {
+    flex: 0;
+
+    width: 100%;
+
+    margin-top: 2em;
+    padding: 1em 2em;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1.user-page__header {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-bottom: 0;
+  
+    width: auto;
+    height: auto;
+  }
+
+  h3.user-page__description {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-top: 0;
+
+    font-weight: 400;
+    color: gray;
+  
+    width: 100%;
+    height: auto;
+  }
+
+  section.user-page__box-bottom {
+    flex: 0;
+
+    min-width: 50%;
+
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 3em 5em;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  i.fa-cog {
+    width: 100%;
+
+    padding: 1em;
+
+    text-align: right; 
+  }
+
+  div.user-page__profile-pic {
+    border-radius: 50%;
+
+    background-color: blueviolet;
+
+    width: 7em;
+    height: 7em;
+
+    margin: 2em;
+  }
+
+  ul.user-page__profile-fields {
+    width: 100%;
+
+    padding: 0;
+  }
+
+  .user-page__profile-fields li {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    grid-auto-rows: 1fr;
+    justify-content: space-evenly;
+
+    align-items: center;
+  }
+
+  h3.user-page__profile__name, h3.user-page__progress {
+    font-weight: bold;
+  }
+
+  h4.user-page__profile__content {
+    font-weight: 400;
+  }
+
+  a.fa-pen {
+    height: min-content;
+
+    text-align: right;  
+    text-decoration: none;
+
+    color: gray;  
+  }
+
+  h1.user-page__settings-text, h1.user-page__profile-text {
+    margin-top: 3em;
+
+    font-weight: bold;
+    text-align: center;
+
+    font-size: 1.5em;
+  }
+
+  section.user-page__settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: space-between;
+
+    width: 100%;
+  }
+
+  button.user-page__reset {
+    padding: .5em 1em;
+
+    margin-left: 0;
+
+    width: 100%;
+  
+    color: #f7f7f7;;
+    background-color: #606060;
+  
+    font-family: inherit;
+    font-size: 1em;
+    text-decoration: none;
+  
+    border-radius: 10px;
+    border: none;
+  }
+
+  button:hover.user-page__reset {
+    color: darkgray;
+    background-color: rgb(72, 72, 72);
+  }
+
+  button.user-page__delete {
+    padding: .5em 1em;
+
+    margin-left: 0;
+
+    width: 100%;
+  
+    color: #f7f7f7;;
+    background-color: #a60210;
+  
+    font-family: inherit;
+    font-size: 1em;
+    text-decoration: none;
+  
+    border-radius: 10px;
+    border: none;
+  }
+
+  button:hover.user-page__delete {
+    color: darkgray;
+    background-color: rgb(100, 0, 0);
+  }

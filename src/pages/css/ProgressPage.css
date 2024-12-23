@@ -69,11 +69,19 @@ button.progress-page__search-button {
 
   border-radius: 10px;
   border: none;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 button:hover.progress-page__search-button {
   color: darkgray;
   background-color: rgb(100, 0, 0);
+}
+
+i.fa-solid {
+  margin-right: .5em;
 }
 
 section.progress {
@@ -87,6 +95,7 @@ section.progress {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(2em, 10em));
   grid-auto-rows: 1fr;
+  justify-content: space-evenly;
 
   width: 100%;
   height: auto;

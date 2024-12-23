@@ -10,7 +10,9 @@ function ProgressPage() {
 
         <form className='progress-page__form' action='#'>
           <input className='progress-page__search-input' type='text' placeholder='Search' name='search'/>
-          <button className='progress-page__search-button'><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+          <button className='progress-page__search-button'>
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
         </form>
 
         <section className='progress'>

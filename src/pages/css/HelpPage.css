@@ -1,0 +1,138 @@
+main {
+    display: flex;
+    flex-direction: column;
+  
+    align-items: center;
+  
+    margin-left: 4em;
+    margin-right: 4em;
+    width: auto;
+  }
+
+  section.help-page__box-top {
+    flex: 0;
+
+    width: 100%;
+
+    margin-top: 2em;
+    padding: 1em 2em;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1.help-page__header {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-bottom: 0;
+  
+    width: auto;
+    height: auto;
+  }
+
+  h3.help-page__description {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-top: 0;
+
+    font-weight: 400;
+    color: gray;
+  
+    width: 100%;
+    height: auto;
+  }
+
+  section.help-page__box-bottom {
+    flex: 0;
+
+    min-width: 50%;
+    margin-left: 10%;
+    margin-right: 10%;
+
+    margin-top: 2em;
+    padding: 2em;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1.help-page__title {
+    margin-top: 0;
+
+    text-align: center;    
+  }
+  
+  form.help-page__form {
+    flex: 1;
+    width: 100%;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  input.help-page__fname {
+    flex: 1;
+  
+    padding: .5em 1em;
+  
+    color: black;
+    background-color: #f7f7f7;
+  
+    width: auto;
+  
+    font-family: inherit;
+    font-size: 1em;
+  
+    border-radius: 10px;
+    border: solid 1px #e5e5e5;
+  }
+
+  textarea.help-page__fmessage {
+    padding: .5em 1em;
+  
+    color: black;
+    background-color: #f7f7f7;
+  
+    width: auto;
+    height: 10em;
+
+    resize: none;
+  
+    font-family: inherit;
+    font-size: 1em;
+
+    align-content: center;
+  
+    border-radius: 10px;
+    border: solid 1px #e5e5e5;
+  }
+  
+  button.help-page__fsubmit {
+    flex: 1;
+
+    padding: .5em 1em;
+  
+    width:auto;
+  
+    color: #f7f7f7;;
+    background-color: #a60210;
+  
+    font-family: inherit;
+    font-size: 1em;
+  
+    border-radius: 10px;
+    border: none;
+  }
+  
+  button:hover.help-page__fsubmit {
+    color: darkgray;
+    background-color: rgb(100, 0, 0);
+  }

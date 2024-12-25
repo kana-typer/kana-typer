@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlocker } from 'react-router-dom'
 
 import { useTyperData } from '../../../context/TyperDataContext'
@@ -34,6 +34,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [isLoading, setIsLoading] = useState(true) // kana is loading
   const [isStarted, setIsStarted] = useState(false) // typing started
   const [isFinished, setIsFinished] = useState(false) // typing finished
+  const initTimer = useMemo(() => typerSettings?.time !== 0, [typerSettings.time]) // if time = 0, timer should not be running
 
   const [typerIndex, setTyperIndex] = useState(0) // specifies currently selected morae
   const [userInput, setUserInput] = useState('')
@@ -46,10 +47,13 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [countdown, startCountdown] = useCountdown( // timer for when user it typing
     typerSettings?.time ?? DEFAULT_TIME, 
     () => setIsStarted(true),
-    () => setTimeout(() => setIsFinished(true), 1000), // timeout to wait for ProgressBar animation to finish
+    initTimer 
+      ? () => setTimeout(() => setIsFinished(true), 1000) // timeout to wait for ProgressBar animation to finish
+      : undefined, // do not ever set isFinished state if timer should not be initialized, i.e. typerSettings.time was set to 0
   )
   const [userCorrectHits, setUserCorrectHits] = useState({}) // correct morae
   const [userIncorrectHits, setUserIncorrectHits] = useState({}) // incorrect morae
+  const userHitsRef = useRef({ correct: userCorrectHits, incorrect: userIncorrectHits }) // used for updating user progress after component unmount (leaving typer)
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
     if (typerMap === null) {
@@ -120,6 +124,10 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   }, [])
 
   useEffect(() => {
+    userHitsRef.current = { correct: userCorrectHits, incorrect: userIncorrectHits }
+  }, [userCorrectHits, userIncorrectHits])
+
+  useEffect(() => {
     if (!isLoading) {
       toggleFiltersClickability(false)
       startPreCountdown()
@@ -130,7 +138,11 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     if (isStarted) {
       userInputRef.current.focus()
     }
-  }, [isStarted])
+
+    if (!initTimer) {
+      toggleFiltersClickability(true)
+    }
+  }, [isStarted, initTimer])
 
   useEffect(() => {
     if (isFinished) {
@@ -138,6 +150,12 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
       updateUserProgress(userCorrectHits, userIncorrectHits)
     }
   }, [isFinished])
+
+  useEffect(() => () => {
+    if (!initTimer) {
+      updateUserProgress(userHitsRef.current.correct, userHitsRef.current.incorrect)
+    }
+  }, [])
 
   return (
     <div className='typer-wrapper'>
@@ -157,11 +175,11 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
           placeholder='type...'
         />
       </div>
-      <ProgressBar 
+      {initTimer && <ProgressBar 
         timer={countdown} 
         maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
         isFinished={isFinished} 
-      />
+      />}
       <Stats 
         correctHits={userCorrectHits}
         incorrectHits={userIncorrectHits}

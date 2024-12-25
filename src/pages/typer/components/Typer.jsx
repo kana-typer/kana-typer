@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useBlocker } from 'react-router-dom'
 
 import { useTyperData } from '../../../context/TyperDataContext'
@@ -37,6 +37,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
 
   const [typerIndex, setTyperIndex] = useState(0) // specifies currently selected morae
   const [userInput, setUserInput] = useState('')
+  const userInputRef = useRef(null)
   const [preCountdown, startPreCountdown] = useCountdown( // timer to get user ready for typing
     3, 
     undefined, 
@@ -126,6 +127,12 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   }, [isLoading])
 
   useEffect(() => {
+    if (isStarted) {
+      userInputRef.current.focus()
+    }
+  }, [isStarted])
+
+  useEffect(() => {
     if (isFinished) {
       toggleFiltersClickability(true)
       updateUserProgress(userCorrectHits, userIncorrectHits)
@@ -143,6 +150,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
           getMoraeWidth={getMoraeWidth}
         />
         <input 
+          ref={userInputRef}
           type='text' 
           value={userInput} 
           onChange={updateUserInput} 

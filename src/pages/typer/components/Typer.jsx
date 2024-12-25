@@ -94,7 +94,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
 
     const text = e.target.value
     const kana = typerData[typerIndex].kana
-    const result = checkRomajiValidityOfKana(text, kana, typerMap)
+    const result = checkRomajiValidityOfKana(text.toLowerCase(), kana, typerMap)
 
     if (result === undefined)
       return setUserInput(text)

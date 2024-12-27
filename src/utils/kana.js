@@ -145,6 +145,8 @@ export const pickFurigana = (furigana, progress) => {
   // if there is no hiragana furigana, then romaji furigana range is extended for easier learning
   const quantityOffset = hasHiragana ? FURIGANA_START_RANGE : FURIGANA_ROMAJI_RANGE
 
+  console.debug(`LOG picking furigana ${furigana} for ${progress} 1=${progress === undefined || progress === null || progress < FURIGANA_ROMAJI_RANGE + quantityOffset ? furigana?.romaji : false} 2=${progress < FURIGANA_HIRAGANA_RANGE + quantityOffset ? furigana?.hiragana : false}`)
+
   if (progress === undefined || 
       progress === null || 
       progress < FURIGANA_ROMAJI_RANGE + quantityOffset)
@@ -171,7 +173,7 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
   const map = new Map([])
 
   source.forEach(({ symbol, ...mora }) => {
-    // console.debug(`generating mora map data for ${symbol}`)
+    console.debug(`generating mora map data for ${symbol}`)
 
     const hasSokuon = mora?.sokuon !== undefined && mora.sokuon !== null
     const hasYoon = mora?.yoon !== undefined && mora.yoon !== null
@@ -187,7 +189,7 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
       skip = true
 
     if (!skip) {
-      // console.debug(`staging ${romaji} mora map data item`)
+      console.debug(`symbol-${symbol} staging ${romaji} mora map data item`)
       items.push({
         key: romaji,
         kana: symbol,
@@ -207,11 +209,11 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
         if (furigana?.hiragana !== undefined)
           sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
 
-        // console.debug(`staging ${sokuonRomaji} mora map data item`)
+        console.debug(`symbol-${symbol} staging ${sokuonRomaji} mora map data item`)
         items.push({
           key: sokuonRomaji,
           kana: sokuonSymbol,
-          furigana: pickFurigana(sokuonFurigana, progress?.[symbol]), // i: kka is treated as ka; tte as te; etc.
+          furigana: pickFurigana(sokuonFurigana, progress?.[sokuonSymbol]), // i: kka is treated as ka; tte as te; etc.
           translation: null,
           reading: null,
         })
@@ -231,11 +233,11 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
           if (furigana?.hiragana !== undefined)
             yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
 
-          // console.debug(`staging ${yoonRomaji} mora map data item`)
+          console.debug(`symbol-${symbol} staging ${yoonRomaji} mora map data item`)
           items.push({
             key: yoonRomaji,
             kana: yoonSymbol,
-            furigana: pickFurigana(yoonFurigana, progress?.[symbol]), // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
+            furigana: pickFurigana(yoonFurigana, progress?.[yoonSymbol]), // i: kya, kyu, kyo are treated as ki; cha, chu, cho as chi; etc.
             translation: null,
             reading: null,
           })
@@ -251,11 +253,11 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
             if (furigana?.hiragana !== undefined)
               bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
 
-            // console.debug(`staging ${bothRomaji} mora map data item`)
+            console.debug(`symbol-${symbol} staging ${bothRomaji} mora map data item`)
             items.push({
               key: bothRomaji,
               kana: bothSymbol,
-              furigana: pickFurigana(bothFurigana, progress?.[symbol]), // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
+              furigana: pickFurigana(bothFurigana, progress?.[bothSymbol]), // i: kkya, kkyu, kkte are treated as ki; tcha, tchu, tche as chi; etc.
               translation: null,
               reading: null,
             })
@@ -267,10 +269,10 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
     items.forEach(({ key, ...data }) => { // TODO: not too optimal :/
       if (map.has(key)) {
         map.set(key, [...map.get(key), data])
-        // console.debug(`appending more data to ${key} mora map item (${data.kana})`)
+        console.debug(`symbol-${symbol} appending more data to ${key} mora map item (${data.kana})`)
       } else {
         map.set(key, [data])
-        // console.debug(`adding ${key} mora map data item (${data.kana})`)
+        console.debug(`symbol-${symbol} adding ${key} mora map data item (${data.kana})`)
       }
     })
   })

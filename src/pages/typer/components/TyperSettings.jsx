@@ -78,7 +78,8 @@ const TyperFilterFields = ({ filters, setFiltersProp }) => {
       label='time'
       type='number'
       value={filters?.time || 0}
-      onChange={e => setFiltersProp('time', e.target.value)}
+      min={0}
+      onChange={e => setFiltersProp('time', Number(e.target.value))}
     />
     <FormCheckbox 
       uid='filter-typer__incognito'

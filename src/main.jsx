@@ -10,6 +10,7 @@ import ProgressPage from './pages/progress/ProgressPage.jsx'
 import HelpPage from './pages/help/HelpPage.jsx'
 import UserPage from './pages/user/UserPage.jsx'
 import ErrorPage from './pages/error/ErrorPage.jsx'
+import LoginPage from './pages/login/LoginPage.jsx'
 
 import './css/main.css'
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'user',
         element: <UserPage/>,
+      },
+      {
+        path: 'login',
+        element: <LoginPage/>,
       }
     ]
   }

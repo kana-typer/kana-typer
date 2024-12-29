@@ -51,8 +51,8 @@ main {
 
     min-width: 50%;
 
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 2em;
     margin-bottom: 2em;
     padding: 3em 5em;
@@ -64,12 +64,20 @@ main {
     align-items: center;
   }
 
-  i.fa-cog {
-    width: 100%;
+  section.user-page__grid {
+    flex: 0;
 
-    padding: 1em;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: center;
+    justify-items: center;
+  }
 
-    text-align: right; 
+  @media (max-width: 800px) {
+    section.user-page__grid {
+      grid-auto-flow: row;
+    }
   }
 
   div.user-page__profile-pic {
@@ -91,13 +99,20 @@ main {
 
   .user-page__profile-fields li {
     width: 100%;
+    min-width: max-content;
 
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    grid-auto-rows: 1fr;
-    justify-content: space-evenly;
+    grid-template-columns: 7em 1fr;
+  }
 
-    align-items: center;
+  @media (max-width: 800px) {
+    .user-page__profile-fields li {
+      grid-template-columns: 1fr;
+      grid-template-rows: 2em;
+      gap: 0;
+      justify-items: center;
+      align-items: start;
+    }
   }
 
   h3.user-page__profile__name, h3.user-page__progress {
@@ -108,22 +123,31 @@ main {
     font-weight: 400;
   }
 
-  a.fa-pen {
-    height: min-content;
+  button.user-page__logout {
+    padding: .5em 1em;
 
-    text-align: right;  
+    margin-top: 2em;
+  
+    color: #f7f7f7;;
+    background-color: #606060;
+  
+    font-family: inherit;
+    font-size: 1em;
     text-decoration: none;
-
-    color: gray;  
+  
+    border-radius: 10px;
+    border: none;
   }
 
   h1.user-page__settings-text, h1.user-page__profile-text {
-    margin-top: 3em;
-
     font-weight: bold;
     text-align: center;
 
     font-size: 1.5em;
+  }
+
+  h1.user-page__settings-text {
+    margin-top: 3em;
   }
 
   section.user-page__settings {
@@ -139,8 +163,6 @@ main {
     padding: .5em 1em;
 
     margin-left: 0;
-
-    width: 100%;
   
     color: #f7f7f7;;
     background-color: #606060;
@@ -153,7 +175,7 @@ main {
     border: none;
   }
 
-  button:hover.user-page__reset {
+  button:hover.user-page__reset, button:hover.user-page__logout {
     color: darkgray;
     background-color: rgb(72, 72, 72);
   }
@@ -162,8 +184,6 @@ main {
     padding: .5em 1em;
 
     margin-left: 0;
-
-    width: 100%;
   
     color: #f7f7f7;;
     background-color: #a60210;
@@ -179,4 +199,9 @@ main {
   button:hover.user-page__delete {
     color: darkgray;
     background-color: rgb(100, 0, 0);
+  }
+
+  button.user-page__logout, button.user-page__reset, button.user-page__delete {
+    align-self: center;
+    width: 15em;
   }

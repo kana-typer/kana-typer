@@ -1,0 +1,68 @@
+/* Stylizacja głównego kontenera */
+.home-page {
+  display: flex;
+  height: 100vh; /* Pełna wysokość ekranu */
+  width: 100%; /* Pełna szerokość ekranu */
+}
+
+/* Lewa sekcja */
+.left-section {
+  flex: 1; /* Zajmuje połowę dostępnej szerokości */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Wyśrodkowanie w pionie */
+  align-items: flex-start; /* Wyrównanie tekstu do lewej */
+  padding: 40px;
+  
+}
+
+.left-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  color: #ECECEC;
+}
+
+.left-section p {
+  font-size: 1.2rem;
+  margin-left: 20px;
+  line-height: 1.6;
+  color: #ECECEC;
+}
+
+/* Prawa sekcja */
+.right-section {
+  flex: 1; /* Zajmuje drugą połowę szerokości */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Wyśrodkowanie logo w pionie */
+  align-items: center;
+  padding: 40px;
+  position: relative; /* Aby można było ustawić przycisk na dole */
+}
+
+/* Logo */
+.home-logo {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: auto; /* Utrzymuje przycisk na dole */
+}
+
+/* Stylizacja przycisku */
+.join-button {
+  position: absolute; /* Przycisk na dole sekcji */
+  bottom: 100px;
+  padding: 10px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ECECEC;
+  background-color: #A60210;
+  border: none;
+  border-radius: 15px;
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+
+

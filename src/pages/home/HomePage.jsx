@@ -1,20 +1,36 @@
+import React from 'react';
+import Logo from '../../assets/logo-kana.svg';
+import { Link } from 'react-router-dom';
+import '../css/HomePage.css';
+
 function HomePage() {
   return (
-    <>
-      <section className="info">
-        <h1>Hello!</h1>
+    <div className="home-page">
+      {/* Lewa sekcja */}
+      <div className="left-section">
+        <h1>about us</h1>
+        <p>
+「Kana Typer」にようこそ！ <br />
+Welcome to Kana Typer!<br /><br />
 
-        <h3>About us</h3>
+We created this app to help all fellow Japanese learners on their path to fluency. <br /><br />
 
-        <h3>What's new?</h3>
+Learning Japanese might be difficult and monotonous, but in this place we'll speed up a little and have fun... unless you prefer slower pace, then don't worry - everything can be customized. If you wish to read and write like a master, then check out our Typer tool! It'll help you learn to connect kana with its way of reading.<br /><br />
 
-      </section>
-      
-      <section className="logo">
-        <img src="#" alt="logo" width="500" height="500"></img>
-      </section>
-    </>
-  )
+You don't need to track your own progress, the app will adjust to you and cover all basic information in the Progress tab.
+
+Hopefully you'll have a good time learning Japanese and stick with us!
+
+        </p>
+      </div>
+
+      {/* Prawa sekcja */}
+      <div className="right-section">
+        <img src={Logo} alt="Logo" className="home-logo" />
+        <Link to="/login" className="join-button">Zaloguj się</Link>
+      </div>
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;

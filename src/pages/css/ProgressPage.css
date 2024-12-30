@@ -10,14 +10,40 @@ main {
   width: auto;
 }
 
-h1.progress-page__title {
-  top: 0;
-  left: 0;
+section.progress-page__box-top {
+  flex: 0;
 
+  width: 100%;
+
+  margin-top: 2em;
+  padding: 1em 2em;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+h1.progress-page__header {
   text-align: left;
   align-self: flex-start;
 
+  margin-bottom: 0;
+
   width: auto;
+  height: auto;
+}
+
+h3.progress-page__description {
+  text-align: left;
+  align-self: flex-start;
+
+  margin-top: 0;
+
+  font-weight: 400;
+  color: gray;
+
+  width: 100%;
   height: auto;
 }
 

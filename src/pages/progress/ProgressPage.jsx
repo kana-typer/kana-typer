@@ -4,7 +4,10 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 function ProgressPage() {
   return (
     <>
-      <h1 className='progress-page__title'>Progress</h1>
+      <section className='progress-page__box-top'>
+        <h1 className='progress-page__header'>Progress</h1>
+        <h3 className='progress-page__description'>Here you can check all kana you've learnt</h3>
+      </section>
 
       <div className='progress-page__container'>
 

@@ -63,22 +63,31 @@
     "start": "Start"
   },
 
+  "progressDetails": {
+    "progressTitle": "Postęp",
+    "progressDesc": "Tutaj możesz sprawdzić wszystkie kana, których się nauczyłeś"
+  },
+
   "helpDetails": {
     "contact": "Skontaktuj się z nami",
-    "fillForm": "Wypełnij formularz",
+    "helpDesc": "Wypełnij formularz",
     "writeForm": "Napisz, co tylko chcesz",
-    "nameForm": "imię...",
-    "messageForm": "wiadomość",
+    "nameForm": "Imię",
+    "messageForm": "Wiadomość",
     "sendForm": "Wyślij"
   },
 
-  "account": {
-    "login": "Zaloguj się przez Google",
-    "anon": "Zalogowano jako anonimowy",
-    "accountInfo": "Tutaj możesz...",
-    "logOut": "Wyloguj się",
-    "reset": "Zresetuj swój postęp",
+  "accountDetails": {
+    "profile": "Profil",
+    "accoutDesc": "Ta strona zawiera informacje o Twoim koncie",
+    "anon": "Zalogowany jako anonimowy",
+    "accountInfo": "Informacje o koncie",
+    "username": "Nazwa użytkownika:",
+    "email": "Adres e-mail:",
+    "firstLogin": "Pierwsze logowanie:",
     "accountSettings": "Ustawienia konta",
+    "logOut": "Wyloguj się",
+    "resetAcc": "Zresetuj swój postęp",
     "deleteAcc": "Usuń konto"
   },
 

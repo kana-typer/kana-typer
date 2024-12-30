@@ -63,22 +63,31 @@
     "start": "Start"
   },
 
+  "progressDetails": {
+    "progressTitle": "Progress",
+    "progressDesc": "Here you can check all kana you've learnt"
+  },
+
   "helpDetails": {
     "contact": "Contact us",
-    "fillForm": "Fill the form",
+    "helpDesc": "Fill the form",
     "writeForm": "Write whatever you like",
-    "nameForm": "name...",
-    "messageForm": "message",
+    "nameForm": "Name",
+    "messageForm": "Message",
     "sendForm": "Send"
   },
 
-  "account": {
-    "login": "Log in with Google",
+  "accountDetails": {
+    "profile": "Profile",
+    "accoutDesc": "This webside provides info about your account",
     "anon": "Logged in as anonymous",
-    "accountInfo": "Here you can...",
+    "accountInfo": "Account Info",
+    "username": "Username:",
+    "email": "E-mail:",
+    "firstLogin": "First Login:",
     "logOut": "Log out",
-    "reset": "Reset your progress",
     "accountSettings": "Account Settings",
+    "resetAcc": "Reset your progress",
     "deleteAcc": "Delete Account"
   },
 

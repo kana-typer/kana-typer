@@ -1,20 +1,24 @@
 import '../css/ProgressPage.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { useTranslation } from 'react-i18next'
+
 function ProgressPage() {
+  const { i18n, t } = useTranslation()
+
   return (
     <>
       <section className='progress-page__box-top'>
-        <h1 className='progress-page__header'>Progress</h1>
-        <h3 className='progress-page__description'>Here you can check all kana you've learnt</h3>
+        <h1 className='progress-page__header'>{t('progressDetails.progressTitle')}</h1>
+        <h3 className='progress-page__description'>{t('progressDetails.progressDesc')}</h3>
       </section>
 
       <div className='progress-page__container'>
 
         <form className='progress-page__form' action='#'>
-          <input className='progress-page__search-input' type='text' placeholder='Search' name='search'/>
+          <input className='progress-page__search-input' type='text' placeholder={t('common.search')} name='search'/>
           <button className='progress-page__search-button'>
-            <i class="fa-solid fa-magnifying-glass"></i>Search
+            <i class="fa-solid fa-magnifying-glass"></i>{t('common.search')}
           </button>
         </form>
 

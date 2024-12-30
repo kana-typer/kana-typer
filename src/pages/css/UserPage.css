@@ -102,7 +102,7 @@ main {
     min-width: max-content;
 
     display: grid;
-    grid-template-columns: 7em 1fr;
+    grid-template-columns: minmax(7em, 12em) 1fr;
   }
 
   @media (max-width: 800px) {

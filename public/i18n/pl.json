@@ -1,3 +1,92 @@
 {
-  "title": "To jest test lokali"
+  "title": "Kana Typer",
+
+  "welcomePage": {
+    "joinUs": "Dołącz do nas!",
+    "useGoogle": "Korzystając z konta Google.",
+    "loginGoogle": "Zaloguj się przez Google",
+    "whyGoogle": "Dlaczego Google?"
+  },
+
+  "navigation": {
+    "home": "Strona główna",
+    "typer": "Typer",
+    "progress": "Postęp",
+    "help": "Pomoc",
+    "user": "Profil"
+  },
+  
+  "errors": {
+    "404": "Strona nie została znaleziona",
+    "500": "Wewnętrzny błąd serwera"
+  },
+
+  "rooms": {
+    "defaultRooms": "Domyślne pokoje",
+    "hiraganaRoom": "Hiragana",
+    "katakanaRoom": "Katakana",
+    "famMemb": "Członkowie rodziny",
+    "num": "Liczby",
+    "clothes": "Ubrania",
+    "animals": "Zwierzęta",
+    "colors": "Kolory"
+  },
+
+  "typerDetails": {
+    "type": "pisz...",
+    "speed": "Prędkość",
+    "wordsPerMin": "słów na minutę",
+    "correct": "Poprawne",
+    "mistakes": "Błędne",
+    "accuracy": "Dokładność"
+  },
+
+  "customizeDetails": {
+    "customizeIntro1": "Zanim zaczniemy, dostosuj swój pokój.",
+    "customizeIntro2": "Wybierz opcje, aby dostosować pokój do swoich potrzeb.",
+    "type1": "Typ I",
+    "gojuon": "gojuon",
+    "dakuten": "dakuten",
+    "handakuten": "handakuten",
+    "type2": "Typ II",
+    "sokuon": "sokuon",
+    "yoon": "yoon",
+    "furigana": "Furigana",
+    "default": "domyślna",
+    "hiragana": "hiragana",
+    "katakana": "katakana",
+    "none": "brak",
+    "incognito": "Incognito",
+    "timer": "Timer",
+    "on": "włącz",
+    "off": "wyłącz",
+    "start": "Start"
+  },
+
+  "helpDetails": {
+    "contact": "Skontaktuj się z nami",
+    "fillForm": "Wypełnij formularz",
+    "writeForm": "Napisz, co tylko chcesz",
+    "nameForm": "imię...",
+    "messageForm": "wiadomość",
+    "sendForm": "Wyślij"
+  },
+
+  "account": {
+    "login": "Zaloguj się przez Google",
+    "anon": "Zalogowano jako anonimowy",
+    "accountInfo": "Tutaj możesz...",
+    "logOut": "Wyloguj się",
+    "reset": "Zresetuj swój postęp",
+    "accountSettings": "Ustawienia konta",
+    "deleteAcc": "Usuń konto"
+  },
+
+  "common": {
+    "submit": "Zatwierdź",
+    "search": "Szukaj",
+    "settings": "Ustawienia",
+    "loading": "Ładowanie...",
+    "example": "np."
+  }
 }

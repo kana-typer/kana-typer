@@ -1,3 +1,92 @@
 {
-  "title": "This is a locale test"
+  "title": "Kana Typer",
+
+  "welcomePage": {
+    "joinUs": "Join us!",
+    "useGoogle": "Using the Google account.",
+    "loginGoogle": "Log in with Google",
+    "whyGoogle": "Why Google?"
+  },
+
+  "navigation": {
+    "home": "Home",
+    "typer": "Typer",
+    "progress": "Progress",
+    "help": "Help",
+    "user": "Profile"
+  },
+  
+  "errors": {
+    "404": "Page not found",
+    "500": "Internal server error"
+  },
+
+  "rooms": {
+    "defaultRooms": "Default Rooms",
+    "hiraganaRoom": "Hiragana",
+    "katakanaRoom": "Katakana",
+    "famMemb": "Family members",
+    "num": "Numbers",
+    "clothes": "Clothes",
+    "animals": "Animals",
+    "colors": "Colors"
+  },
+
+  "typerDetails": {
+    "type": "type...",
+    "speed": "Speed",
+    "wordsPerMin": "words per minute",
+    "correct": "Correct",
+    "mistakes": "Mistakes",
+    "accuracy": "Accuracy"
+  },
+
+  "customizeDetails": {
+    "customizeIntro1": "Before we start, customize your room.",
+    "customizeIntro2": "Choose options to make this room the most suitable for you.",
+    "type1": "Type I",
+    "gojuon": "gojuon",
+    "dakuten": "dakuten",
+    "handakuten": "handakuten",
+    "type2": "Type II",
+    "sokuon": "sokuon",
+    "yoon": "yoon",
+    "furigana": "Furigana",
+    "default": "default",
+    "hiragana": "hiragana",
+    "katakana": "katakana",
+    "none": "none",
+    "incognito": "Incognito",
+    "timer": "Timer",
+    "on": "turn on",
+    "off": "turn off",
+    "start": "Start"
+  },
+
+  "helpDetails": {
+    "contact": "Contact us",
+    "fillForm": "Fill the form",
+    "writeForm": "Write whatever you like",
+    "nameForm": "name...",
+    "messageForm": "message",
+    "sendForm": "Send"
+  },
+
+  "account": {
+    "login": "Log in with Google",
+    "anon": "Logged in as anonymous",
+    "accountInfo": "Here you can...",
+    "logOut": "Log out",
+    "reset": "Reset your progress",
+    "accountSettings": "Account Settings",
+    "deleteAcc": "Delete Account"
+  },
+
+  "common": {
+    "submit": "Submit",
+    "search": "Search",
+    "settings": "Settings",
+    "loading": "Loading...",
+    "example": "ex."
+  }
 }

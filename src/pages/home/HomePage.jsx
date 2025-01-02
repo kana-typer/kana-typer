@@ -6,8 +6,8 @@ import '../css/HomePage.css';
 function HomePage() {
   return (
     <div className="home-page">
-      {/* Lewa sekcja */}
-      <div className="left-section">
+      
+      <div className="home-page__left-section">
         <h1>about us</h1>
         <p>
 「Kana Typer」にようこそ！ <br />
@@ -24,10 +24,10 @@ Hopefully you'll have a good time learning Japanese and stick with us!
         </p>
       </div>
 
-      {/* Prawa sekcja */}
-      <div className="right-section">
-        <img src={Logo} alt="Logo" className="home-logo" />
-        <Link to="/login" className="join-button">Zaloguj się</Link>
+      
+      <div className="home-page__right-section">
+        <img src={Logo} alt="Logo" className="home-page__logo" />
+        <Link to="/login" className="home-page__join-button">Zaloguj się</Link>
       </div>
     </div>
   );

@@ -167,7 +167,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
           incorrectHits={userIncorrectHits}
           getMoraeWidth={getMoraeWidth}
         />
-        <input 
+        <input
           ref={userInputRef}
           type='text' 
           value={userInput} 

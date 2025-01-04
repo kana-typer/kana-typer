@@ -4,6 +4,8 @@
   height: auto;
 
   overflow-x: hidden;
+
+  width: 80%;
 }
 
 .typer {
@@ -17,7 +19,7 @@
 .typer > input[type=text] {
   padding: .3em .3em;
 
-  color: white;
+  color: black;
   background-color: transparent;
   border: none;
 

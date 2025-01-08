@@ -6,23 +6,62 @@ nav > ul {
 }
 
 nav#main-navigation {
-  padding: .5rem 1rem;
+  padding: .5em 1em;
+  height: min-content;
 
   display: flex;
 
-  border-bottom: 1px solid red;
+  background-color: #F7F7F7;
 }
 
 nav#main-navigation > ul {
   display: flex;
-  gap: .5em;
+  flex-direction: row;
+  justify-items: center;
+  
+  gap: 1.5em;
   flex: 1;
 }
 
+nav#main-navigation > button {
+  border-radius: 10px;
+  border: none;
+}
+
+ul.main-navigation__list > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-navigation__link {
+  font-weight: 600;
+  font-size: larger;
+  text-decoration: none;
+  color: #0a0a0a;
+}
+
 nav#main-navigation > .v-divider {
+  padding: .5em;
   margin: 0 1rem;
+}
+
+nav#main-navigation > .lang-picker {
+  padding: .5em;
+}
+
+nav#main-navigation > .lang-picker > select {
+  background-color: gray;
+  border-radius: 10px;
+  min-width: 5em;
+  padding: .5em;
 }
 
 nav#main-navigation > .lang-picker > i {
   margin-right: .5em;
+}
+
+span.login-handler__google {
+  margin-right: 1rem;
+  padding: .5em
 }

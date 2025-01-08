@@ -190,10 +190,10 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         {isLoading ? 'Loading' : preCountdown + 1}
       </div>
       {blocker.state === 'blocked' ? (
-        <div>
-          <p>Are you sure you want to leave?</p>
-          <button onClick={() => blocker.proceed()}>Leave</button>
-          <button onClick={() => blocker.reset()}>Cancel</button>
+        <div className='typer-page__button-box'>
+          <p className='typer-page__question'>Are you sure you want to leave?</p>
+          <button className='typer-page__leave' onClick={() => blocker.proceed()}>Leave</button>
+          <button className='typer-page__cancel' onClick={() => blocker.reset()}>Cancel</button>
         </div>
       ) : null}
     </div>

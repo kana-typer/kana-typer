@@ -55,7 +55,7 @@ function TyperPage() {
           typerFilters={typerFilters}
           setTyperFiltersProp={setTyperFiltersProp}
         />
-        <button onClick={() => setShowTyper(true)}>&nbsp; Begin &gt;</button>
+        <button className='typer-page__begin' onClick={() => setShowTyper(true)}>&nbsp; Begin &gt;</button>
       </>
     )
   } else {

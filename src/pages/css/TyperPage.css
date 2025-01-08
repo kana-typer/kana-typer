@@ -40,8 +40,6 @@ nav.typer-page__left-nav{
 
   transition:width .3s ease;
 
-  cursor:pointer;
-
   &:hover {
     width:200px;
   }
@@ -94,12 +92,34 @@ div.typer-page__icon {
   border-radius: 10px;
   border: none;
 
+  cursor: pointer;
+
   width: 100%;
   padding: .5em 1em;
 }
 
 .typer-page__left-nav button:hover{
   background-color: #a60210;
+  color: #F7F7F7;
+  border: none;
+}
+
+button.typer-page__begin {
+  background-color: #a60210;
+
+  width: 10em;
+  height: 2em;
+
+  cursor: pointer;
+
+  font-size: 25px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+button.typer-page__begin:hover {
+  background-color: rgb(100, 0, 0);
   color: #F7F7F7;
   border: none;
 }

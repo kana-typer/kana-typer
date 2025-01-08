@@ -1,0 +1,12 @@
+fieldset#form-group {
+  border-color: lightgray;
+  border-style: solid;
+
+  color: #0a0a0a;
+}
+
+fieldset#form-group > legend {
+  color: #0a0a0a;
+
+  font-weight: 500;
+}

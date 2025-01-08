@@ -39,6 +39,16 @@ function ProgressPage() {
 
         <section className='progress'>
           <ul>
+            {Object.entries(progress).map(([kana, progNum], idx) => (
+              <li key={idx}>
+                <h3>{kana}</h3>
+                <div className="progress-bar">
+                  <div className="bar" style={{ width: `${Math.max(Math.min(progNum, 10) * 10, 0)}%` }}></div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {/* <ul>
             <li>
               <h3>兎</h3>
               <div className='progress-bar'>
@@ -69,7 +79,7 @@ function ProgressPage() {
                 <div className='bar'></div>
               </div>
             </li>
-          </ul>
+          </ul> */}
         </section>
 
       </div>

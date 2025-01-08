@@ -1,10 +1,25 @@
 import '../css/ProgressPage.css'
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
+import { useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
+import { getUserField } from '../../utils/db'
 
 function ProgressPage() {
   const { i18n, t } = useTranslation()
+
+  const [progress, setProgress] = useState({})
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const data = await getUserField('progress') || {}
+      console.debug('Progress data fetched from db')
+      setProgress(data)
+    }
+
+    fetcher()
+  }, [])
 
   return (
     <>

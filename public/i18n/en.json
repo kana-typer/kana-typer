@@ -1,8 +1,14 @@
 {
   "title": "Kana Typer",
 
-  "welcomePage": {
-    "joinUs": "Join us!",
+  "homePage": {
+    "aboutUs": "About us",
+    "homeText1": "「Kana Typer」にようこそ！",
+    "homeText2": "Welcome to Kana Typer!",
+    "homeText3": "We created this app to help all fellow Japanese learners on their path to fluency.",
+    "homeText4": "Learning Japanese might be difficult and monotonous, but in this place we'll speed up a little and have fun... unless you prefer slower pace, then don't worry - everything can be customized. If you wish to read and write like a master, then check out our Typer tool! It'll help you learn to connect kana with its way of reading.",
+    "homeText5": "You don't need to track your own progress, the app will adjust to you and cover all basic information in the Progress tab.",
+    "homeText6": "Hopefully you'll have a good time learning Japanese and stick with us!",
     "useGoogle": "Using the Google account.",
     "loginGoogle": "Log in with Google",
     "whyGoogle": "Why Google?"
@@ -33,9 +39,10 @@
   },
 
   "typerDetails": {
+    "chooseMode": "Select modes from the side navigation",
     "type": "type...",
     "speed": "Speed",
-    "wordsPerMin": "words per minute",
+    "wordsPerMin": "Words per minute",
     "correct": "Correct",
     "mistakes": "Mistakes",
     "accuracy": "Accuracy"
@@ -43,7 +50,7 @@
 
   "customizeDetails": {
     "customizeIntro1": "Before we start, customize your room.",
-    "customizeIntro2": "Choose options to make this room the most suitable for you.",
+    "customizeIntro2": "Choose from options below to make this room the most suitable for you.",
     "type1": "Type I",
     "gojuon": "gojuon",
     "dakuten": "dakuten",
@@ -60,7 +67,10 @@
     "timer": "Timer",
     "on": "turn on",
     "off": "turn off",
-    "start": "Start"
+    "start": "Start",
+    "timerLeave": "Are you sure you want to leave?",
+    "timerLeaveYes": "Leave",
+    "timerLeaveNo": "Cancel"
   },
 
   "progressDetails": {
@@ -70,8 +80,8 @@
 
   "helpDetails": {
     "contact": "Contact us",
-    "helpDesc": "Fill out the form",
-    "writeForm": "Write whatever you like.",
+    "helpDesc": "Fill out the form if you spotted any bugs or mistakes, if you are having trouble or just when you want ot get in contact with us. ☺",
+    "writeForm": "Feel free to share your thoughts",
     "nameForm": "Name",
     "messageForm": "Message",
     "sendForm": "Send"

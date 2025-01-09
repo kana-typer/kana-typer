@@ -7,6 +7,8 @@ import { MORA_TYPES, WORDS_TYPES } from '../../../utils/kana'
 
 import '../css/TyperSettings.css'
 
+import { useTranslation } from 'react-i18next'
+
 const MoraFilterFields = ({ filters, setFiltersProp }) => {
   return <FormGroup uid='typer-settings__filter-mora' legend='Mora'>
     <FormGroup uid='typer-settings__filter-mora__scripts' legend='Scripts'>
@@ -105,11 +107,13 @@ const TyperFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 function TyperSettings({ typerFilters, setTyperFiltersProp }) {
+  const { i18n, t } = useTranslation()
+
   return (
     <>
       <section className="typer-settings__box-top">
-          <h1 className="typer-settings__header">Before we start. Customize your room.</h1>
-          <h3 className="typer-settings__description">Choose options to make this room the most suitable for you.</h3>
+          <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
+          <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
       </section>
       
       <section className="typer-settings">

@@ -1,9 +1,15 @@
 {
   "title": "Kana Typer",
 
-  "welcomePage": {
-    "joinUs": "Dołącz do nas!",
-    "useGoogle": "Korzystając z konta Google.",
+  "homePage": {
+    "aboutUs": "O nas",
+    "homeText1": "「Kana Typer」にようこそ！",
+    "homeText2": "Witamy w Kana Typer!",
+    "homeText3": "Stworzyliśmy tę aplikację, aby pomóc wszystkim uczącym się japońskiego na drodze do płynnego posługiwania się tym językiem.",
+    "homeText4": "Nauka japońskiego może być trudna i monotonna, ale na tej stronie podkręcimy tempo i będziemy się dobrze bawić... a jeśli wolisz własne tempo, nie martw się - wszystko można dostosować. Jeśli chcesz czytać i pisać jak mistrz, sprawdź nasze narzędzie Typer! Pomoże Ci nauczyć się łączyć kana z jej wymową.",
+    "homeText5": "Nie musisz śledzić swojego postępu, aplikacja dostosuje się do Ciebie i uwzględni wszystkie podstawowe informacje w zakładce Postęp.",
+    "homeText6": "Mamy nadzieję, że dobrze spędzisz czas, ucząc się japońskiego i zostaniesz z nami na dłużej!",
+    "useGoogle": "Używanie konta Google.",
     "loginGoogle": "Zaloguj się przez Google",
     "whyGoogle": "Dlaczego Google?"
   },
@@ -33,9 +39,10 @@
   },
 
   "typerDetails": {
+    "chooseMode": "Wybierz tryb z bocznej nawigacji",
     "type": "pisz...",
     "speed": "Prędkość",
-    "wordsPerMin": "słów na minutę",
+    "wordsPerMin": "Słówa na minutę",
     "correct": "Poprawne",
     "mistakes": "Błędne",
     "accuracy": "Dokładność"
@@ -43,7 +50,7 @@
 
   "customizeDetails": {
     "customizeIntro1": "Zanim zaczniemy, dostosuj swój pokój.",
-    "customizeIntro2": "Wybierz opcje, aby dostosować pokój do swoich potrzeb.",
+    "customizeIntro2": "Wybierz poniższe opcje, aby dostosować pokój do swoich potrzeb.",
     "type1": "Typ I",
     "gojuon": "gojuon",
     "dakuten": "dakuten",
@@ -60,7 +67,10 @@
     "timer": "Timer",
     "on": "włącz",
     "off": "wyłącz",
-    "start": "Start"
+    "start": "Start",
+    "timerLeave": "Czy na pewno chcesz opuścić stronę?",
+    "timerLeaveYes": "Wyjdź",
+    "timerLeaveNo": "Anuluj"
   },
 
   "progressDetails": {

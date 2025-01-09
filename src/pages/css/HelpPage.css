@@ -17,7 +17,7 @@ main {
     margin-top: 2em;
     padding: 1em 2em;
 
-    background-color: white;
+    background-color: #f7f7f7;
 
     display: flex;
     flex-direction: column;
@@ -55,7 +55,7 @@ main {
 
     padding: 3em;
 
-    background-color: white;
+    background-color: #f7f7f7;
 
     display: flex;
     flex-direction: column;
@@ -82,8 +82,8 @@ main {
   
     padding: .5em 1em;
   
-    color: black;
-    background-color: #f7f7f7;
+    color: #0a0a0a;
+    background-color: #ECECEC;
   
     width: auto;
   
@@ -97,8 +97,8 @@ main {
   textarea.help-page__fmessage {
     padding: .5em 1em;
   
-    color: black;
-    background-color: #f7f7f7;
+    color: #0a0a0a;
+    background-color: #ECECEC;
   
     width: auto;
     height: 15em;

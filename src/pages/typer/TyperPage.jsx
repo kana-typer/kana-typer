@@ -12,8 +12,12 @@ import Kana from '../../assets/kulturajap.svg'
 
 import '../css/TyperPage.css'
 
+import { useTranslation } from 'react-i18next'
+
 
 function TyperPage() {
+  const { i18n, t } = useTranslation()
+
   const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp, typerMap, resetTyperMap } = useTyperData()
 
   const [showTyper, setShowTyper] = useState(false)             // false - filtering phase; true - gaming phase
@@ -55,13 +59,13 @@ function TyperPage() {
           typerFilters={typerFilters}
           setTyperFiltersProp={setTyperFiltersProp}
         />
-        <button className='typer-page__begin' onClick={() => setShowTyper(true)}>&nbsp; Begin &gt;</button>
+        <button className='typer-page__begin' onClick={() => setShowTyper(true)}>{t('customizeDetails.start')}</button>
       </>
     )
   } else {
     // pre-game and pre-settings screen, AKA welcome screen
     content = (
-      <div className='typer-page__select'>Select modes from the side nav</div>
+      <div className='typer-page__select'>{t('typerDetails.chooseMode')}</div>
     )
   }
 

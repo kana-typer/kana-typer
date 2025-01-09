@@ -3,23 +3,27 @@ import Logo from '../../assets/logo-kana.svg';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 
+import { useTranslation } from 'react-i18next'
+
 function HomePage() {
+  const { i18n, t } = useTranslation()
+
   return (
     <div className="home-page">
       
       <div className="home-page__left-section">
-        <h1>about us</h1>
+        <h1>{t('homePage.aboutUs')}</h1>
         <p>
-「Kana Typer」にようこそ！ <br />
-Welcome to Kana Typer!<br /><br />
+        {t('homePage.homeText1')}<br />
+        {t('homePage.homeText2')}<br /><br />
 
-We created this app to help all fellow Japanese learners on their path to fluency. <br /><br />
+        {t('homePage.homeText3')}<br /><br />
 
-Learning Japanese might be difficult and monotonous, but in this place we'll speed up a little and have fun... unless you prefer slower pace, then don't worry - everything can be customized. If you wish to read and write like a master, then check out our Typer tool! It'll help you learn to connect kana with its way of reading.<br /><br />
+        {t('homePage.homeText4')}<br /><br />
 
-You don't need to track your own progress, the app will adjust to you and cover all basic information in the Progress tab.
+        {t('homePage.homeText5')}<br /><br />
 
-Hopefully you'll have a good time learning Japanese and stick with us!
+        {t('homePage.homeText6')}
 
         </p>
       </div>
@@ -27,7 +31,7 @@ Hopefully you'll have a good time learning Japanese and stick with us!
       
       <div className="home-page__right-section">
         <img src={Logo} alt="Logo" className="home-page__logo" />
-        <Link to="/login" className="home-page__join-button">Zaloguj się</Link>
+        <Link to="/login" className="home-page__join-button">{t('homePage.loginGoogle')}</Link>
       </div>
     </div>
   );

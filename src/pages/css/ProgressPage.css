@@ -18,7 +18,7 @@ section.progress-page__box-top {
   margin-top: 2em;
   padding: 1em 2em;
 
-  background-color: white;
+  background-color: #f7f7f7;
 
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@ input.progress-page__search-input {
   padding: .5em 1em;
   margin-right: .5em;
 
-  color: black;
+  color: #0a0a0a;
   background-color: #f7f7f7;
 
   width: auto;

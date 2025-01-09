@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next'
+
 function ErrorPage() {
+  const { i18n, t } = useTranslation()
+  
   return (
     <>
       <p>

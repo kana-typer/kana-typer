@@ -17,7 +17,7 @@ main {
     margin-top: 2em;
     padding: 1em 2em;
 
-    background-color: white;
+    background-color: #f7f7f7;
 
     display: flex;
     flex-direction: column;
@@ -57,7 +57,7 @@ main {
     
     padding: 3em 5em;
 
-    background-color: white;
+    background-color: #f7f7f7;
 
     display: flex;
     flex-direction: column;

@@ -15,9 +15,13 @@ import { checkRomajiValidityOfKana, getRandomKanaFromMap } from '../../../utils/
 
 import '../css/Typer.css'
 
+import { useTranslation } from 'react-i18next'
+
 const DEFAULT_TIME = 12
 
 function Typer({ typerSettings, toggleFiltersClickability }) {
+  const { i18n, t } = useTranslation()
+
   // JSDOM-specific functions that need to be regenerated every time, sadly
   // TODO: find a fix for this - regenerating function definitions every time is unoptimized
   const moraeLetterSpacing = getLetterSpacing(
@@ -172,7 +176,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
           type='text' 
           value={userInput} 
           onChange={updateUserInput} 
-          placeholder='type...'
+          placeholder={t('typerDetails.type')}
         />
       </div>
       {initTimer && <ProgressBar 
@@ -191,9 +195,9 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
       </div>
       {blocker.state === 'blocked' ? (
         <div className='typer-page__button-box'>
-          <p className='typer-page__question'>Are you sure you want to leave?</p>
-          <button className='typer-page__leave' onClick={() => blocker.proceed()}>Leave</button>
-          <button className='typer-page__cancel' onClick={() => blocker.reset()}>Cancel</button>
+          <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
+          <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
+          <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
         </div>
       ) : null}
     </div>

@@ -53,7 +53,7 @@ main {
     margin-left: 10%;
     margin-right: 10%;
 
-    padding: 2em;
+    padding: 3em;
 
     background-color: white;
 
@@ -101,7 +101,7 @@ main {
     background-color: #f7f7f7;
   
     width: auto;
-    height: 10em;
+    height: 15em;
 
     resize: none;
   
@@ -110,6 +110,18 @@ main {
   
     border-radius: 10px;
     border: solid 1px #e5e5e5;
+  }
+
+  @media (max-width: 800px) {
+    textarea.help-page__fmessage {
+      height: 10em;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    textarea.help-page__fmessage {
+      height: 20em;
+    }
   }
   
   button.help-page__fsubmit {
@@ -121,6 +133,8 @@ main {
   
     color: #f7f7f7;;
     background-color: #a60210;
+
+    cursor: pointer;
   
     font-family: inherit;
     font-size: 1em;

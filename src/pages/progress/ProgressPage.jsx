@@ -33,7 +33,7 @@ function ProgressPage() {
         <form className='progress-page__form' action='#'>
           <input className='progress-page__search-input' type='text' placeholder={t('common.search')} name='search'/>
           <button className='progress-page__search-button'>
-            <i class="fa-solid fa-magnifying-glass"></i>{t('common.search')}
+            <i className="fa-solid fa-magnifying-glass"></i>{t('common.search')}
           </button>
         </form>
 
@@ -48,7 +48,8 @@ function ProgressPage() {
               </li>
             ))}
           </ul>
-          {/* <ul>
+          {/* code for debugging:
+          <ul>
             <li>
               <h3>兎</h3>
               <div className='progress-bar'>

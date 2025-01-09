@@ -93,6 +93,8 @@ button.progress-page__search-button {
   color: #f7f7f7;;
   background-color: #a60210;
 
+  cursor: pointer;
+
   font-family: inherit;
   font-size: 1em;
 

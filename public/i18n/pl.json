@@ -65,13 +65,13 @@
 
   "progressDetails": {
     "progressTitle": "Postęp",
-    "progressDesc": "Tutaj możesz sprawdzić wszystkie kana, których się nauczyłeś"
+    "progressDesc": "Tutaj możesz sprawdzić wszystkie kana, których się nauczyłeś."
   },
 
   "helpDetails": {
     "contact": "Skontaktuj się z nami",
     "helpDesc": "Wypełnij formularz",
-    "writeForm": "Napisz, co tylko chcesz",
+    "writeForm": "Napisz, co tylko chcesz.",
     "nameForm": "Imię",
     "messageForm": "Wiadomość",
     "sendForm": "Wyślij"
@@ -79,7 +79,7 @@
 
   "accountDetails": {
     "profile": "Profil",
-    "accoutDesc": "Ta strona zawiera informacje o Twoim koncie",
+    "accoutDesc": "Ta strona zawiera informacje o Twoim koncie.",
     "anon": "Zalogowany jako anonimowy",
     "accountInfo": "Informacje o koncie",
     "username": "Nazwa użytkownika:",

@@ -72,6 +72,12 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     align-items: center;
     justify-items: center;
+
+    width: 100%;
+
+    /* background-color: rgb(243, 243, 243); */
+
+    border-radius: 10px;
   }
 
   @media (max-width: 800px) {
@@ -139,6 +145,15 @@ main {
     border: none;
   }
 
+  hr.user-page__line {
+    width: 100%;
+
+    margin-top: 3em;
+    margin-bottom: 3em;
+
+    border: dashed 1px lightgray;
+  }
+
   h1.user-page__settings-text, h1.user-page__profile-text {
     font-weight: bold;
     text-align: center;
@@ -147,14 +162,14 @@ main {
   }
 
   h1.user-page__settings-text {
-    margin-top: 3em;
+    margin-top: 0;
   }
 
   section.user-page__settings {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     width: 100%;
   }
@@ -204,4 +219,6 @@ main {
   button.user-page__logout, button.user-page__reset, button.user-page__delete {
     align-self: center;
     width: 15em;
+
+    cursor: pointer;
   }

@@ -37,6 +37,8 @@ function UserPage() {
 
         <button className='user-page__logout'>{t('accountDetails.logOut')}</button>
         
+        <hr className='user-page__line' />
+
         <section className='user-page__settings'>
           <h1 className='user-page__settings-text'>{t('accountDetails.accountSettings')}</h1>
           <button className='user-page__reset'>{t('accountDetails.resetAcc')}</button>

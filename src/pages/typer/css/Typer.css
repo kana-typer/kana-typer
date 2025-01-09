@@ -4,6 +4,8 @@
   height: auto;
 
   overflow-x: hidden;
+
+  width: 80%;
 }
 
 .typer {
@@ -17,7 +19,7 @@
 .typer > input[type=text] {
   padding: .3em .3em;
 
-  color: white;
+  color: black;
   background-color: transparent;
   border: none;
 
@@ -50,4 +52,47 @@
 .pre-countdown.hidden {
   pointer-events: none;
   opacity: 0;
+}
+
+p.typer-page__question {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+div.typer-page__button-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+
+  color: #a60210;
+}
+
+button.typer-page__leave, button.typer-page__cancel {
+  width: 10em;
+  height: 2em;
+
+  cursor: pointer;
+
+  font-size: 25px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+button.typer-page__leave {
+  background-color: #a60210;
+}
+
+button.typer-page__cancel {
+  background-color: gray;
+}
+
+
+button.typer-page__leave:hover {
+  background-color: rgb(100, 0, 0);
+}
+
+button.typer-page__cancel:hover{
+  background-color: darkgray;
 }

@@ -13,3 +13,113 @@ main > nav + * {
 .typer-settings > form > * {
   flex-grow: 1;
 }
+
+div.typer-page__select {
+    width: 90%;
+
+    margin-top: 2em;
+    padding: 1em 2em;
+
+    text-align: center;
+
+    font-weight: 500;
+}
+
+nav.typer-page__left-nav{
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  left: 0;
+  overflow:hidden;
+
+  width: 20em;
+  height: 100%;
+
+  background-color: #F7F7F7;
+
+  transition:width .3s ease;
+
+  &:hover {
+    width:200px;
+  }
+  @media screen and (min-width: 400px) {
+    width: 4em;
+  }
+}
+
+img.typer-page__logo {
+  padding: 1em;
+}
+
+ul.typer-page__ul{
+  margin-top: 1em;
+
+  padding-left:1em;
+  padding-right:1em;
+
+  transition:all .3s ease;
+}
+
+.typer-page__ul li{
+  width: 90%;
+
+  font-weight: 500;
+
+  display: flex;
+  flex-direction: row;
+}
+
+div.typer-page__icon {
+  font-weight: 500;
+  font-size: large;
+
+  margin-left: .5em;
+  margin-right: 1em;
+}
+
+.typer-page__ul hr{
+  width: 15em;
+}
+
+.typer-page__left-nav button{
+  background-color: #F7F7F7;
+  color: #0a0a0a;
+  
+  font-family: inherit;
+  font-size: 1em;
+
+  border-radius: 10px;
+  border: none;
+
+  cursor: pointer;
+
+  width: 100%;
+  padding: .5em 1em;
+}
+
+.typer-page__left-nav button:hover{
+  background-color: #a60210;
+  color: #F7F7F7;
+  border: none;
+}
+
+button.typer-page__begin {
+  background-color: #a60210;
+
+  width: 10em;
+  height: 2em;
+
+  cursor: pointer;
+
+  font-size: 25px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+button.typer-page__begin:hover {
+  background-color: rgb(100, 0, 0);
+  color: #F7F7F7;
+  border: none;
+}

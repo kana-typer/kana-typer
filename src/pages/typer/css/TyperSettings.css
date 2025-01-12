@@ -1,0 +1,92 @@
+section.typer-settings__box-top {
+  flex: 0;
+
+  width: 80%;
+
+  margin-top: 2em;
+  padding: 1em 2em;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+h1.typer-settings__header {
+  text-align: left;
+  align-self: flex-start;
+
+  margin-bottom: 0;
+
+  width: auto;
+  height: auto;
+}
+
+h3.typer-settings__description {
+  text-align: left;
+  align-self: flex-start;
+
+  margin-top: 0;
+
+  font-weight: 400;
+  color: gray;
+
+  width: 100%;
+  height: auto;
+}
+
+section.typer-settings {
+  display: flex;
+  flex-direction: row;
+  gap: 5em;
+  justify-content: center;
+
+  width: 80%;
+
+  padding: 3em 5em;
+
+  margin-top: 2em;
+  background-color: #F7F7F7;
+  color: #0a0a0a;
+}
+
+.typer-settings__text {
+  color: #0a0a0a;
+  background-color: #F7F7F7;
+
+  width: 5em;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  padding-left: .5em;
+
+  border: solid 2px lightgray;
+}
+
+.typer-settings__checkbox {
+  color: #0a0a0a;
+  accent-color: #F7F7F7;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+input[type="checkbox"] {
+  accent-color: #a60210;
+  margin-right: .5em;
+}
+
+.typer-settings__select {
+  color: #0a0a0a;
+  background-color: #F7F7F7;
+
+  width: 5em;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  padding-left: .5em;
+
+  border: solid 2px lightgray;
+}

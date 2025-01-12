@@ -1,3 +1,111 @@
 {
-  "title": "To jest test lokali"
+  "title": "Kana Typer",
+
+  "homePage": {
+    "aboutUs": "O nas",
+    "homeText1": "「Kana Typer」にようこそ！",
+    "homeText2": "Witamy w Kana Typer!",
+    "homeText3": "Stworzyliśmy tę aplikację, aby pomóc wszystkim uczącym się japońskiego na drodze do płynnego posługiwania się tym językiem.",
+    "homeText4": "Nauka japońskiego może być trudna i monotonna, ale na tej stronie podkręcimy tempo i będziemy się dobrze bawić... a jeśli wolisz własne tempo, nie martw się - wszystko można dostosować. Jeśli chcesz czytać i pisać jak mistrz, sprawdź nasze narzędzie Typer! Pomoże Ci nauczyć się łączyć kana z jej wymową.",
+    "homeText5": "Nie musisz śledzić swojego postępu, aplikacja dostosuje się do Ciebie i uwzględni wszystkie podstawowe informacje w zakładce Postęp.",
+    "homeText6": "Mamy nadzieję, że dobrze spędzisz czas, ucząc się japońskiego i zostaniesz z nami na dłużej!",
+    "useGoogle": "Używanie konta Google.",
+    "loginGoogle": "Zaloguj się przez Google",
+    "whyGoogle": "Dlaczego Google?"
+  },
+
+  "navigation": {
+    "home": "Strona główna",
+    "typer": "Typer",
+    "progress": "Postęp",
+    "help": "Pomoc",
+    "user": "Profil"
+  },
+  
+  "errors": {
+    "404": "Strona nie została znaleziona",
+    "500": "Wewnętrzny błąd serwera"
+  },
+
+  "rooms": {
+    "defaultRooms": "Domyślne pokoje",
+    "hiraganaRoom": "Hiragana",
+    "katakanaRoom": "Katakana",
+    "famMemb": "Członkowie rodziny",
+    "num": "Liczby",
+    "clothes": "Ubrania",
+    "animals": "Zwierzęta",
+    "colors": "Kolory"
+  },
+
+  "typerDetails": {
+    "chooseMode": "Wybierz tryb z bocznej nawigacji",
+    "type": "pisz...",
+    "speed": "Prędkość",
+    "wordsPerMin": "Słówa na minutę",
+    "correct": "Poprawne",
+    "mistakes": "Błędne",
+    "accuracy": "Dokładność"
+  },
+
+  "customizeDetails": {
+    "customizeIntro1": "Zanim zaczniemy, dostosuj swój pokój.",
+    "customizeIntro2": "Wybierz poniższe opcje, aby dostosować pokój do swoich potrzeb.",
+    "type1": "Typ I",
+    "gojuon": "gojuon",
+    "dakuten": "dakuten",
+    "handakuten": "handakuten",
+    "type2": "Typ II",
+    "sokuon": "sokuon",
+    "yoon": "yoon",
+    "furigana": "Furigana",
+    "default": "domyślna",
+    "hiragana": "hiragana",
+    "katakana": "katakana",
+    "none": "brak",
+    "incognito": "Incognito",
+    "timer": "Timer",
+    "on": "włącz",
+    "off": "wyłącz",
+    "start": "Start",
+    "timerLeave": "Czy na pewno chcesz opuścić stronę?",
+    "timerLeaveYes": "Wyjdź",
+    "timerLeaveNo": "Anuluj"
+  },
+
+  "progressDetails": {
+    "progressTitle": "Postęp",
+    "progressDesc": "Tutaj możesz sprawdzić wszystkie kana, których się nauczyłeś."
+  },
+
+  "helpDetails": {
+    "contact": "Skontaktuj się z nami",
+    "helpDesc": "Wypełnij formularz, jeśli zauważyłeś jakiekolwiek błędy, masz z czymś problem lub po prostu chcesz się z nami skontaktować. ☺",
+    "writeForm": "Podziel się swoimi myślami",
+    "nameForm": "Imię",
+    "messageForm": "Wiadomość",
+    "sendForm": "Wyślij"
+  },
+
+  "accountDetails": {
+    "profile": "Profil",
+    "accoutDesc": "Ta strona zawiera informacje o Twoim koncie.",
+    "anon": "Zalogowany jako anonimowy",
+    "accountInfo": "Informacje o koncie",
+    "username": "Nazwa użytkownika:",
+    "email": "Adres e-mail:",
+    "firstLogin": "Pierwsze logowanie:",
+    "accountSettings": "Ustawienia konta",
+    "logOut": "Wyloguj się",
+    "resetAcc": "Zresetuj swój postęp",
+    "deleteAcc": "Usuń konto"
+  },
+
+  "common": {
+    "submit": "Zatwierdź",
+    "search": "Szukaj",
+    "settings": "Ustawienia",
+    "loading": "Ładowanie...",
+    "example": "np."
+  }
 }

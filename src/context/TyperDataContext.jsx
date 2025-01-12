@@ -99,7 +99,7 @@ export default function TyperDataProvider({ children }) {
       if (occurences.length < 1 || occurences.some(x => x === false)) {
         // // data = sample?.[collectionName]?.filter(obj => uniqueGroups.includes(obj?.[propertyName])) || null
         console.warn(group, uniqueGroups)
-        data = await getDocuments(collectionName, [[propertyName, 'in', uniqueGroups]])
+        data = (await getDocuments(collectionName, [[propertyName, 'in', uniqueGroups]])) ?? null // TODO: on 'all words' -> 'hiragana' -> 'all words' this will throw 'snapshot.empty is true'
       } else {
         console.debug(`loading ${collectionName} aborted - raw data of ${group} already exists in context`)
       }

@@ -6,7 +6,11 @@ import { getPercFromValue } from '../../../utils/math'
 
 import '../css/Stats.css'
 
+import { useTranslation } from 'react-i18next'
+
 function Stats({ correctHits, incorrectHits, isStarted, isFinished }) {
+  const { i18n, t } = useTranslation()
+
   const [seconds, startTimer, stopTimer] = useTimer({ 
     everySecond: () => {
       if (isStarted && !isFinished) {
@@ -31,23 +35,25 @@ function Stats({ correctHits, incorrectHits, isStarted, isFinished }) {
   }, [isStarted, isFinished])
 
   return (
-    <div className='stats'>
-      <table>
-        <tbody>
-          <tr>
-            <td>Correct / Mistakes</td>
-            <td>{`${correct} / ${incorrect}`}</td>
-          </tr>
-          <tr>
-            <td>Accuracy</td>
-            <td>{accuracy.toFixed(2)}%</td>
-          </tr>
-          <tr>
-            <td>Words per minute</td>
-            <td>{wordsPerMinute.toFixed(0)}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className='typer-page__stats-box'>
+      <div className='typer-page__stats'>
+        <table>
+          <tbody>
+            <tr className='typer-page__stats-tr'>
+              <td className='typer-page__stats-title'>{t('typerDetails.correct')} / {t('typerDetails.mistakes')}</td>
+              <td className='typer-page__stats-result'>{`${correct} / ${incorrect}`}</td>
+            </tr>
+            <tr>
+              <td className='typer-page__stats-title'>{t('typerDetails.accuracy')}</td>
+              <td className='typer-page__stats-result'>{accuracy.toFixed(2)}%</td>
+            </tr>
+            <tr>
+              <td className='typer-page__stats-title'>{t('typerDetails.wordsPerMin')}</td>
+              <td className='typer-page__stats-result'>{wordsPerMinute.toFixed(0)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

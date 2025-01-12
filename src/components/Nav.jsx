@@ -10,13 +10,13 @@ function Nav() {
 
   return (
     <nav id='main-navigation'>
-      <ul>
-        <li><Link to='/' >Home</Link></li>
-        <li><Link to='/typer'>Typer</Link></li>
-        <li><Link to='/progress'>Progress</Link></li>
-        <li><Link to='/Help'>Help</Link></li>
-        <li><Link to='/user'>Account</Link></li>
-        <li><Link to='/wrong-page'>Wrong page</Link></li>
+      <ul className='main-navigation__list'>
+        <li><Link className='main-navigation__link' to='/' >{t('navigation.home')}</Link></li>
+        <li><Link className='main-navigation__link' to='/typer'>{t('navigation.typer')}</Link></li>
+        <li><Link className='main-navigation__link' to='/progress'>{t('navigation.progress')}</Link></li>
+        <li><Link className='main-navigation__link' to='/Help'>{t('navigation.help')}</Link></li>
+        <li><Link className='main-navigation__link' to='/user'>{t('navigation.user')}</Link></li>
+        <li><Link className='main-navigation__link' to='/wrong-page'>Wrong page</Link></li>
       </ul>
       <div className='lang-picker'>
         <i>{t('title')}</i>

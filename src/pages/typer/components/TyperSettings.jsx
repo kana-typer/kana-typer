@@ -5,6 +5,10 @@ import FormSelect from '../../../components/FormSelect'
 
 import { MORA_TYPES, WORDS_TYPES } from '../../../utils/kana'
 
+import '../css/TyperSettings.css'
+
+import { useTranslation } from 'react-i18next'
+
 const MoraFilterFields = ({ filters, setFiltersProp }) => {
   return <FormGroup uid='typer-settings__filter-mora' legend='Mora'>
     <FormGroup uid='typer-settings__filter-mora__scripts' legend='Scripts'>
@@ -73,20 +77,21 @@ const WordsFilterFields = ({ filters, setFiltersProp }) => {
 
 const TyperFilterFields = ({ filters, setFiltersProp }) => {
   return <FormGroup uid='typer-settings__filter-typer' legend='Typer'>
-    <FormText 
+    <FormText className='typer-settings__text'
       uid='filter-typer__time'
       label='time'
       type='number'
       value={filters?.time || 0}
-      onChange={e => setFiltersProp('time', e.target.value)}
+      min={0}
+      onChange={e => setFiltersProp('time', Number(e.target.value))}
     />
-    <FormCheckbox 
+    <FormCheckbox className='typer-settings__checkbox'
       uid='filter-typer__incognito'
       label='incognito'
       checked={filters?.incognito ?? false}
       onChange={e => setFiltersProp('incognito', e.target.checked)}
     />
-    <FormSelect 
+    <FormSelect className='typer-settings__select'
       uid='filter-typer__furigana'
       label='furigana'
       value={filters?.furigana ?? 'auto'}
@@ -102,21 +107,30 @@ const TyperFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 function TyperSettings({ typerFilters, setTyperFiltersProp }) {
+  const { i18n, t } = useTranslation()
+
   return (
-    <section className="typer-settings">
-      <MoraFilterFields 
-        filters={typerFilters.mora}
-        setFiltersProp={(prop, value, checked) => setTyperFiltersProp('mora', prop, value, checked)}
-      />
-      <WordsFilterFields 
-        filters={typerFilters.words}
-        setFiltersProp={(prop, value, checked) => setTyperFiltersProp('words', prop, value, checked)}
-      />
-      <TyperFilterFields 
-        filters={typerFilters.typer}
-        setFiltersProp={(prop, value, checked) => setTyperFiltersProp('typer', prop, value, checked)}
-      />
-    </section>
+    <>
+      <section className="typer-settings__box-top">
+          <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
+          <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
+      </section>
+      
+      <section className="typer-settings">
+        <MoraFilterFields 
+          filters={typerFilters.mora}
+          setFiltersProp={(prop, value, checked) => setTyperFiltersProp('mora', prop, value, checked)}
+        />
+        <WordsFilterFields 
+          filters={typerFilters.words}
+          setFiltersProp={(prop, value, checked) => setTyperFiltersProp('words', prop, value, checked)}
+        />
+        <TyperFilterFields 
+          filters={typerFilters.typer}
+          setFiltersProp={(prop, value, checked) => setTyperFiltersProp('typer', prop, value, checked)}
+        />
+      </section>
+    </>
   )
 }
 

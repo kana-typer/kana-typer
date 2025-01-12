@@ -19,7 +19,7 @@
 }
 
 .typer > .kana > .morae.current {
-  --morae-color: white;
+  --morae-color: #0a0a0a;
 }
 
 .typer > .kana > .morae.correct {

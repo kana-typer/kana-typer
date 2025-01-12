@@ -1,0 +1,224 @@
+main {
+    display: flex;
+    flex-direction: column;
+  
+    align-items: center;
+  
+    margin-left: 4em;
+    margin-right: 4em;
+    width: auto;
+  }
+
+  section.user-page__box-top {
+    flex: 0;
+
+    width: 100%;
+
+    margin-top: 2em;
+    padding: 1em 2em;
+
+    background-color: #f7f7f7;
+
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1.user-page__header {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-bottom: 0;
+  
+    width: auto;
+    height: auto;
+  }
+
+  h3.user-page__description {
+    text-align: left;
+    align-self: flex-start;
+
+    margin-top: 0;
+
+    font-weight: 400;
+    color: gray;
+  
+    width: 100%;
+    height: auto;
+  }
+
+  section.user-page__box-bottom {
+    flex: 0;
+
+    min-width: 50%;
+
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2em;
+    
+    padding: 3em 5em;
+
+    background-color: #f7f7f7;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section.user-page__grid {
+    flex: 0;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: center;
+    justify-items: center;
+
+    width: 100%;
+
+    /* background-color: rgb(243, 243, 243); */
+
+    border-radius: 10px;
+  }
+
+  @media (max-width: 800px) {
+    section.user-page__grid {
+      grid-auto-flow: row;
+    }
+  }
+
+  div.user-page__profile-pic {
+    border-radius: 50%;
+
+    background-color: blueviolet;
+
+    width: 7em;
+    height: 7em;
+
+    margin: 2em;
+  }
+
+  ul.user-page__profile-fields {
+    width: 100%;
+
+    padding: 0;
+  }
+
+  .user-page__profile-fields li {
+    width: 100%;
+    min-width: max-content;
+
+    display: grid;
+    grid-template-columns: minmax(7em, 12em) 1fr;
+  }
+
+  @media (max-width: 800px) {
+    .user-page__profile-fields li {
+      grid-template-columns: 1fr;
+      grid-template-rows: 2em;
+      gap: 0;
+      justify-items: center;
+      align-items: start;
+    }
+  }
+
+  h3.user-page__profile__name, h3.user-page__progress {
+    font-weight: bold;
+  }
+
+  h4.user-page__profile__content {
+    font-weight: 400;
+  }
+
+  button.user-page__logout {
+    padding: .5em 1em;
+
+    margin-top: 2em;
+  
+    color: #f7f7f7;;
+    background-color: #606060;
+  
+    font-family: inherit;
+    font-size: 1em;
+    text-decoration: none;
+  
+    border-radius: 10px;
+    border: none;
+  }
+
+  hr.user-page__line {
+    width: 100%;
+
+    margin-top: 3em;
+    margin-bottom: 3em;
+
+    border: dashed 1px lightgray;
+  }
+
+  h1.user-page__settings-text, h1.user-page__profile-text {
+    font-weight: bold;
+    text-align: center;
+
+    font-size: 1.5em;
+  }
+
+  h1.user-page__settings-text {
+    margin-top: 0;
+  }
+
+  section.user-page__settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: space-evenly;
+
+    width: 100%;
+  }
+
+  button.user-page__reset {
+    padding: .5em 1em;
+
+    margin-left: 0;
+  
+    color: #f7f7f7;;
+    background-color: #606060;
+  
+    font-family: inherit;
+    font-size: 1em;
+    text-decoration: none;
+  
+    border-radius: 10px;
+    border: none;
+  }
+
+  button:hover.user-page__reset, button:hover.user-page__logout {
+    color: darkgray;
+    background-color: rgb(72, 72, 72);
+  }
+
+  button.user-page__delete {
+    padding: .5em 1em;
+
+    margin-left: 0;
+  
+    color: #f7f7f7;;
+    background-color: #a60210;
+  
+    font-family: inherit;
+    font-size: 1em;
+    text-decoration: none;
+  
+    border-radius: 10px;
+    border: none;
+  }
+
+  button:hover.user-page__delete {
+    color: darkgray;
+    background-color: rgb(100, 0, 0);
+  }
+
+  button.user-page__logout, button.user-page__reset, button.user-page__delete {
+    align-self: center;
+    width: 15em;
+
+    cursor: pointer;
+  }

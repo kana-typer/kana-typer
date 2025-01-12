@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlocker } from 'react-router-dom'
 
 import { useTyperData } from '../../../context/TyperDataContext'
@@ -15,9 +15,13 @@ import { checkRomajiValidityOfKana, getRandomKanaFromMap } from '../../../utils/
 
 import '../css/Typer.css'
 
+import { useTranslation } from 'react-i18next'
+
 const DEFAULT_TIME = 12
 
 function Typer({ typerSettings, toggleFiltersClickability }) {
+  const { i18n, t } = useTranslation()
+
   // JSDOM-specific functions that need to be regenerated every time, sadly
   // TODO: find a fix for this - regenerating function definitions every time is unoptimized
   const moraeLetterSpacing = getLetterSpacing(
@@ -34,9 +38,11 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [isLoading, setIsLoading] = useState(true) // kana is loading
   const [isStarted, setIsStarted] = useState(false) // typing started
   const [isFinished, setIsFinished] = useState(false) // typing finished
+  const initTimer = useMemo(() => typerSettings?.time !== 0, [typerSettings.time]) // if time = 0, timer should not be running
 
   const [typerIndex, setTyperIndex] = useState(0) // specifies currently selected morae
   const [userInput, setUserInput] = useState('')
+  const userInputRef = useRef(null)
   const [preCountdown, startPreCountdown] = useCountdown( // timer to get user ready for typing
     3, 
     undefined, 
@@ -45,10 +51,13 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [countdown, startCountdown] = useCountdown( // timer for when user it typing
     typerSettings?.time ?? DEFAULT_TIME, 
     () => setIsStarted(true),
-    () => setTimeout(() => setIsFinished(true), 1000), // timeout to wait for ProgressBar animation to finish
+    initTimer 
+      ? () => setTimeout(() => setIsFinished(true), 1000) // timeout to wait for ProgressBar animation to finish
+      : undefined, // do not ever set isFinished state if timer should not be initialized, i.e. typerSettings.time was set to 0
   )
   const [userCorrectHits, setUserCorrectHits] = useState({}) // correct morae
   const [userIncorrectHits, setUserIncorrectHits] = useState({}) // incorrect morae
+  const userHitsRef = useRef({ correct: userCorrectHits, incorrect: userIncorrectHits }) // used for updating user progress after component unmount (leaving typer)
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
     if (typerMap === null) {
@@ -93,7 +102,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
 
     const text = e.target.value
     const kana = typerData[typerIndex].kana
-    const result = checkRomajiValidityOfKana(text, kana, typerMap)
+    const result = checkRomajiValidityOfKana(text.toLowerCase(), kana, typerMap)
 
     if (result === undefined)
       return setUserInput(text)
@@ -119,6 +128,10 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   }, [])
 
   useEffect(() => {
+    userHitsRef.current = { correct: userCorrectHits, incorrect: userIncorrectHits }
+  }, [userCorrectHits, userIncorrectHits])
+
+  useEffect(() => {
     if (!isLoading) {
       toggleFiltersClickability(false)
       startPreCountdown()
@@ -126,11 +139,27 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   }, [isLoading])
 
   useEffect(() => {
+    if (isStarted) {
+      userInputRef.current.focus()
+    }
+
+    if (!initTimer) {
+      toggleFiltersClickability(true)
+    }
+  }, [isStarted, initTimer])
+
+  useEffect(() => {
     if (isFinished) {
       toggleFiltersClickability(true)
       updateUserProgress(userCorrectHits, userIncorrectHits)
     }
   }, [isFinished])
+
+  useEffect(() => () => {
+    if (!initTimer) {
+      updateUserProgress(userHitsRef.current.correct, userHitsRef.current.incorrect)
+    }
+  }, [])
 
   return (
     <div className='typer-wrapper'>
@@ -142,18 +171,19 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
           incorrectHits={userIncorrectHits}
           getMoraeWidth={getMoraeWidth}
         />
-        <input 
+        <input
+          ref={userInputRef}
           type='text' 
           value={userInput} 
           onChange={updateUserInput} 
-          placeholder='type...'
+          placeholder={t('typerDetails.type')}
         />
       </div>
-      <ProgressBar 
+      {initTimer && <ProgressBar 
         timer={countdown} 
         maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
         isFinished={isFinished} 
-      />
+      />}
       <Stats 
         correctHits={userCorrectHits}
         incorrectHits={userIncorrectHits}
@@ -164,10 +194,10 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         {isLoading ? 'Loading' : preCountdown + 1}
       </div>
       {blocker.state === 'blocked' ? (
-        <div>
-          <p>Are you sure you want to leave?</p>
-          <button onClick={() => blocker.proceed()}>Leave</button>
-          <button onClick={() => blocker.reset()}>Cancel</button>
+        <div className='typer-page__button-box'>
+          <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
+          <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
+          <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
         </div>
       ) : null}
     </div>

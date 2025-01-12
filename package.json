@@ -1,6 +1,6 @@
 {
   "name": "kana-typer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
@@ -12,15 +12,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.11.1",
-    "mitt": "^3.0.1",
     "i18next": "^23.12.2",
     "i18next-http-backend": "^2.5.2",
+    "mitt": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.25.1",
-    "react-i18next": "^15.0.0"
+    "react-i18next": "^15.0.0",
+    "react-router-dom": "^6.25.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -1,9 +1,18 @@
+import { Navigate, useLocation } from 'react-router-dom'
+
 import '../css/HelpPage.css'
 
 import { useTranslation } from 'react-i18next'
+import { useGoogleAuth } from '../../context/GoogleAuthContext'
 
 
 function HelpPage() {
+  const { currentUser } = useGoogleAuth()
+  const location = useLocation()
+
+  if (currentUser === null || currentUser.isAnonymous)
+    return <Navigate to='/login' state={{ from: location }} replace />
+
   const { i18n, t } = useTranslation()
 
   return (

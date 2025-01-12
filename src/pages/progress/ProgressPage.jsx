@@ -2,11 +2,19 @@ import '../css/ProgressPage.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import { useEffect, useState } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
+import { useGoogleAuth } from '../../context/GoogleAuthContext'
 import { getUserField } from '../../utils/db'
 
 function ProgressPage() {
+  const { currentUser } = useGoogleAuth()
+  const location = useLocation()
+
+  if (currentUser === null || currentUser.isAnonymous)
+    return <Navigate to='/login' state={{ from: location }} replace />
+
   const { i18n, t } = useTranslation()
 
   const [progress, setProgress] = useState({})

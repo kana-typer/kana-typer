@@ -6,7 +6,7 @@ section.typer-settings__box-top {
   margin-top: 2em;
   padding: 1em 2em;
 
-  background-color: white;
+  background-color: #F7F7F7;
 
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@ input[type="checkbox"] {
   color: #0a0a0a;
   background-color: #F7F7F7;
 
-  width: 5em;
+  width: 7em;
 
   margin-top: 1em;
   margin-bottom: 1em;

@@ -62,6 +62,7 @@ export const WORDS_CATEGORIES = {
   clothes: 'clothes',
   numbers: 'numbers',
   colors: 'colors',
+  animals: 'animals',
 }
 
 /**

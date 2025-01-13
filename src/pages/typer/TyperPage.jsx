@@ -37,6 +37,8 @@ function TyperPage() {
 
   const toggleFiltersClickability = (state) => setFiltersActive(state)
 
+  const toggleTyper = (state) => setShowTyper(state)
+
   const FilterButton = ({ label, group }) => (
     <button onClick={() => sel(group)} disabled={!filtersActive}>{label}</button>
   )
@@ -58,8 +60,8 @@ function TyperPage() {
         <TyperSettings 
           typerFilters={typerFilters}
           setTyperFiltersProp={setTyperFiltersProp}
+          toggleTyper={toggleTyper}
         />
-        <button className='typer-page__begin' onClick={() => setShowTyper(true)}>{t('customizeDetails.start')}</button>
       </>
     )
   } else {
@@ -80,24 +82,34 @@ function TyperPage() {
           </li>
           <li>
             <div className="typer-page__icon">ア</div>
-            <FilterButton label='Katakana' group={filterNames.katakana} /></li>
+            <FilterButton label='Katakana' group={filterNames.katakana} />
+          </li>
           <li><hr /></li>
           <li>
             <div className="typer-page__icon">着</div>
-            <FilterButton label='Clothes' group={filterNames.clothes} /></li>
+            <FilterButton label='Clothes' group={filterNames.clothes} />
+          </li>
           <li>
             <div className="typer-page__icon">円</div>
-            <FilterButton label='Numbers' group={filterNames.numbers} /></li>
+            <FilterButton label='Numbers' group={filterNames.numbers} />
+          </li>
+          <li>
+            <div className="typer-page__icon">動物</div>
+            <FilterButton label='Animals' group={filterNames.animals} />
+          </li>
           <li><hr /></li>
           <li>
             <div className="typer-page__icon">☻</div>
-            <FilterButton label='All kana' group={filterNames.allKana} /></li>
+            <FilterButton label='All kana' group={filterNames.allKana} />
+          </li>
           <li>
             <div className="typer-page__icon">☺</div>
-            <FilterButton label='All words' group={filterNames.allWords} /></li>
+            <FilterButton label='All words' group={filterNames.allWords} />
+          </li>
           <li>
           <div className="typer-page__icon">文</div>
-            <FilterButton label='Everything' group={filterNames.all} /></li>
+            <FilterButton label='Everything' group={filterNames.all} />
+          </li>
         </ul>
       </nav>
       {content}

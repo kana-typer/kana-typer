@@ -42,7 +42,7 @@
     "chooseMode": "Select modes from the side navigation",
     "type": "type...",
     "speed": "Speed",
-    "wordsPerMin": "Words per minute",
+    "wordsPerMin": "Morae per minute",
     "correct": "Correct",
     "mistakes": "Mistakes",
     "accuracy": "Accuracy"

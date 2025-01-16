@@ -7,10 +7,17 @@ import { useTranslation } from 'react-i18next'
 import { useGoogleAuth } from '../../context/GoogleAuthContext'
 
 import { updateUserMapField } from '../../utils/db'
+import { useMemo } from 'react'
 
 function UserPage() {
-  const { currentUser, signOut, deleteAccount } = useGoogleAuth()
+  const { currentUser, userData, signOut, deleteAccount } = useGoogleAuth()
   const location = useLocation()
+
+  const signedOnData = useMemo(() => {
+    if (userData === null)
+      return (new Date()).toLocaleDateString()
+    return userData.signedOn.toDate().toLocaleDateString()
+  }, [userData])
 
   if (currentUser === null || currentUser.isAnonymous)
     return <Navigate to='/login' state={{ from: location }} replace />
@@ -47,7 +54,7 @@ function UserPage() {
             </li>
             <li>
               <h3 className='user-page__profile__name'>{t('accountDetails.firstLogin')}</h3>
-              <h4 className='user-page__profile__content'>01-01-2025</h4>
+              <h4 className='user-page__profile__content'>{signedOnData}</h4>
             </li>
           </ul>
 

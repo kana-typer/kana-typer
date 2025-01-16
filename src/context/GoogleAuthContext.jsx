@@ -10,6 +10,7 @@ export const useGoogleAuth = () => useContext(GoogleAuthContext)
 export default function _GoogleAuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const [isSigningIn, setIsSigningIn] = useState(false)
+  const [userData, setUserData] = useState(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -17,35 +18,39 @@ export default function _GoogleAuthProvider({ children }) {
       setIsSigningIn(false)
       console.log('New user', user)
 
-      if (user === null)
+      if (user === null) {
+        setUserData(null)
         return
+      }
 
       const userRef = doc(db, 'users', auth.currentUser.uid)
       const userDoc = await getDoc(userRef)
       const today = new Date()
+      let userData = {
+        signedOn: Timestamp.fromDate(today),
+        lastLoginOn: Timestamp.fromDate(today),
+        isAnonymous: auth.currentUser.isAnonymous,
+      }
 
       if (!userDoc.exists()) {
         console.log('Signed in today')
-  
-        await setDoc(userRef, {
-          signedOn: Timestamp.fromDate(today),
-          lastLoginOn: Timestamp.fromDate(today),
-          isAnonymous: auth.currentUser.isAnonymous,
-        })
+        await setDoc(userRef, userData)
       } else {
         await updateDoc(userRef, {
           lastLoginOn: Timestamp.fromDate(today),
           isAnonymous: auth.currentUser.isAnonymous,
         })
   
-        const userData = userDoc.data()
+        userData = userDoc.data()
         console.log(`First sign in on ${userData?.signedOn?.toDate()?.toString()}`)
         console.log(`Last login on ${userData?.lastLoginOn?.toDate()?.toString()}`)
       }
+
+      setUserData(userData)
     })
 
     return () => unsubscribe()
-  })
+  }, [])
 
   const authSignIn = async () => {
     setIsSigningIn(true)
@@ -104,6 +109,7 @@ export default function _GoogleAuthProvider({ children }) {
   const value = {
     currentUser,
     isSigningIn,
+    userData,
     signIn: authSignIn,
     signOut: authSignOut,
     deleteAccount: authDelete,

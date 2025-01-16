@@ -27,7 +27,6 @@ function Nav() {
           <option key={2} value='pl'>Polski</option>
         </select>
       </div>
-      <span className='v-divider'>|</span>
       <LoginHandler />
     </nav>
   )

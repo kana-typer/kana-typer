@@ -10,6 +10,7 @@ nav#main-navigation {
   height: min-content;
 
   display: flex;
+  align-items: stretch;
 
   background-color: #F7F7F7;
 }
@@ -41,27 +42,48 @@ ul.main-navigation__list > li {
   color: #0a0a0a;
 }
 
-nav#main-navigation > .v-divider {
-  padding: .5em;
-  margin: 0 1rem;
-}
-
 nav#main-navigation > .lang-picker {
-  padding: .5em;
+  padding-right: 1em;
+  margin-right: 1em;
+  border-right: .1rem #0a0a0a solid;
+
+  display: flex;
+  align-items: center;
 }
 
 nav#main-navigation > .lang-picker > select {
   background-color: gray;
   border-radius: 10px;
   min-width: 5em;
-  padding: .5em;
+  padding: .6em 1em;
+  border: none;
+  cursor: pointer;
 }
 
 nav#main-navigation > .lang-picker > i {
   margin-right: .5em;
 }
 
-span.login-handler__google {
-  margin-right: 1rem;
-  padding: .5em
+.login-handler__btn {
+  padding: .6em 1.6em;
+  color: #ECECEC;
+  background-color: #A60210;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.login-handler__pfp {
+  display: block;
+  width: 3rem;
+  height: auto;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 1;
+
+  transition: opacity .1s linear;
+}
+
+.login-handler__pfp:hover {
+  opacity: .7;
 }

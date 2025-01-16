@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 
+import { useTranslation } from 'react-i18next'
 import { useTyperData } from '../../context/TyperDataContext'
+import { useGoogleAuth } from '../../context/GoogleAuthContext'
 
 import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
@@ -12,10 +15,14 @@ import Kana from '../../assets/kulturajap.svg'
 
 import '../css/TyperPage.css'
 
-import { useTranslation } from 'react-i18next'
-
 
 function TyperPage() {
+  const { currentUser } = useGoogleAuth()
+  const location = useLocation()
+
+  if (currentUser === null || currentUser.isAnonymous)
+    return <Navigate to='/login' state={{ from: location }} replace />
+
   const { i18n, t } = useTranslation()
 
   const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp, typerMap, resetTyperMap } = useTyperData()

@@ -86,14 +86,6 @@ function TyperPage() {
           </li>
           <li><hr /></li>
           <li>
-            <div className="typer-page__icon">着</div>
-            <FilterButton label='Clothes' group={filterNames.clothes} />
-          </li>
-          <li>
-            <div className="typer-page__icon">円</div>
-            <FilterButton label='Numbers' group={filterNames.numbers} />
-          </li>
-          <li>
             <div className="typer-page__icon">動物</div>
             <FilterButton label='Animals' group={filterNames.animals} />
           </li>

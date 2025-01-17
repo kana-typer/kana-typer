@@ -9,9 +9,6 @@ import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
 
 import Logo from '../../assets/logo-kana.svg'
-import HiraganaA from '../../assets/ahiragana.svg'
-import KatakanaA from '../../assets/akatakana.svg'
-import Kana from '../../assets/kulturajap.svg'
 
 import '../css/TyperPage.css'
 
@@ -85,29 +82,29 @@ function TyperPage() {
         <ul className='typer-page__ul'>
           <li>
             <div className="typer-page__icon">あ</div>
-            <FilterButton label='Hiragana' group={filterNames.hiragana} />
+            <FilterButton label={t('rooms.hiraganaRoom')} group={filterNames.hiragana} />
           </li>
           <li>
             <div className="typer-page__icon">ア</div>
-            <FilterButton label='Katakana' group={filterNames.katakana} />
+            <FilterButton label={t('rooms.katakanaRoom')} group={filterNames.katakana} />
           </li>
           <li><hr /></li>
           <li>
             <div className="typer-page__icon">動物</div>
-            <FilterButton label='Animals' group={filterNames.animals} />
+            <FilterButton label={t('rooms.animals')} group={filterNames.animals} />
           </li>
           <li><hr /></li>
           <li>
             <div className="typer-page__icon">☻</div>
-            <FilterButton label='All kana' group={filterNames.allKana} />
+            <FilterButton label={t('rooms.allKanaRoom')} group={filterNames.allKana} />
           </li>
           <li>
             <div className="typer-page__icon">☺</div>
-            <FilterButton label='All words' group={filterNames.allWords} />
+            <FilterButton label={t('rooms.allWordsRoom')} group={filterNames.allWords} />
           </li>
           <li>
           <div className="typer-page__icon">文</div>
-            <FilterButton label='Everything' group={filterNames.all} />
+            <FilterButton label={t('rooms.everythingRoom')} group={filterNames.all} />
           </li>
         </ul>
       </nav>

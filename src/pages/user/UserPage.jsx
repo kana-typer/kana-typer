@@ -38,6 +38,7 @@ function UserPage() {
 
       <section className='user-page__box-bottom'>
         <h1 className='user-page__profile-text'>{t('accountDetails.accountInfo')}</h1>
+
         <section className='user-page__grid'>
           <div className='user-page__profile-pic'>
             <img className='user-page__profile-pic__img' src={currentUser?.photoURL || GoogleLogo} alt="User's profile picture" />
@@ -57,7 +58,6 @@ function UserPage() {
               <h4 className='user-page__profile__content'>{signedOnData}</h4>
             </li>
           </ul>
-
         </section>
 
         <button className='user-page__logout' onClick={signOut}>{t('accountDetails.logOut')}</button>

@@ -11,28 +11,24 @@ function HomePage() {
   return (
     <div className="home-page">
       
-      <div className="home-page__left-section">
-        <h1>{t('homePage.aboutUs')}</h1>
-        <p>
-        {t('homePage.homeText1')}<br />
-        {t('homePage.homeText2')}<br /><br />
+      <section className="home-page__left-section">
+        <h1 className='home-page__title'>{t('homePage.aboutUs')}</h1>
 
-        {t('homePage.homeText3')}<br /><br />
-
-        {t('homePage.homeText4')}<br /><br />
-
-        {t('homePage.homeText5')}<br /><br />
-
-        {t('homePage.homeText6')}
-
-        </p>
-      </div>
+        <div className='home-page__text'>
+          <div className='home-page__intro'>{t('homePage.homeText1')}</div>
+          <div className='home-page__intro'>{t('homePage.homeText2')}</div>
+          <div className='home-page__desc'>{t('homePage.homeText3')}</div>
+          <div className='home-page__desc'>{t('homePage.homeText4')}</div>
+          <div className='home-page__desc'>{t('homePage.homeText5')}</div>
+          <div className='home-page__desc'>{t('homePage.homeText6')}</div>
+        </div>
+      </section>
 
       
-      <div className="home-page__right-section">
+      <section className="home-page__right-section">
         <img src={Logo} alt="Logo" className="home-page__logo" />
-        <Link to="/login" className="home-page__join-button">{t('homePage.loginGoogle')}</Link>
-      </div>
+        <Link to="/login" className="home-page__join-button">{t('loginPage.loginGoogle')}</Link>
+      </section>
     </div>
   );
 }

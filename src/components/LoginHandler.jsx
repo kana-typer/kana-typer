@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useGoogleAuth } from '../context/GoogleAuthContext'
 
-import GoogleLogo from '../assets/google-icon.svg'
+import UserIcon from '../assets/user-icon.svg'
 
 import '../css/Nav.css'
 
@@ -15,7 +15,7 @@ function LoginHandler() {
     currentUser === null || currentUser.isAnonymous ? (
       <button className='login-handler__btn' onClick={signIn}>Login</button>
     ) : (
-      <img className='login-handler__pfp' src={currentUser?.photoURL || GoogleLogo} alt="User's profile picture" onClick={() => navigate('/user')} />
+      <img className='login-handler__pfp' src={currentUser?.photoURL || UserIcon} alt="User's profile picture" onClick={() => navigate('/user')} />
     )
   )
 }

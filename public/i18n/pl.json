@@ -8,11 +8,16 @@
     "homeText3": "Stworzyliśmy tę aplikację, aby pomóc wszystkim uczącym się japońskiego na drodze do płynnego posługiwania się tym językiem.",
     "homeText4": "Nauka japońskiego może być trudna i monotonna, ale na tej stronie podkręcimy tempo i będziemy się dobrze bawić... a jeśli wolisz własne tempo, nie martw się - wszystko można dostosować. Jeśli chcesz czytać i pisać jak mistrz, sprawdź nasze narzędzie Typer! Pomoże Ci nauczyć się łączyć kana z jej wymową.",
     "homeText5": "Nie musisz śledzić swojego postępu, aplikacja dostosuje się do Ciebie i uwzględni wszystkie podstawowe informacje w zakładce Postęp.",
-    "homeText6": "Mamy nadzieję, że dobrze spędzisz czas, ucząc się japońskiego i zostaniesz z nami na dłużej!",
-    "useGoogle": "Używanie konta Google.",
-    "loginGoogle": "Zaloguj się przez Google",
-    "whyGoogle": "Dlaczego Google?"
+    "homeText6": "Mamy nadzieję, że dobrze spędzisz czas, ucząc się japońskiego i zostaniesz z nami na dłużej!"
   },
+
+  "loginPage": {
+  "joinUs": "Dołącz do nas!",
+  "useGoogle": "Za pomocą konta Google.",
+  "loginGoogle": "Zaloguj się przez Google",
+  "termsOfPolicy1": "Klikając „Zaloguj się przez Google”, zgadzasz się na nasze ",
+  "termsOfPolicy2": "Warunki korzystania z usługi i Politykę prywatności."
+},
 
   "navigation": {
     "home": "Strona główna",
@@ -31,6 +36,9 @@
     "defaultRooms": "Domyślne pokoje",
     "hiraganaRoom": "Hiragana",
     "katakanaRoom": "Katakana",
+    "allKanaRoom": "Cała kana",
+    "allWordsRoom": "Wszystkie słowa",
+    "everythingRoom": "Wszystko",
     "famMemb": "Członkowie rodziny",
     "num": "Liczby",
     "clothes": "Ubrania",
@@ -107,5 +115,38 @@
     "settings": "Ustawienia",
     "loading": "Ładowanie...",
     "example": "np."
+  },
+
+  "termsOfService": {
+    "tos": "Regulamin Korzystania i Polityka Prywatności",
+    "tosIntro": "Wprowadzenie",
+    "tosDesc": "Niniejszy dokument reguluje zasady korzystania z aplikacji Kana Typer oraz wyjaśnia, w jaki sposób przetwarzane są dane użytkowników. Korzystając z aplikacji Kana Typer, użytkownik akceptuje poniższe warunki.",
+    "tosTerms": "Regulamin korzystania z aplikacji Kana Typer",
+    "tosTerm1": "Korzystanie z aplikacji",
+    "tosTerm11": "Aplikacja Kana Typer jest dostępna dla użytkowników posiadających konto Google.",
+    "tosTerm12": "Korzystanie z aplikacji odbywa się zgodnie z jej przeznaczeniem, tj. umożliwieniem dostępu do funkcji oferowanych przez aplikację.",
+    "tosTerm2": "Odpowiedzialność",
+    "tosTerm21": "Aplikacja Kana Typer jest udostępniana w stanie „jak jest” („as is”).",
+    "tosTerm22": "Właściciel aplikacji nie ponosi odpowiedzialności za jakiekolwiek szkody wynikające z użytkowania aplikacji, w tym za utratę danych lub inne problemy techniczne.",
+    "tosTerm3": "Usługi zewnętrzne",
+    "tosTerm31": "Korzystając z aplikacji, użytkownik akceptuje zasady i warunki korzystania z usług Google, dostępne pod adresem: https://policies.google.com/terms.",
+    "tosTerm4": "Zmiany w regulaminie",
+    "tosTerm41": "Regulamin aplikacji Kana Typer może być zmieniany w przyszłości. Zmiany w regulaminie będą publikowane w aplikacji, a użytkownicy zostaną o nich poinformowani przy kolejnym logowaniu.",
+    "tosPolicy": "Polityka Prywatności",
+    "tosPolicy1": "Administrator danych",
+    "tosPolicy11": "Aplikacja Kana Typer nie gromadzi, nie przechowuje ani nie przetwarza danych osobowych użytkowników.",
+    "tosPolicy2": "Logowanie za pomocą konta Google",
+    "tosPolicy21": "Aplikacja umożliwia logowanie wyłącznie za pomocą konta Google.",
+    "tosPolicy22": "Dane uwierzytelniające są przetwarzane wyłącznie przez usługę Google w celu weryfikacji użytkownika. Aplikacja Kana Typer nie zapisuje ani nie przechowuje danych osobowych użytkowników.",
+    "tosPolicy3": "Ciasteczka i dane sesji",
+    "tosPolicy31": "Aplikacja Kana Typer nie wykorzystuje plików cookies do śledzenia aktywności użytkownika.",
+    "tosPolicy32": "Dane sesji (np. czas trwania sesji) są przechowywane tymczasowo w celu prawidłowego działania aplikacji i są usuwane po zakończeniu sesji.",
+    "tosPolicy4": "Korzystanie z Firebase",
+    "tosPolicy41": "Aplikacja korzysta z Firebase, usługi dostarczanej przez Google, do obsługi logowania, przechowywania danych i innych funkcji aplikacji.",
+    "tosPolicy42": "Firebase może przetwarzać dane zgodnie z Polityką Prywatności Google, dostępną pod adresem: https://policies.google.com/privacy.",
+    "tosPolicy5": "Prawa użytkownika",
+    "tosPolicy51": "Ponieważ aplikacja Kana Typer nie przechowuje danych osobowych, użytkownik nie musi składać żadnych wniosków dotyczących dostępu, modyfikacji czy usuwania swoich danych.",
+    "tosPolicy6": "Zmiany w Polityce Prywatności",
+    "tosPolicy61": "Polityka Prywatności może być zmieniana w przyszłości. Zmiany będą publikowane w aplikacji, a użytkownik zostanie o nich poinformowany przy kolejnym logowaniu."
   }
 }

@@ -13,6 +13,7 @@ import ErrorPage from './pages/error/ErrorPage.jsx'
 import LoginPage from './pages/login/LoginPage.jsx'
 
 import './css/main.css'
+import TermsOfServicePage from './pages/termsOfService/TermsOfServicePage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage/>,
+      },
+      {
+        path: 'tos',
+        element: <TermsOfServicePage/>,
       }
     ]
   }

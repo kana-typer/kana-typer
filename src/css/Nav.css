@@ -76,7 +76,7 @@ nav#main-navigation > .lang-picker > i {
 .login-handler__pfp {
   display: block;
   width: 3rem;
-  height: auto;
+  max-height: 3rem;
   border-radius: 50%;
   cursor: pointer;
   opacity: 1;

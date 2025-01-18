@@ -2,6 +2,7 @@ import { auth, db } from '../config/firebase'
 import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
 
 /**
+ * @deprecated
  * Gets current user's entry in database and returns singular field from it.
  * @param {string} fieldName - name of the field
  */
@@ -24,6 +25,9 @@ export const getUserField = async (fieldName) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const updateUserMapField = async (fieldName, value) => {
   try {
     const ref = doc(db, 'users', auth.currentUser.uid)
@@ -34,6 +38,7 @@ export const updateUserMapField = async (fieldName, value) => {
 }
 
 /**
+ * @deprecated
  * Gets documents from a collection based on given conditions, or gets whole collection if no conditions were specified.
  * @param {string} collectionName - name of the db collection
  * @param {Array<Array<string>>} whereConditions - array of conditions, where each condition is an array with 3 values, as specified per firebase `where()` documentation
@@ -64,6 +69,9 @@ export const getDocuments = async (collectionName, whereConditions = undefined) 
   }
 }
 
+/**
+ * @deprecated
+ */
 export const testDbStatus = () => {
   try {
     onSnapshot(collection(db, 'test'), snapshot => {
@@ -76,6 +84,9 @@ export const testDbStatus = () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteDocumentAndSubCollections = async (docRef) => {
   const deleteCollection = async (name, silent = true) => {
     try {
@@ -103,6 +114,9 @@ export const deleteDocumentAndSubCollections = async (docRef) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const createOrReadAnonymousUserData = async () => {
   try {
     if (!auth.currentUser.isAnonymous)
@@ -134,6 +148,9 @@ export const createOrReadAnonymousUserData = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUser = async () => {
   try {
     const userRef = doc(db, 'users', auth.currentUser.uid)
@@ -144,6 +161,9 @@ export const deleteAnonymousUser = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUserData = async () => {
   try {
     const userRef = doc(db, 'users', auth.currentUser.uid)
@@ -153,6 +173,9 @@ export const deleteAnonymousUserData = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUserAuth = async (user) => {
   try {
     await user.delete()

@@ -1,4 +1,4 @@
-import { beforeEach, beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 import * as func from '../kana'
 
 
@@ -453,7 +453,7 @@ describe('generateMoraMap()', () => {
     }
 
     const value = func.generateMoraMap(source, modifiers, progress, filters)
-    
+
     expect(value).toHaveLength(32)
 
     expect(value.has('ka')).toBe(true)

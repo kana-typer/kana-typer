@@ -2,7 +2,6 @@ import { auth, db } from '../config/firebase'
 import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
 
 /**
- * @deprecated
  * Gets current user's entry in database and returns singular field from it.
  * @param {string} fieldName - name of the field
  */
@@ -25,9 +24,6 @@ export const getUserField = async (fieldName) => {
   }
 }
 
-/**
- * @deprecated
- */
 export const updateUserMapField = async (fieldName, value) => {
   try {
     const ref = doc(db, 'users', auth.currentUser.uid)
@@ -38,7 +34,6 @@ export const updateUserMapField = async (fieldName, value) => {
 }
 
 /**
- * @deprecated
  * Gets documents from a collection based on given conditions, or gets whole collection if no conditions were specified.
  * @param {string} collectionName - name of the db collection
  * @param {Array<Array<string>>} whereConditions - array of conditions, where each condition is an array with 3 values, as specified per firebase `where()` documentation

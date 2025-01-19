@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 
 import { isDev } from './utils/globals'
 
-import AuthProvider from './context/AuthContext'
+import GoogleAuthProvider from './context/GoogleAuthContext'
 import TyperDataProvider from './context/TyperDataContext'
 
 import useLazyPlaceholder from './hooks/useLazyPlaceholder'
@@ -21,7 +21,7 @@ const LazyPlaceholder = isDev ? memo(useLazyPlaceholder(1000)) : null
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <AuthProvider>
+      <GoogleAuthProvider>
         <TyperDataProvider>
           <Nav />
           <main>
@@ -29,7 +29,7 @@ function App() {
             {LazyPlaceholder && <LazyPlaceholder />}
           </main>
         </TyperDataProvider>
-      </AuthProvider>
+      </GoogleAuthProvider>
     </Suspense>
   )
 }

@@ -22,3 +22,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+@media (max-width: 500px) {
+  main{
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+}

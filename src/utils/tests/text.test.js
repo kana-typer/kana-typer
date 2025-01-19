@@ -43,10 +43,3 @@ describe('getTextFont()', () => {
     expect(font).toBe('normal 16px Times New Roman')
   })
 })
-
-describe('getTextWidth()', () => {
-  it('Cannot test, for lack of CanvasRenderingContext support: `canvas.getContext("2d")` returns `null`', () => {
-    // TODO: implement tests
-    expect(true).toBe(true)
-  })
-})

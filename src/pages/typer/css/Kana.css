@@ -9,7 +9,7 @@
 }
 
 .typer > .kana > .morae {
-  --morae-color: gray;
+  --morae-color: rgb(170, 170, 170);
 
   display: flex;
   flex-direction: column;
@@ -23,15 +23,16 @@
 }
 
 .typer > .kana > .morae.correct {
-  --morae-color: lime;
+  --morae-color: rgb(80, 192, 80);
 }
 
 .typer > .kana > .morae.incorrect {
-  --morae-color: red;
+  --morae-color: rgb(209, 22, 22);
 }
 
 .typer > .kana .morae__furigana {
   font-size: .3em;
+  opacity: 20%;
 }
 
 .typer > .kana .morae__translation {

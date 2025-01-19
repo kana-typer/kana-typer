@@ -184,6 +184,9 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
         isFinished={isFinished} 
       />}
+      <div className='typer-page__restart'>
+        <button className='typer-page__restart-button'>Restart</button>
+      </div>
       <Stats 
         correctHits={userCorrectHits}
         incorrectHits={userIncorrectHits}
@@ -194,10 +197,12 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         {isLoading ? 'Loading' : preCountdown + 1}
       </div>
       {blocker.state === 'blocked' ? (
-        <div className='typer-page__button-box'>
-          <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
-          <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
-          <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
+        <div className='typer-page__modal'>
+          <div className='typer-page__button-box'>
+            <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
+            <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
+            <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
+          </div>
         </div>
       ) : null}
     </div>

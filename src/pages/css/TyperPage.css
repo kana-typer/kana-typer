@@ -26,6 +26,8 @@ div.typer-page__select {
 }
 
 nav.typer-page__left-nav{
+  z-index: 10;
+
   display: flex;
   flex-direction: column;
 

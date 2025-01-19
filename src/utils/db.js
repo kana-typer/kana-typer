@@ -64,6 +64,9 @@ export const getDocuments = async (collectionName, whereConditions = undefined) 
   }
 }
 
+/**
+ * @deprecated
+ */
 export const testDbStatus = () => {
   try {
     onSnapshot(collection(db, 'test'), snapshot => {
@@ -76,6 +79,9 @@ export const testDbStatus = () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteDocumentAndSubCollections = async (docRef) => {
   const deleteCollection = async (name, silent = true) => {
     try {
@@ -103,6 +109,9 @@ export const deleteDocumentAndSubCollections = async (docRef) => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const createOrReadAnonymousUserData = async () => {
   try {
     if (!auth.currentUser.isAnonymous)
@@ -134,6 +143,9 @@ export const createOrReadAnonymousUserData = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUser = async () => {
   try {
     const userRef = doc(db, 'users', auth.currentUser.uid)
@@ -144,6 +156,9 @@ export const deleteAnonymousUser = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUserData = async () => {
   try {
     const userRef = doc(db, 'users', auth.currentUser.uid)
@@ -153,6 +168,9 @@ export const deleteAnonymousUserData = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const deleteAnonymousUserAuth = async (user) => {
   try {
     await user.delete()

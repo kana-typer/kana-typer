@@ -1,23 +1,21 @@
-import { emitLoginGoogle, emitLogout, useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import { useGoogleAuth } from '../context/GoogleAuthContext'
+
+import UserIcon from '../assets/user-icon.svg'
 
 import '../css/Nav.css'
 
 function LoginHandler() {
-  const { currentUser, currentUserType, isSigningIn } = useAuth()
+  const navigate = useNavigate()
+  const { currentUser, isSigningIn, signIn } = useGoogleAuth()
 
   return isSigningIn ? (
     <span className='login-handler__loading-text'>loading...</span>
   ) : (
-    currentUserType === 'google' ? (
-      <>
-        <span className='login-handler__google'>{`Logged in as ${currentUser?.displayName || 'unknown'} <${currentUser?.email || 'unknown'}>`}</span>
-        <button onClick={emitLogout}>Log out from Google</button>
-      </>
+    currentUser === null || currentUser.isAnonymous ? (
+      <button className='login-handler__btn' onClick={signIn}>Login</button>
     ) : (
-      <>
-        <span className='login-handler__google'>Logged in as anonymous</span>
-        <button onClick={emitLoginGoogle}>Sign in with Google</button>
-      </>
+      <img className='login-handler__pfp' src={currentUser?.photoURL || UserIcon} alt="User's profile picture" onClick={() => navigate('/user')} />
     )
   )
 }

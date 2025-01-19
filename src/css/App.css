@@ -19,3 +19,7 @@ span.vl {
   height: 100vh;
   background-color: red;
 }
+
+button {
+  cursor: pointer;
+}

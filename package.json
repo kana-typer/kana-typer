@@ -6,7 +6,7 @@
     "dev": "vite --port 5173",
     "build": "vite build",
     "test": "vitest",
-    "tests": "vitest",
+    "test:integration": "vitest ./src/tests/firestore.test.js",
     "coverage": "vitest run --coverage",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

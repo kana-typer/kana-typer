@@ -4,6 +4,7 @@ main {
 
 main > nav + * {
   flex: 1;
+  
 }
 
 .typer-settings > form {
@@ -30,24 +31,37 @@ nav.typer-page__left-nav{
 
   display: flex;
   flex-direction: column;
-
   position: fixed;
-  left: 0;
-  overflow:hidden;
-
+  left: -19em;
+  overflow: visible;
   width: 20em;
   height: 100%;
-
   background-color: #F7F7F7;
+  transition: left 0.3s ease;
 
-  transition:width .3s ease;
+}
 
-  &:hover {
-    width:200px;
-  }
-  @media screen and (min-width: 400px) {
-    width: 4em;
-  }
+nav.typer-page__left-nav.expanded {
+  left: 0;
+}
+
+
+.nav-arrow {
+  position: absolute;
+  right: -1em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2em;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 0.3em;
+  font-size: 1.5em;
+  color: #a60210;
+  background-color: #F7F7F7;
+  border-radius: 0 10px 10px 0;
+  z-index: 1000;
 }
 
 img.typer-page__logo {

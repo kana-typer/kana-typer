@@ -1,4 +1,5 @@
 import { createSeededLCGRand } from './rand'
+import { isNullOrUndefined } from './types'
 
 /**
  * Longest accepted mora count for singular morae, word or kanji.
@@ -84,7 +85,6 @@ export const WORDS_TYPES = {
  * @returns {{ sokuon: { hiragana: string | null, katakana: string | null }, yoon: { hiragana: { ya: string | null, yu: string | null, yo: string | null }, katakana: { ya: string | null, yu: string | null, yo: string | null } } }} object with mora modifiers set to a string value if any missing (null) modifiers were found and their respective data source found in source object.
  */
 export const generateModifiers = (source, prevModifiers) => {
-  // console.debug(`loading modifiers from source`)
   const getSmallSymbol = (source, script, target) => source
     .filter(obj => obj.script === script)
     .find(obj => obj.furigana.romaji == target)
@@ -94,42 +94,34 @@ export const generateModifiers = (source, prevModifiers) => {
 
   if (data.sokuon.hiragana === null) {
     data.sokuon.hiragana = getSmallSymbol(source, 'hiragana', 'tsu')
-    // console.debug(`added hiragana tsu modifier`)
   }
 
   if (data.sokuon.katakana === null) {
     data.sokuon.katakana = getSmallSymbol(source, 'katakana', 'tsu')
-    // console.debug(`added katakana tsu modifier`)
   }
 
   if (data.yoon.hiragana.ya === null) {
     data.yoon.hiragana.ya = getSmallSymbol(source, 'hiragana', 'ya')
-    // console.debug(`added hiragana ya modifier`)
   }
 
   if (data.yoon.hiragana.yu === null) {
     data.yoon.hiragana.yu = getSmallSymbol(source, 'hiragana', 'yu')
-    // console.debug(`added hiragana yu modifier`)
   }
 
   if (data.yoon.hiragana.yo === null) {
     data.yoon.hiragana.yo = getSmallSymbol(source, 'hiragana', 'yo')
-    // console.debug(`added hiragana yo modifier`)
   }
 
   if (data.yoon.katakana.ya === null) {
     data.yoon.katakana.ya = getSmallSymbol(source, 'katakana', 'ya')
-    // console.debug(`added katakana ya modifier`)
   }
 
   if (data.yoon.katakana.yu === null) {
     data.yoon.katakana.yu = getSmallSymbol(source, 'katakana', 'yu')
-    // console.debug(`added katakana yu modifier`)
   }
 
   if (data.yoon.katakana.yo === null) {
     data.yoon.katakana.yo = getSmallSymbol(source, 'katakana', 'yo')
-    // console.debug(`added katakana yo modifier`)
   }
 
   console.debug('generateModifiers(source =', source, ', prevModifiers =', prevModifiers, ') =>', data)
@@ -147,7 +139,7 @@ export const pickFurigana = (furigana, progress) => {
   // if there is no hiragana furigana, then romaji furigana range is extended for easier learning
   const quantityOffset = hasHiragana ? FURIGANA_START_RANGE : FURIGANA_ROMAJI_RANGE
 
-  const isForRomaji = progress === undefined || progress === null || progress < FURIGANA_ROMAJI_RANGE + quantityOffset
+  const isForRomaji = isNullOrUndefined(progress) || progress < FURIGANA_ROMAJI_RANGE + quantityOffset
   const isForHiragana = progress < FURIGANA_HIRAGANA_RANGE + quantityOffset
 
   console.debug("pickFurigana(furigana =", furigana,", progress =", progress, ") FURIGANA_START_RANGE =", FURIGANA_START_RANGE, " FURIGANA_ROMAJI_RANGE =", FURIGANA_ROMAJI_RANGE, ") =>", isForRomaji ? furigana?.romaji || '' : isForHiragana ? furigana?.hiragana || '' : '')
@@ -176,8 +168,8 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
   const map = new Map([])
 
   source.forEach(({ symbol, ...mora }) => {
-    const hasSokuon = mora?.sokuon !== undefined && mora.sokuon !== null
-    const hasYoon = mora?.yoon !== undefined && mora.yoon !== null
+    const hasSokuon = !isNullOrUndefined(mora?.sokuon)
+    const hasYoon = !isNullOrUndefined(mora?.yoon)
     const romaji = mora?.furigana?.romaji || ''
     const script = mora?.script || 'hiragana'
     const furigana = mora?.furigana
@@ -203,10 +195,10 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
         const sokuonSymbol = modifiers.sokuon[script] + symbol
         const sokuonFurigana = {}
 
-        if (furigana?.romaji !== undefined && furigana?.romaji !== null)
+        if (!isNullOrUndefined(furigana?.romaji))
           sokuonFurigana.romaji = sokuonRomaji
 
-        if (furigana?.hiragana !== undefined && furigana?.hiragana !== null)
+        if (!isNullOrUndefined(furigana?.hiragana))
           sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
 
         items.push({
@@ -226,10 +218,10 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
           const yoonSymbol = symbol + modifiers.yoon[script][yoon]
           const yoonFurigana = {}
 
-          if (furigana?.romaji !== undefined && furigana?.romaji !== null)
+          if (!isNullOrUndefined(furigana?.romaji))
             yoonFurigana.romaji = yoonRomaji
 
-          if (furigana?.hiragana !== undefined && furigana?.hiragana !== null)
+          if (!isNullOrUndefined(furigana?.hiragana))
             yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
 
           items.push({
@@ -245,10 +237,10 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
             const bothSymbol = modifiers.sokuon[script] + yoonSymbol
             const bothFurigana = {}
 
-            if (furigana?.romaji !== undefined && furigana?.romaji !== null)
+            if (!isNullOrUndefined(furigana?.romaji))
               bothFurigana.romaji = bothRomaji
     
-            if (furigana?.hiragana !== undefined && furigana?.hiragana !== null)
+            if (!isNullOrUndefined(furigana?.hiragana))
               bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
 
             items.push({

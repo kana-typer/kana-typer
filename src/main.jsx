@@ -11,9 +11,10 @@ import HelpPage from './pages/help/HelpPage.jsx'
 import UserPage from './pages/user/UserPage.jsx'
 import ErrorPage from './pages/error/ErrorPage.jsx'
 import LoginPage from './pages/login/LoginPage.jsx'
+import TermsOfServicePage from './pages/termsOfService/TermsOfServicePage.jsx'
 
 import './css/main.css'
-import TermsOfServicePage from './pages/termsOfService/TermsOfServicePage.jsx'
+
 
 const router = createBrowserRouter([
   {

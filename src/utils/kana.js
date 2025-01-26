@@ -1,5 +1,6 @@
 import { createSeededLCGRand } from './rand'
 import { isNullOrUndefined } from './types'
+import { getCurrentLanguageCode } from './lang'
 
 /**
  * Longest accepted mora count for singular morae, word or kanji.
@@ -296,7 +297,7 @@ export const generateWordsMap = (source, progress, filters) => {
         key: romaji,
         kana: kana,
         furigana: pickFurigana(furigana, progress?.[kana]),
-        translation: word?.translation?.en || '',
+        translation: word?.translation?.[getCurrentLanguageCode()] || '',
         reading: word?.furigana?.reading || null,
       })
     }

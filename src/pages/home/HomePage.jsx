@@ -10,7 +10,6 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      
       <section className="home-page__left-section">
         <h1 className='home-page__title'>{t('homePage.aboutUs')}</h1>
 
@@ -23,7 +22,6 @@ function HomePage() {
           <div className='home-page__desc'>{t('homePage.homeText6')}</div>
         </div>
       </section>
-
       
       <section className="home-page__right-section">
         <img src={Logo} alt="Logo" className="home-page__logo" />

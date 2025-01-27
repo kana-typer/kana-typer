@@ -73,7 +73,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     const moraToFitOnScreen = Math.ceil(window.innerWidth / (moraWidth + moraeLetterSpacing))
 
     if (typerIndex === 0) 
-      return getRandomKanaFromMap(moraToFitOnScreen, typerMap)
+      return getRandomKanaFromMap(moraToFitOnScreen, typerMap, { seed: Date.now() })
 
     const moraeOnRight = prevValue 
       ? prevValue
@@ -85,7 +85,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
     const generateMore = moraeOnRight.length < moraToFitOnScreen
 
     if (prevValue?.length && generateMore)
-      return [...prevValue, ...getRandomKanaFromMap(moraToFitOnScreen, typerMap)]
+      return [...prevValue, ...getRandomKanaFromMap(moraToFitOnScreen, typerMap, { seed: Date.now() })]
     return prevValue
   }, [typerMap, typerIndex])
 

@@ -62,6 +62,11 @@ nav.typer-page__left-nav.expanded {
   background-color: #F7F7F7;
   border-radius: 0 10px 10px 0;
   z-index: 1000;
+  cursor: pointer;
+}
+
+.nav-arrow:hover {
+  color: #a60210ab;
 }
 
 img.typer-page__logo {

@@ -48,14 +48,6 @@ function TyperPage() {
     <button onClick={() => sel(group)} disabled={!filtersActive}>{label}</button>
   )
 
-  const handleMouseEnter = () => {
-    setIsNavExpanded(true)
-  }
-
-  const handleMouseLeave = () => {
-    setIsNavExpanded(false)
-  }
-
   let content = null
 
   if (showTyper) {
@@ -86,11 +78,7 @@ function TyperPage() {
 
   return (
     <>
-      <nav 
-        className={`typer-page__left-nav ${isNavExpanded ? 'expanded' : ''}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <nav className={`typer-page__left-nav ${isNavExpanded ? 'expanded' : ''}`}>
         <img src={Logo} alt="Logo" className="typer-page__logo" />
         <ul className='typer-page__ul'>
           <li>
@@ -120,7 +108,7 @@ function TyperPage() {
             <FilterButton label={t('rooms.everythingRoom')} group={filterNames.all} />
           </li>
         </ul>
-        <div className="nav-arrow">
+        <div className="nav-arrow" onClick={() => setIsNavExpanded(prev => !prev)}>
           {isNavExpanded ? '◀' : '▶'}
         </div>
       </nav>

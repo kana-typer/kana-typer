@@ -15,5 +15,10 @@
     "i18n": {
       "root": "/i18n"
     }
+  },
+  "emulators": {
+    "firestore": {
+      "port": 9001
+    }
   }
 }

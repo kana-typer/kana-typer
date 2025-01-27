@@ -1,4 +1,6 @@
-import { createSeededLCGRand } from "./rand"
+import { createSeededLCGRand } from './rand'
+import { isNullOrUndefined } from './types'
+import { getCurrentLanguageCode } from './lang'
 
 /**
  * Longest accepted mora count for singular morae, word or kanji.
@@ -62,6 +64,7 @@ export const WORDS_CATEGORIES = {
   clothes: 'clothes',
   numbers: 'numbers',
   colors: 'colors',
+  animals: 'animals',
 }
 
 /**
@@ -69,11 +72,11 @@ export const WORDS_CATEGORIES = {
  * This will show up as sub-options for filtering.
  */
 export const WORDS_TYPES = {
-  verbs: 'verbs',
-  nouns: 'nouns',
-  adjectives: 'adjectives',
-  particles: 'particles',
-  pronouns: 'pronouns',
+  verbs: 'verb',
+  nouns: 'noun',
+  adjectives: 'adjective',
+  particles: 'particle',
+  pronouns: 'pronoun',
 }
 
 /**
@@ -83,7 +86,6 @@ export const WORDS_TYPES = {
  * @returns {{ sokuon: { hiragana: string | null, katakana: string | null }, yoon: { hiragana: { ya: string | null, yu: string | null, yo: string | null }, katakana: { ya: string | null, yu: string | null, yo: string | null } } }} object with mora modifiers set to a string value if any missing (null) modifiers were found and their respective data source found in source object.
  */
 export const generateModifiers = (source, prevModifiers) => {
-  // console.debug(`loading modifiers from source`)
   const getSmallSymbol = (source, script, target) => source
     .filter(obj => obj.script === script)
     .find(obj => obj.furigana.romaji == target)
@@ -93,44 +95,37 @@ export const generateModifiers = (source, prevModifiers) => {
 
   if (data.sokuon.hiragana === null) {
     data.sokuon.hiragana = getSmallSymbol(source, 'hiragana', 'tsu')
-    // console.debug(`added hiragana tsu modifier`)
   }
 
   if (data.sokuon.katakana === null) {
     data.sokuon.katakana = getSmallSymbol(source, 'katakana', 'tsu')
-    // console.debug(`added katakana tsu modifier`)
   }
 
   if (data.yoon.hiragana.ya === null) {
     data.yoon.hiragana.ya = getSmallSymbol(source, 'hiragana', 'ya')
-    // console.debug(`added hiragana ya modifier`)
   }
 
   if (data.yoon.hiragana.yu === null) {
     data.yoon.hiragana.yu = getSmallSymbol(source, 'hiragana', 'yu')
-    // console.debug(`added hiragana yu modifier`)
   }
 
   if (data.yoon.hiragana.yo === null) {
     data.yoon.hiragana.yo = getSmallSymbol(source, 'hiragana', 'yo')
-    // console.debug(`added hiragana yo modifier`)
   }
 
   if (data.yoon.katakana.ya === null) {
     data.yoon.katakana.ya = getSmallSymbol(source, 'katakana', 'ya')
-    // console.debug(`added katakana ya modifier`)
   }
 
   if (data.yoon.katakana.yu === null) {
     data.yoon.katakana.yu = getSmallSymbol(source, 'katakana', 'yu')
-    // console.debug(`added katakana yu modifier`)
   }
 
   if (data.yoon.katakana.yo === null) {
     data.yoon.katakana.yo = getSmallSymbol(source, 'katakana', 'yo')
-    // console.debug(`added katakana yo modifier`)
   }
 
+  console.debug('generateModifiers(source =', source, ', prevModifiers =', prevModifiers, ') =>', data)
   return data
 }
 
@@ -145,14 +140,15 @@ export const pickFurigana = (furigana, progress) => {
   // if there is no hiragana furigana, then romaji furigana range is extended for easier learning
   const quantityOffset = hasHiragana ? FURIGANA_START_RANGE : FURIGANA_ROMAJI_RANGE
 
-  console.debug(`LOG picking furigana ${furigana} for ${progress} 1=${progress === undefined || progress === null || progress < FURIGANA_ROMAJI_RANGE + quantityOffset ? furigana?.romaji : false} 2=${progress < FURIGANA_HIRAGANA_RANGE + quantityOffset ? furigana?.hiragana : false}`)
+  const isForRomaji = isNullOrUndefined(progress) || progress < FURIGANA_ROMAJI_RANGE + quantityOffset
+  const isForHiragana = progress < FURIGANA_HIRAGANA_RANGE + quantityOffset
 
-  if (progress === undefined || 
-      progress === null || 
-      progress < FURIGANA_ROMAJI_RANGE + quantityOffset)
+  console.debug("pickFurigana(furigana =", furigana,", progress =", progress, ") FURIGANA_START_RANGE =", FURIGANA_START_RANGE, " FURIGANA_ROMAJI_RANGE =", FURIGANA_ROMAJI_RANGE, ") =>", isForRomaji ? furigana?.romaji || '' : isForHiragana ? furigana?.hiragana || '' : '')
+
+  if (isForRomaji)
     return furigana?.romaji || ''
 
-  else if (progress < FURIGANA_HIRAGANA_RANGE + quantityOffset)
+  else if (isForHiragana)
     return furigana?.hiragana || ''
 
   return ''
@@ -173,10 +169,8 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
   const map = new Map([])
 
   source.forEach(({ symbol, ...mora }) => {
-    console.debug(`generating mora map data for ${symbol}`)
-
-    const hasSokuon = mora?.sokuon !== undefined && mora.sokuon !== null
-    const hasYoon = mora?.yoon !== undefined && mora.yoon !== null
+    const hasSokuon = !isNullOrUndefined(mora?.sokuon)
+    const hasYoon = !isNullOrUndefined(mora?.yoon)
     const romaji = mora?.furigana?.romaji || ''
     const script = mora?.script || 'hiragana'
     const furigana = mora?.furigana
@@ -189,7 +183,6 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
       skip = true
 
     if (!skip) {
-      console.debug(`symbol-${symbol} staging ${romaji} mora map data item`)
       items.push({
         key: romaji,
         kana: symbol,
@@ -203,13 +196,12 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
         const sokuonSymbol = modifiers.sokuon[script] + symbol
         const sokuonFurigana = {}
 
-        if (furigana?.romaji !== undefined)
+        if (!isNullOrUndefined(furigana?.romaji))
           sokuonFurigana.romaji = sokuonRomaji
 
-        if (furigana?.hiragana !== undefined)
+        if (!isNullOrUndefined(furigana?.hiragana))
           sokuonFurigana.hiragana = modifiers.sokuon.hiragana + furigana.hiragana
 
-        console.debug(`symbol-${symbol} staging ${sokuonRomaji} mora map data item`)
         items.push({
           key: sokuonRomaji,
           kana: sokuonSymbol,
@@ -227,13 +219,12 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
           const yoonSymbol = symbol + modifiers.yoon[script][yoon]
           const yoonFurigana = {}
 
-          if (furigana?.romaji !== undefined)
+          if (!isNullOrUndefined(furigana?.romaji))
             yoonFurigana.romaji = yoonRomaji
 
-          if (furigana?.hiragana !== undefined)
+          if (!isNullOrUndefined(furigana?.hiragana))
             yoonFurigana.hiragana = furigana.hiragana + modifiers.yoon.hiragana[yoon]
 
-          console.debug(`symbol-${symbol} staging ${yoonRomaji} mora map data item`)
           items.push({
             key: yoonRomaji,
             kana: yoonSymbol,
@@ -247,13 +238,12 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
             const bothSymbol = modifiers.sokuon[script] + yoonSymbol
             const bothFurigana = {}
 
-            if (furigana?.romaji !== undefined)
+            if (!isNullOrUndefined(furigana?.romaji))
               bothFurigana.romaji = bothRomaji
     
-            if (furigana?.hiragana !== undefined)
+            if (!isNullOrUndefined(furigana?.hiragana))
               bothFurigana.hiragana = modifiers.sokuon.hiragana + yoonFurigana.hiragana
 
-            console.debug(`symbol-${symbol} staging ${bothRomaji} mora map data item`)
             items.push({
               key: bothRomaji,
               kana: bothSymbol,
@@ -266,13 +256,13 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
       }
     }
 
+    console.debug('generateMoraMap(source =', source, ', modifiers =', modifiers, ', progress =', progress, ', filters =', filters, ') foreach symbol =', symbol, ': rest =', mora, 'skip =', skip, ' (scripts, types, extended) sokuon =', hasSokuon && filters.sokuon === true, 'yoon =', hasYoon && filters.yoon === true, 'items =', items)
+
     items.forEach(({ key, ...data }) => { // TODO: not too optimal :/
       if (map.has(key)) {
         map.set(key, [...map.get(key), data])
-        console.debug(`symbol-${symbol} appending more data to ${key} mora map item (${data.kana})`)
       } else {
         map.set(key, [data])
-        console.debug(`symbol-${symbol} adding ${key} mora map data item (${data.kana})`)
       }
     })
   })
@@ -293,8 +283,6 @@ export const generateWordsMap = (source, progress, filters) => {
   const map = new Map([])
 
   source.forEach(({ kana, ...word }) => {
-    // console.debug(`generating words map data for ${kana}`)
-
     const romaji = word?.furigana?.romaji || ''
     const furigana = word?.furigana
     const items = []
@@ -305,23 +293,22 @@ export const generateWordsMap = (source, progress, filters) => {
       skip = true
 
     if (!skip) {
-      // console.debug(`staging ${romaji} words map data item`)
       items.push({
         key: romaji,
         kana: kana,
         furigana: pickFurigana(furigana, progress?.[kana]),
-        translation: word?.translation?.en || '',
+        translation: word?.translation?.[getCurrentLanguageCode()] || '',
         reading: word?.furigana?.reading || null,
       })
     }
 
+    console.debug('generateWordsMap(source =', source, ', progress =', progress, ', filters =', filters, ') foreach kana =', kana, ': rest =', word, 'skip =', skip, ' (categories, types) items =', items)
+
     items.forEach(({ key, ...data }) => {
       if (map.has(key)) {
         map.set(key, [...map.get(key), data])
-        // console.debug(`appending more data to ${key} words map item (${data.kana})`)
       } else {
         map.set(key, [data])
-        // console.debug(`adding ${key} words map data item (${data.kana})`)
       }
     })
   })
@@ -340,8 +327,6 @@ export const generateWordsMap = (source, progress, filters) => {
  * @returns {object[]} array of randomly picked objects.
  */
 export const getRandomKanaFromMap = (amount, sourceMap, { countingSpecificity = 'mora', seed = 12345, maxNumOfMisses = 5 } = {}) => {
-  // // console.debug(`generate ${amount} random kana`)
-
   if (sourceMap === null || sourceMap.size === 0) {
     console.error(`source map is empty - ${sourceMap}`)
     return []
@@ -354,7 +339,6 @@ export const getRandomKanaFromMap = (amount, sourceMap, { countingSpecificity = 
     .from(sourceMap.values())
     .flat()
 
-  // // console.debug(`${amount} to generate, ${choices.length} to pick from`)
   let size = 0
   while (size < amount) {
     const idx = Math.floor(rand() * choices.length)
@@ -372,6 +356,8 @@ export const getRandomKanaFromMap = (amount, sourceMap, { countingSpecificity = 
 
     chosen.push(pick)
   }
+
+  console.debug('getRandomKanaFromMap(amount =', amount, ', sourceMap =', sourceMap, ', { countingSpecificity =', countingSpecificity, ', seed =', seed, ', maxNumOfMisses =', maxNumOfMisses, ' }) (choises =', choices, ') => chosen =', chosen)
 
   return chosen
 }

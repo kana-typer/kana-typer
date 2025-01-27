@@ -3,6 +3,9 @@ import { auth } from '../config/firebase'
 import { forceEmitAuthStateChanged } from '../context/AuthContext'
 
 
+/**
+ * @deprecated
+ */
 export const signInAnonymous = async () => {
   try {
     const result = await signInAnonymously(auth)
@@ -11,6 +14,9 @@ export const signInAnonymous = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const signInGoogle = async () => {
   const provider = new GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
@@ -52,6 +58,9 @@ export const signInGoogle = async () => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const signOut = async () => {
   try {
     await _signOut(auth)

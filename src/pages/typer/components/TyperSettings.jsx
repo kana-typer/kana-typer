@@ -106,7 +106,7 @@ const TyperFilterFields = ({ filters, setFiltersProp }) => {
   </FormGroup>
 }
 
-function TyperSettings({ typerFilters, setTyperFiltersProp }) {
+function TyperSettings({ typerFilters, setTyperFiltersProp, toggleTyper }) {
   const { i18n, t } = useTranslation()
 
   return (
@@ -115,6 +115,8 @@ function TyperSettings({ typerFilters, setTyperFiltersProp }) {
           <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
           <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
       </section>
+
+      <button className='typer-page__begin' onClick={() => toggleTyper(true)}>{t('customizeDetails.start')}</button>
       
       <section className="typer-settings">
         <MoraFilterFields 

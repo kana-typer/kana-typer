@@ -6,7 +6,7 @@ main {
   
     margin-left: 4em;
     margin-right: 4em;
-    width: auto;
+    width: 100%;
   }
 
   section.help-page__box-top {
@@ -46,7 +46,8 @@ main {
     height: auto;
   }
 
-  section.help-page__box-bottom {
+  section.help-page__box-bottom,
+  section.help-page__box-middle {
     flex: 0;
 
     min-width: 50%;
@@ -56,94 +57,89 @@ main {
     padding: 3em;
 
     background-color: #f7f7f7;
+  }
 
+  div.help-page__link {
+    text-align: center;
+  }
+
+  a.help-page__issues {
+    text-decoration: none;
+    color: #a60210;
+  }
+
+  h4.help-page__desc {
+    font-weight: 400;
+    color: gray;
+  }
+
+  section.help-page__box-bottom{
+    margin-top: 2em;
+  }
+
+  section.help-page__box-bottom {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    align-items: flex-start;
   }
-
-  h1.help-page__title {
-    margin-top: 0;
-
-    text-align: center;    
-  }
-  
-  form.help-page__form {
-    flex: 1;
-    width: 100%;
-  
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
-  
-  input.help-page__fname {
-    flex: 1;
-  
-    padding: .5em 1em;
-  
-    color: #0a0a0a;
-    background-color: #ECECEC;
-  
-    width: auto;
-  
-    font-family: inherit;
-    font-size: 1em;
-  
-    border-radius: 10px;
-    border: solid 1px #e5e5e5;
-  }
-
-  textarea.help-page__fmessage {
-    padding: .5em 1em;
-  
-    color: #0a0a0a;
-    background-color: #ECECEC;
-  
-    width: auto;
-    height: 15em;
-
-    resize: none;
-  
-    font-family: inherit;
-    font-size: 1em;
-  
-    border-radius: 10px;
-    border: solid 1px #e5e5e5;
-  }
-
-  @media (max-width: 800px) {
-    textarea.help-page__fmessage {
-      height: 10em;
+  @media (max-width: 500px) {
+    section.help-page__box-bottom {
+      flex-direction: column;
     }
   }
 
-  @media (min-width: 1000px) {
-    textarea.help-page__fmessage {
-      height: 20em;
+  div.help-page__dictionary,
+  div.help-page__tutorial {
+    flex: 1;
+    height: 100%;
+  }
+
+  h3.help-page__topic {
+    font-size: larger;
+  }
+
+  h4.help-page__dictionary__ul-phrase {
+    color: black;
+    font-size: medium;
+    margin: 0;
+  }
+
+  ul.help-page__dictionary__ul {
+    color: gray;
+    font-size: smaller;
+  }
+
+  ul.help-page__dictionary__ul > li,
+  ol.help-page__tutorial__ol > li {
+    margin-bottom: 2em;
+  } 
+
+  ul.help-page__dictionary__ul > li::marker {
+    color: #a60210;
+  }
+
+  div.help-page__dictionary {
+    border-right: lightgray 1px dashed;
+  }
+  @media (max-width: 500px) {
+    div.help-page__dictionary {
+      border: none;
     }
   }
-  
-  button.help-page__fsubmit {
-    flex: 1;
 
-    padding: .5em 1em;
-  
-    width:auto;
-  
-    color: #f7f7f7;;
-    background-color: #a60210;
-
-    cursor: pointer;
-  
-    font-family: inherit;
-    font-size: 1em;
-  
-    border-radius: 10px;
-    border: none;
+  ol.help-page__tutorial__ol {
+    color: gray;
+    font-size: medium;
   }
-  
-  button:hover.help-page__fsubmit {
-    color: darkgray;
-    background-color: rgb(100, 0, 0);
+
+  div.help-page__dictionary,
+  div.help-page__tutorial {
+    padding: 2em;
+  }
+  @media (max-width: 500px) {
+    div.help-page__dictionary,
+    div.help-page__tutorial {
+      padding: 0;
+    }
   }

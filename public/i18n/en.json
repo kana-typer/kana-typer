@@ -8,10 +8,15 @@
     "homeText3": "We created this app to help all fellow Japanese learners on their path to fluency.",
     "homeText4": "Learning Japanese might be difficult and monotonous, but in this place we'll speed up a little and have fun... unless you prefer slower pace, then don't worry - everything can be customized. If you wish to read and write like a master, then check out our Typer tool! It'll help you learn to connect kana with its way of reading.",
     "homeText5": "You don't need to track your own progress, the app will adjust to you and cover all basic information in the Progress tab.",
-    "homeText6": "Hopefully you'll have a good time learning Japanese and stick with us!",
+    "homeText6": "Hopefully you'll have a good time learning Japanese and stick with us!"
+  },
+
+  "loginPage": {
+    "joinUs": "Join us!",
     "useGoogle": "Using the Google account.",
-    "loginGoogle": "Log in with Google",
-    "whyGoogle": "Why Google?"
+    "loginGoogle": "Log In with Google",
+    "termsOfPolicy1": "By clicking 'Log In with Google', you agree to our ",
+    "termsOfPolicy2": "Terms of Service and Privacy Policy."
   },
 
   "navigation": {
@@ -31,6 +36,9 @@
     "defaultRooms": "Default Rooms",
     "hiraganaRoom": "Hiragana",
     "katakanaRoom": "Katakana",
+    "allKanaRoom": "All kana",
+    "allWordsRoom": "All words",
+    "everythingRoom": "Everything",
     "famMemb": "Family members",
     "num": "Numbers",
     "clothes": "Clothes",
@@ -42,7 +50,7 @@
     "chooseMode": "Select modes from the side navigation",
     "type": "type...",
     "speed": "Speed",
-    "wordsPerMin": "Words per minute",
+    "wordsPerMin": "Morae per minute",
     "correct": "Correct",
     "mistakes": "Mistakes",
     "accuracy": "Accuracy"
@@ -79,12 +87,35 @@
   },
 
   "helpDetails": {
-    "contact": "Contact us",
-    "helpDesc": "Fill out the form if you spotted any bugs or mistakes, if you are having trouble or just when you want ot get in contact with us. ☺",
-    "writeForm": "Feel free to share your thoughts",
-    "nameForm": "Name",
-    "messageForm": "Message",
-    "sendForm": "Send"
+    "helpTitle": "Help",
+    "helpDesc": "Here you will find translations, a tutorial, and a link to Github Issues.",
+    "linkIssue": "Create an issue if you spotted any bugs or mistakes, if you are having trouble or just when you want ot get in contact with us. ☺",
+    "writeLink": "Feel free to share your thoughts",
+    "helpLink": "Take me to Github Issues ➟",
+    "helpDictionary": "Dictionary",
+    "helpHira": "hiragana",
+    "helpHiraDesc": "one of the two Japanese syllabaries, mainly used for writing grammar (e.g., particles) and native words for which there is no kanji equivalent,",
+    "helpKata": "katakana",
+    "helpKataDesc": "the second Japanese syllabary, mainly used for writing loanwords, onomatopoeias, proper names (e.g., foreign names), and technical terms,",
+    "helpGojuon": "gojuon",
+    "helpGojuonDesc": "a set of basic characters and their sounds for both kana alphabets,",
+    "helpDakuten": "dakuten",
+    "helpDakutenDesc": "marked with the symbol [ ゛]; a mark that changes a consonant to its voiced form; e.g., が,",
+    "helpHandakuten": "handakuten",
+    "helpHandakutenDesc": "marked with the symbol [ ゜]; a mark that changes a consonant to its semi-voiced form; e.g., ぱ,",
+    "helpKanji": "kanji",
+    "helpKanjiDesc": "logographic characters of Chinese origin used in the Japanese language. Each kanji carries a specific meaning and often has multiple possible pronunciations depending on the context,",
+    "helpRomaji": "romaji",
+    "helpRomajiDesc": "a system of transcribing Japanese sounds using the Latin alphabet. It is primarily used for learning the language by foreigners and to facilitate writing in international contexts,",
+    "helpFurigana": "furigana",
+    "helpFuriganaDesc": "a rendering of a word in simpler kana, displayed above or next to a word. It serves as an aid for reading harder or less familiar words (usually written in kanji).",
+    "helpTutorial": "Typer Tutorial",
+    "helpTutorial1": "Open the Typer subpage.",
+    "helpTutorial2": "Select a mode from the navigation on the left side.",
+    "helpTutorial3": "Using the settings under the 'Start' button, you can adjust the tool's functionality.",
+    "helpTutorial4": "Press the 'Start' button.",
+    "helpTutorial5": "Type the sounds of the given characters - if you're a beginner, hints will be displayed above.",
+    "helpTutorial6": "After finishing a session, you can repeat the selected mode, try a new one, or check your progress on the Progress page."
   },
 
   "accountDetails": {
@@ -107,5 +138,39 @@
     "settings": "Settings",
     "loading": "Loading...",
     "example": "ex."
-  }
+  },
+
+  "termsOfService": {
+  "tos": "Terms of Service and Privacy Policy",
+  "tosIntro": "Introduction",
+  "tosDesc": "This document governs the terms of use of the Kana Typer application and explains how user data is processed. By using the Kana Typer application, the user accepts the following terms.",
+  "tosTerms": "Terms of Use for the Kana Typer Application",
+  "tosTerm1": "Using the Application",
+  "tosTerm11": "The Kana Typer application is available to users with a Google account.",
+  "tosTerm12": "Using the application must align with its intended purpose, namely providing access to the features offered by the application.",
+  "tosTerm2": "Responsibility",
+  "tosTerm21": "The Kana Typer application is provided 'as is'.",
+  "tosTerm22": "The application owner is not responsible for any damages resulting from the use of the application, including data loss or other technical issues.",
+  "tosTerm3": "Third-Party Services",
+  "tosTerm31": "By using the application, the user accepts the terms and conditions of Google services, available at: https://policies.google.com/terms.",
+  "tosTerm4": "Changes to the Terms",
+  "tosTerm41": "The terms of use for the Kana Typer application may be amended in the future. Changes to the terms will be published in the application, and users will be informed upon their next login.",
+  "tosPolicy": "Privacy Policy",
+  "tosPolicy1": "Data Administrator",
+  "tosPolicy11": "The Kana Typer application does not collect, store, or process users' personal data.",
+  "tosPolicy2": "Logging in with a Google Account",
+  "tosPolicy21": "The application only allows logging in with a Google account.",
+  "tosPolicy22": "Authentication data is processed solely by Google's service to verify the user. The Kana Typer application does not store or retain users' personal data.",
+  "tosPolicy3": "Cookies and Session Data",
+  "tosPolicy31": "The Kana Typer application does not use cookies to track user activity.",
+  "tosPolicy32": "Session data (e.g., session duration) is temporarily stored to ensure the application functions properly and is deleted after the session ends.",
+  "tosPolicy4": "Using Firebase",
+  "tosPolicy41": "The application uses Firebase, a service provided by Google, to handle login, data storage, and other application features.",
+  "tosPolicy42": "Firebase may process data in accordance with Google's Privacy Policy, available at: https://policies.google.com/privacy.",
+  "tosPolicy5": "User Rights",
+  "tosPolicy51": "Since the Kana Typer application does not store personal data, users do not need to submit any requests regarding access, modification, or deletion of their data.",
+  "tosPolicy6": "Changes to the Privacy Policy",
+  "tosPolicy61": "The Privacy Policy may be amended in the future. Changes will be published in the application, and the user will be informed upon their next login."
+}
+
 }

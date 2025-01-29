@@ -19,15 +19,15 @@ function UserPage() {
     return userData.signedOn.toDate().toLocaleDateString()
   }, [userData])
 
-  if (currentUser === null || currentUser.isAnonymous)
-    return <Navigate to='/login' state={{ from: location }} replace />
-
   const { i18n, t } = useTranslation()
 
   const resetProgress = async () => {
     await updateUserMapField('progress', {})
     alert('Progress has been reset')
   }
+
+  if (currentUser === null || currentUser.isAnonymous)
+    return <Navigate to='/login' state={{ from: location }} replace />
 
   return (
     <>

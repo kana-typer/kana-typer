@@ -25,6 +25,12 @@
 
   --mrg-page-hor: 4rem;
 
+  --brd-radius: 10px;
+
+  --bxs-radius: 5px;
+  --bxs-spread: 5px;
+  --bxs-color: var(--clr-dark-white);
+
   font-family: var(--fnt-family);
   font-size: var(--fnt-size);
   line-height: 1.5;

@@ -20,9 +20,12 @@
   --fnt-size: 1rem;
   --fnt-size-kana: 4rem;
 
+  --fnt-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --fnt-family-jap: 'Noto Sans JP', serif;
+
   --mrg-page-hor: 4rem;
 
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--fnt-family);
   font-size: var(--fnt-size);
   line-height: 1.5;
   font-weight: 400;

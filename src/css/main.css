@@ -4,6 +4,7 @@
   --clr-black: #0a0a0a;
   --clr-light-black: #282828;
   --clr-gray: #808080;
+  --clr-light-gray: #d4d4d4;
   --clr-dark-gray: #555;
   --clr-red: #a60210;
   --clr-light-red: #ee2222;
@@ -16,6 +17,7 @@
   --clr-txt-action: var(--clr-red);
   --clr-bg-1: var(--clr-white);
   --clr-bg-2: var(--clr-dark-white);
+  --clr-bg-3: var(--clr-light-gray);
   --clr-success: var(--clr-light-green);
   --clr-failure: var(--clr-light-red);
 
@@ -58,6 +60,7 @@
     --clr-txt-action: var(--clr-light-red);
     --clr-bg-1: var(--clr-black);
     --clr-bg-2: var(--clr-light-black);
+    --clr-bg-3: var(--clr-dark-gray);
   }
 }
 

@@ -1,19 +1,18 @@
-import '../css/ProgressPage.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
-
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 import { useGoogleAuth } from '../../context/GoogleAuthContext'
 
+import '../css/ProgressPage.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 function ProgressPage() {
   const { currentUser, userData } = useGoogleAuth()
   const location = useLocation()
+  const { t } = useTranslation()
 
   if (currentUser === null || currentUser.isAnonymous)
     return <Navigate to='/login' state={{ from: location }} replace />
-
-  const { i18n, t } = useTranslation()
 
   return (
     <>
@@ -23,13 +22,6 @@ function ProgressPage() {
       </section>
 
       <div className='progress-page__container'>
-        <form className='progress-page__form' action='#'>
-          <input className='progress-page__search-input' type='text' placeholder={t('common.search')} name='search'/>
-          <button className='progress-page__search-button'>
-            <i className="fa-solid fa-magnifying-glass"></i>{t('common.search')}
-          </button>
-        </form>
-
         <section className='progress'>
           <ul>
             {Object.entries(userData?.progress || {}).map(([kana, progNum], idx) => (

@@ -71,7 +71,7 @@ a {
   color: var(--clr-light-red);
 }
 
-button.btn {
+.btn {
   padding: .6em 1.2em;
 
   display: flex;
@@ -82,6 +82,7 @@ button.btn {
   border-radius: var(--brd-radius);
 
   font-size: 1rem;
+  text-decoration: none;
   color: var(--clr-dark-white);
   background-color: var(--clr-red);
 
@@ -89,7 +90,7 @@ button.btn {
   transition: opacity .1s linear;
 }
 
-button.btn:hover {
+.btn:hover {
   opacity: .7;
 }
 
@@ -118,9 +119,12 @@ svg.spinner {
   }
 }
 
+main {
+  margin: 0 var(--mrg-page-hor);
+}
+
 @media (max-width: 500px) {
-  main {
-    margin-left: 2em;
-    margin-right: 2em;
+  :root {
+    --mrg-page-hor: 2rem;
   }
 }

@@ -10,16 +10,3 @@ main {
   width: 100%;
   flex: 1;
 }
-
-span.vl {
-  position: absolute;
-  top: 0;
-  left: calc(50% - 0.5px);
-  width: 1px;
-  height: 100vh;
-  background-color: red;
-}
-
-button {
-  cursor: pointer;
-}

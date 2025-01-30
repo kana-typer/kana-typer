@@ -1,16 +1,18 @@
-import React from 'react';
-import Logo from '../../assets/logo-kana.svg';
-import { Link } from 'react-router-dom';
-import '../css/HomePage.css';
-
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+
+import Logo from '/logo.svg'
+
+import '../css/HomePage.css'
 
 function HomePage() {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   return (
-    <div className="home-page">
-      <section className="home-page__left-section">
+    <div className='home-page'>
+      <section className='home-page__left-section'>
         <h1 className='home-page__title'>{t('homePage.aboutUs')}</h1>
 
         <div className='home-page__text'>
@@ -23,12 +25,15 @@ function HomePage() {
         </div>
       </section>
       
-      <section className="home-page__right-section">
-        <img src={Logo} alt="Logo" className="home-page__logo" />
-        <Link to="/login" className="home-page__join-button">{t('loginPage.loginGoogle')}</Link>
+      <section className='home-page__right-section'>
+        <img src={Logo} alt='Logo' className='home-page__logo' />
+        <Link to='/login' className='home-page__join-button btn'>
+          <FontAwesomeIcon icon={faRightToBracket} />
+          <span>{t('loginPage.loginGoogle')}</span>
+        </Link>
       </section>
     </div>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useGoogleAuth } from '../../context/GoogleAuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import Logo from '/logo.svg'
 
@@ -9,6 +10,7 @@ import '../css/HomePage.css'
 
 function HomePage() {
   const { t } = useTranslation()
+  const { currentUser } = useGoogleAuth()
 
   return (
     <div className='home-page'>
@@ -27,10 +29,17 @@ function HomePage() {
       
       <section className='home-page__right-section'>
         <img src={Logo} alt='Logo' className='home-page__logo' />
-        <Link to='/login' className='home-page__join-button btn'>
-          <FontAwesomeIcon icon={faRightToBracket} />
-          <span>{t('loginPage.loginGoogle')}</span>
-        </Link>
+        {currentUser === null ? (
+          <Link to='/login' className='home-page__join-button btn'>
+            <FontAwesomeIcon icon={faRightToBracket} />
+            <span>{t('loginPage.loginGoogle')}</span>
+          </Link>
+        ) : (
+          <Link to='/user' className='home-page__join-button btn'>
+            <FontAwesomeIcon icon={faUser} />
+            <span>{t('loginPage.goToProfile')}</span>
+          </Link>
+        )}
       </section>
     </div>
   )

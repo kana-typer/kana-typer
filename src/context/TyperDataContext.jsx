@@ -28,7 +28,7 @@ export default function TyperDataProvider({ children }) {
       types: [], // WORDS_TYPES, non-empty
     },
     typer: {
-      time: 20, // in seconds, or null|undefined for no timer
+      time: 60, // in seconds, or null|undefined for no timer
       incognito: false, // if true, does not save progress
       furigana: 'auto', // auto for auto-detected from progress, romaji for romaji only, hiragana for hiragana only, null|undefined for no furigana
     },

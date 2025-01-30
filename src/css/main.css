@@ -6,12 +6,14 @@
   --clr-gray: #808080;
   --clr-dark-gray: #555;
   --clr-red: #a60210;
-  --clr-light-red: #d11616;
+  --clr-light-red: #ee2222;
   --clr-blue: #020887;
   --clr-light-blue: #2e5eaa;
 
   --clr-txt-1: var(--clr-black);
   --clr-txt-2: var(--clr-light-black);
+  --clr-txt-3: var(--clr-dark-gray);
+  --clr-txt-action: var(--clr-red);
   --clr-bg-1: var(--clr-white);
   --clr-bg-2: var(--clr-dark-white);
   --clr-success: var(--clr-light-green);
@@ -52,6 +54,8 @@
   :root {
     --clr-txt-1: var(--clr-white);
     --clr-txt-2: var(--clr-dark-white);
+    --clr-txt-3: var(--clr-gray);
+    --clr-txt-action: var(--clr-light-red);
     --clr-bg-1: var(--clr-black);
     --clr-bg-2: var(--clr-light-black);
   }
@@ -68,7 +72,7 @@ body {
 }
 
 a {
-  color: var(--clr-light-red);
+  color: var(--clr-txt-action);
 }
 
 .btn {

@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLanguage } from '@fortawesome/free-solid-svg-icons'
-{/* <FontAwesomeIcon icon={faLanguage} /> */}
 
 import LoginHandler from './LoginHandler'
 

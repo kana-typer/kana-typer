@@ -17,7 +17,7 @@ nav#main-navigation {
 
   gap: .6em;
 
-  background-color: #F7F7F7;
+  background-color: var(--clr-bg-1);
 
   box-shadow: 0px var(--bxs-radius) var(--bxs-spread) 0px var(--bxs-color);
   -webkit-box-shadow: 0px var(--bxs-radius) var(--bxs-spread) 0px var(--bxs-color);
@@ -63,7 +63,7 @@ ul.main-navigation__list > li {
   font-weight: 600;
   font-size: larger;
   text-decoration: none;
-  color: #0a0a0a;
+  color: var(--clr-text-1);
 }
 
 .main-navigation__language-picker {
@@ -127,13 +127,16 @@ ul.main-navigation__list > li {
   background-color: var(--clr-bg-2);
 }
 
-.login-handler__btn {
-  padding: .6em 1.6em;
-  color: #ECECEC;
-  background-color: #A60210;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+.login-handler__spinner {
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: .5rem;
+}
+
+.login-handler__spinner > svg {
+  width: 100%;
+  height: auto;
+  color: var(--clr-text-1);
 }
 
 .login-handler__pfp {

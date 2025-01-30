@@ -1,5 +1,7 @@
-import { Suspense, memo, useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Suspense, memo } from 'react'
+import { Outlet } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import { isDev } from './utils/globals'
 
@@ -10,9 +12,6 @@ import useLazyPlaceholder from './hooks/useLazyPlaceholder'
 
 import Nav from './components/Nav'
 
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
 import './css/App.css'
 
 
@@ -20,7 +19,7 @@ const LazyPlaceholder = isDev ? memo(useLazyPlaceholder(1000)) : null
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<div className='full-page-spinner'><FontAwesomeIcon icon={faSpinner} className='spinner' /></div>}>
       <GoogleAuthProvider>
         <TyperDataProvider>
           <Nav />

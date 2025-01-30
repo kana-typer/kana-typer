@@ -1,3 +1,7 @@
+main {
+  justify-content: center;
+}
+
 .login-page__ {
   display: flex;
   flex-direction: row;

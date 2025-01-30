@@ -1,12 +1,13 @@
 section.tos-page__intro {
   flex: 0;
 
+  max-width: 200ch;
   width: 100%;
 
   margin-top: 2em;
   padding: 1em 2em;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -29,7 +30,7 @@ h4.tos-page__desc {
   margin-top: 0;
 
   font-weight: 400;
-  color: gray;
+  color: var(--clr-txt-2);
 
   width: 100%;
   height: auto;
@@ -38,13 +39,14 @@ h4.tos-page__desc {
 section.tos-page__terms, section.tos-page__policy {
   flex: 1;
 
-  width: 70%;
+  min-width: 60ch;
+  max-width: 100ch;
   margin-left: 10%;
   margin-right: 10%;
 
   padding: 3em;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -56,4 +58,3 @@ h2.tos-page__title {
 
   text-align: center;    
 }
-

@@ -85,7 +85,7 @@ a {
   align-items: center;
   gap: .6em;
 
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--brd-radius);
 
   font-size: 1rem;
@@ -95,6 +95,17 @@ a {
 
   cursor: pointer;
   transition: opacity .1s linear;
+}
+
+.btn-alt-1 {
+  color: var(--clr-bg-1);
+  background-color: var(--clr-txt-2);
+}
+
+.btn-alt-2 {
+  border: 1px solid var(--clr-gray);
+  color: var(--clr-txt-1);
+  background-color: var(--clr-bg-3);
 }
 
 .btn:hover {

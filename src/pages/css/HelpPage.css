@@ -121,7 +121,7 @@ ul.help-page__dictionary__ul > li::marker {
 }
 
 div.help-page__dictionary {
-  border-right: lightgray 1px dashed;
+  border-right: var(--clr-bg-3) 1px dashed;
 }
 @media (max-width: 500px) {
   div.help-page__dictionary {

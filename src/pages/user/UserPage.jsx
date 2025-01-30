@@ -1,7 +1,7 @@
 import '../css/UserPage.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 import { useGoogleAuth } from '../../context/GoogleAuthContext'
@@ -12,6 +12,7 @@ import { useMemo } from 'react'
 function UserPage() {
   const { currentUser, userData, signOut, deleteAccount } = useGoogleAuth()
   const location = useLocation()
+  const navigate = useNavigate()
 
   const signedOnData = useMemo(() => {
     if (userData === null)
@@ -67,6 +68,7 @@ function UserPage() {
         <section className='user-page__settings'>
           <h1 className='user-page__settings-text'>{t('accountDetails.accountSettings')}</h1>
           <button className='user-page__reset' onClick={resetProgress}>{t('accountDetails.resetAcc')}</button>
+          <button className='user-page__tos btn' onClick={() => navigate('/tos')}>{t('loginPage.termsOfPolicy2')}</button>
           <button className='user-page__delete' onClick={deleteAccount}>{t('accountDetails.deleteAcc')}</button>
         </section>
       </section>

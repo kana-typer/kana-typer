@@ -8,7 +8,7 @@ import { useGoogleAuth } from '../../context/GoogleAuthContext'
 import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
 
-import Logo from '../../assets/logo-kana.svg'
+import Logo from '/logo.svg'
 
 import '../css/TyperPage.css'
 

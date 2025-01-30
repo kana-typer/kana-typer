@@ -50,16 +50,3 @@ export function getTextWidth(text, parent = document.body, letterSpacing) {
   
   return width + totalLetterSpacing
 }
-
-function __old__getTextWidth(text, parent = document.body, letterSpacingEm = 0) {
-  const context = canvas.getContext('2d')
-  const font = getTextFont(parent)
-  context.font = font
-
-  const fontSizeMatch = font.match(/(\d+)px/)
-  const fontSize = fontSizeMatch ? parseInt(fontSizeMatch[1], 10) : 16
-  const totalLetterSpacing = text.length * (fontSize * letterSpacingEm)
-
-  const width = context.measureText(text).width
-  return width + totalLetterSpacing
-}

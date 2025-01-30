@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
-import Logo from '../../assets/logo_typer.svg'
+import Logo from '/logo.svg'
 import '../css/LoginPage.css'
 
 function LoginPage() {

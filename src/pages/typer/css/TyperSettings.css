@@ -55,6 +55,15 @@ section.typer-settings {
 
 section.typer-settings > * {
   max-width: 30ch;
+  opacity: .3;
+  filter: blur(.5px);
+  pointer-events: none;
+}
+
+section.typer-settings > .using {
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: all;
 }
 
 section.typer-settings > *:nth-child(1) {

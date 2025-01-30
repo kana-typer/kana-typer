@@ -8,8 +8,6 @@ import { useGoogleAuth } from '../../context/GoogleAuthContext'
 import Typer from './components/Typer'
 import TyperSettings from './components/TyperSettings'
 
-import Logo from '/logo.svg'
-
 import '../css/TyperPage.css'
 
 
@@ -20,7 +18,7 @@ function TyperPage() {
   if (currentUser === null || currentUser.isAnonymous)
     return <Navigate to='/login' state={{ from: location }} replace />
 
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   const { filterNames, typerFilters, setTyperFilters, setTyperFiltersProp, typerMap, resetTyperMap } = useTyperData()
 
@@ -79,7 +77,7 @@ function TyperPage() {
   return (
     <>
       <nav className={`typer-page__left-nav ${isNavExpanded ? 'expanded' : ''}`}>
-        <img src={Logo} alt="Logo" className="typer-page__logo" />
+        {/* <img src={Logo} alt="Logo" className="typer-page__logo" /> */}
         <ul className='typer-page__ul'>
           <li>
             <div className="typer-page__icon">あ</div>

@@ -4,7 +4,6 @@ main {
 
 main > nav + * {
   flex: 1;
-  
 }
 
 .typer-settings > form {
@@ -31,13 +30,14 @@ nav.typer-page__left-nav{
   flex-direction: column;
   position: fixed;
   top: 3.5rem;
-  left: -19em;
+  left: -14.5em;
   overflow: visible;
-  width: 20em;
+  width: 15em;
   height: 100%;
   background-color: var(--clr-bg-1);
   transition: left 0.3s ease;
   z-index: 21;
+  padding-top: .3rem;
 
   box-shadow: calc(var(--bxs-radius) + 12px) 0px var(--bxs-spread) -10px var(--bxs-color);
   -webkit-box-shadow: calc(var(--bxs-radius) + 12px) 0px var(--bxs-spread) -10px var(--bxs-color);

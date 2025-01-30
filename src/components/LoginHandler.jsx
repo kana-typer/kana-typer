@@ -3,8 +3,6 @@ import { useGoogleAuth } from '../context/GoogleAuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faUser } from '@fortawesome/free-solid-svg-icons'
 
-import UserIcon from '../assets/user-icon.svg'
-
 import '../css/Nav.css'
 
 function LoginHandler() {
@@ -21,7 +19,7 @@ function LoginHandler() {
         <FontAwesomeIcon icon={faUser} />
       </div>
     ) : (
-      <img className='login-handler__pfp' loading='lazy' src={currentUser?.photoURL || UserIcon} alt="User's profile picture" onClick={() => navigate('/user')} />
+      <img className='login-handler__pfp' loading='lazy' src={currentUser.photoURL} alt="User's profile picture" onClick={() => navigate('/user')} />
     )
   )
 }

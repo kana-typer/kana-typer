@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
+
 import FormGroup from '../../../components/FormGroup'
 import FormCheckbox from '../../../components/FormCheckbox'
 import FormText from '../../../components/FormText'
@@ -85,24 +88,6 @@ const TyperFilterFields = ({ filters, setFiltersProp }) => {
       min={0}
       onChange={e => setFiltersProp('time', Number(e.target.value))}
     />
-    <FormCheckbox className='typer-settings__checkbox'
-      uid='filter-typer__incognito'
-      label='incognito'
-      checked={filters?.incognito ?? false}
-      onChange={e => setFiltersProp('incognito', e.target.checked)}
-    />
-    <FormSelect className='typer-settings__select'
-      uid='filter-typer__furigana'
-      label='furigana'
-      value={filters?.furigana ?? 'auto'}
-      onChange={e => setFiltersProp('furigana', e.target.value)}
-      options={<>
-        <option value='auto'>auto</option>
-        <option value='romaji'>romaji</option>
-        <option value='hiragana'>hiragana</option>
-        <option value='none'>none</option>
-      </>}
-    />
   </FormGroup>
 }
 
@@ -112,11 +97,14 @@ function TyperSettings({ typerFilters, setTyperFiltersProp, toggleTyper }) {
   return (
     <>
       <section className="typer-settings__box-top">
-          <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
-          <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
+        <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
+        <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
       </section>
 
-      <button className='typer-page__begin' onClick={() => toggleTyper(true)}>{t('customizeDetails.start')}</button>
+      <button className='typer-page__begin btn' onClick={() => toggleTyper(true)}>
+        <FontAwesomeIcon icon={faPlay} />
+        <span>{t('customizeDetails.start')}</span>
+      </button>
       
       <section className="typer-settings">
         <MoraFilterFields 

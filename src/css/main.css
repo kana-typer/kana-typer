@@ -72,6 +72,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+
+  color: var(--clr-txt-1);
+  background-color: var(--clt-bg-2);
 }
 
 a {

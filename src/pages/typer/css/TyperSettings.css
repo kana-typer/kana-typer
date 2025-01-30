@@ -1,4 +1,7 @@
-/* Główny kontener dla wszystkich ustawień */
+main {
+  gap: 2rem;
+}
+
 .typer-settings {
   display: flex;
   flex-direction: column;
@@ -6,7 +9,6 @@
   padding: 2em;
 }
 
-/* Kontener dla górnego boxa i sekcji ustawień */
 .typer-settings__box-top {
   flex: 0;
   display: flex;
@@ -16,10 +18,9 @@
   max-width: 60%;
   margin-top: 2em;
   padding: 1em 2em;
-  background-color: #F7F7F7;
+  background-color: var(--clr-bg-1);
 }
 
-/* Nagłówki w górnym boxie */
 h1.typer-settings__header {
   text-align: left;
   align-self: flex-start;
@@ -32,26 +33,34 @@ h3.typer-settings__description {
   align-self: flex-start;
   margin-top: 0;
   font-weight: 400;
-  color: gray;
+  color: var(--clr-txt-2);
   width: 100%;
 }
 
-/* Sekcja z formularzami ustawień */
 section.typer-settings {
-  display: flex;
-  flex-direction: row;
-  gap: 5em;
-  justify-content: center;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr max-content;
+  gap: 2rem;
+  justify-items: stretch;
+  align-items: stretch;
+
+  max-width: 70ch;
   width: 60%;  
-  padding: 3em 5em;
-  margin-top: 2em;
-  background-color: #F7F7F7;
-  color: #0a0a0a;
+  padding: 2em 3.4em;
+  background-color: var(--clr-bg-1);
+  color: var(--clr-txt-1);
   box-sizing: border-box; 
 }
 
-/* Style dla formularzy wewnątrz .typer-settings */
+section.typer-settings > * {
+  max-width: 30ch;
+}
+
+section.typer-settings > *:nth-child(1) {
+  grid-row: 1 / end;
+}
+
 .typer-settings > form {
   display: flex;
   flex-direction: column;
@@ -60,29 +69,25 @@ section.typer-settings {
   align-self: flex-start;
 }
 
-/* Style dla grup formularzy */
 .typer-settings fieldset {
-  border: 1px solid rgb(91, 16, 16);
-  border-radius: 10px;
+  border: 1px solid var(--clr-txt-3);
+  border-radius: var(--brd-radius);
   padding: 1em;
   margin: 0.5em 0;
   height: fit-content;
 }
 
-/* Style dla legend w fieldsetach */
 .typer-settings fieldset legend {
-  color: #0a0a0a;
+  color: var(--clr-txt-1);
   font-weight: 500;
   padding: 0 0.5em;
 }
 
-/* Specjalny styl dla głównych legend (Mora, Words, Typer) */
 .typer-settings > fieldset > legend {
   font-weight: 700;
   font-size: 1.1em;
 }
 
-/* Style dla list w ustawieniach */
 .typer-settings ul {
   list-style: none;
   padding: 0;
@@ -92,13 +97,13 @@ section.typer-settings {
 
 .typer-settings li {
   margin: 0.3em 0;
-  color: #0a0a0a;
+  color: var(--clr-txt-1);
   text-align: center;
 }
 
 .typer-settings__text {
-  color: #0a0a0a;
-  background-color: #F7F7F7;
+  color: var(--clr-txt-1);
+  background-color: var(--clr-bg-1);
 
   width: 5em;
 
@@ -107,25 +112,26 @@ section.typer-settings {
   margin-left: 1em;
   padding-left: .5em;
 
-  border: solid 2px lightgray;
+  border: solid 1px var(--clr-txt-3);
+  border-radius: var(--brd-radius);
 }
 
 .typer-settings__checkbox {
-  color: #0a0a0a;
-  accent-color: #F7F7F7;
+  color: var(--clr-txt-1);
+  accent-color: var(--clr-bg-1);
 
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
 input[type="checkbox"] {
-  accent-color: #a60210;
+  accent-color: var(--clr-red);
   margin-right: .5em;
 }
 
 .typer-settings__select {
-  color: #0a0a0a;
-  background-color: #F7F7F7;
+  color: var(--clr-txt-1);
+  background-color: var(--clr-bg-1);
 
   width: 7em;
 
@@ -134,5 +140,5 @@ input[type="checkbox"] {
   margin-left: 1em;
   padding-left: .5em;
 
-  border: solid 2px lightgray;
+  border: solid 1px var(--clr-txt-3);
 }

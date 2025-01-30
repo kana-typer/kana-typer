@@ -21,7 +21,7 @@ function LoginHandler() {
         <FontAwesomeIcon icon={faUser} />
       </div>
     ) : (
-      <img className='login-handler__pfp' src={currentUser?.photoURL || UserIcon} alt="User's profile picture" onClick={() => navigate('/user')} />
+      <img className='login-handler__pfp' loading='lazy' src={currentUser?.photoURL || UserIcon} alt="User's profile picture" onClick={() => navigate('/user')} />
     )
   )
 }

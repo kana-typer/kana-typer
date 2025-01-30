@@ -14,10 +14,10 @@ nav#main-navigation {
 
   display: flex;
   align-items: center;
-
   gap: .6em;
 
   background-color: var(--clr-bg-1);
+  z-index: 20;
 
   box-shadow: 0px var(--bxs-radius) var(--bxs-spread) 0px var(--bxs-color);
   -webkit-box-shadow: 0px var(--bxs-radius) var(--bxs-spread) 0px var(--bxs-color);

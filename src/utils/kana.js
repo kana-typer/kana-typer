@@ -370,22 +370,23 @@ export const getRandomKanaFromMap = (amount, sourceMap, { countingSpecificity = 
  * @returns {boolean} true if romaji is valid with kana, false if it is not valid or undefined if it could not yet be specified, because of, for example, not yet valid romaji sequence
  */
 export const checkRomajiValidityOfKana = (givenRomaji, targetKana, sourceMap) => {
-  // // console.debug(`check romaji=${givenRomaji} in target=${targetKana}`)
-
   if (givenRomaji.length > LONGEST_LETTER_COUNT_PER_MORAE_ALLOWED)
     return false
 
   const getKana = (key) => sourceMap.get(key)?.map(({ kana }) => kana) || []
   const endsOnVowel = 'aiueo'.split('').some(vowel => givenRomaji.endsWith(vowel))
   const validRomaji = sourceMap.has(givenRomaji)
+  const isCorrectKana = getKana(givenRomaji).some((kana) => kana === targetKana)
   const kanaInMap = getKana(givenRomaji).includes(targetKana)
 
+  console.debug('checkRomajiValidityOfKana(givenRomaji =', givenRomaji, ', targetKana =', targetKana, ', sourceMap =', sourceMap, ') (getKana =, ', getKana(givenRomaji), 'endsOnVowel =', endsOnVowel, ', validRomaji =', validRomaji, ', isCorrectKana =', isCorrectKana, ', kanaInMap =', kanaInMap, ')')
+
   // romaji ends on vowel - may be valid morae
-  if (endsOnVowel && validRomaji)
+  if (endsOnVowel && validRomaji && isCorrectKana)
     return kanaInMap // may be valid but not in map - return inclusion result
 
   // specific check for n to not conflict with na, ni, etc.
-  if (givenRomaji === 'n' && validRomaji && kanaInMap)
+  if (givenRomaji.endsWith('n') && validRomaji && isCorrectKana && kanaInMap)
     return true
 
   // romaji might be partial, i.e. user not finished writing it

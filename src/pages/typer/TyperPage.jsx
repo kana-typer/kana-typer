@@ -92,13 +92,21 @@ function TyperPage() {
             <div className="typer-page__icon">動物</div>
             <FilterButton label={t('rooms.animals')} group={filterNames.animals} />
           </li>
+          <li>
+            <div className="typer-page__icon">服</div>
+            <FilterButton label={t('rooms.clothes')} group={filterNames.clothes} />
+          </li>
+          <li>
+            <div className="typer-page__icon">数</div>
+            <FilterButton label={t('rooms.num')} group={filterNames.numbers} />
+          </li>
           <li><hr /></li>
           <li>
-            <div className="typer-page__icon">☻</div>
+            <div className="typer-page__icon">仮名</div>
             <FilterButton label={t('rooms.allKanaRoom')} group={filterNames.allKana} />
           </li>
           <li>
-            <div className="typer-page__icon">☺</div>
+            <div className="typer-page__icon">語句</div>
             <FilterButton label={t('rooms.allWordsRoom')} group={filterNames.allWords} />
           </li>
           <li>

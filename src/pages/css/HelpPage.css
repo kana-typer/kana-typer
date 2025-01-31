@@ -1,145 +1,146 @@
 main {
-    display: flex;
-    flex-direction: column;
-  
-    align-items: center;
-  
-    margin-left: 4em;
-    margin-right: 4em;
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
 
-  section.help-page__box-top {
-    flex: 0;
+  align-items: center;
 
-    width: 100%;
+  margin-left: 4em;
+  margin-right: 4em;
+  width: 100%;
+}
 
-    margin-top: 2em;
-    padding: 1em 2em;
+section.help-page__box-top {
+  flex: 0;
 
-    background-color: #f7f7f7;
+  max-width: 200ch;
+  width: 100%;
 
-    display: flex;
-    flex-direction: column;
-  }
-  
-  h1.help-page__header {
-    text-align: left;
-    align-self: flex-start;
+  margin-top: 2em;
+  padding: 1em 2em;
 
-    margin-bottom: 0;
-  
-    width: auto;
-    height: auto;
-  }
+  background-color: var(--clr-bg-1);
 
-  h3.help-page__description {
-    text-align: left;
-    align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}
 
-    margin-top: 0;
+h1.help-page__header {
+  text-align: left;
+  align-self: flex-start;
 
-    font-weight: 400;
-    color: gray;
-  
-    width: 100%;
-    height: auto;
-  }
+  margin-bottom: 0;
 
-  section.help-page__box-bottom,
-  section.help-page__box-middle {
-    flex: 0;
+  width: auto;
+  height: auto;
+}
 
-    min-width: 50%;
-    margin-left: 10%;
-    margin-right: 10%;
+h3.help-page__description {
+  text-align: left;
+  align-self: flex-start;
 
-    padding: 3em;
+  margin-top: 0;
 
-    background-color: #f7f7f7;
-  }
+  font-weight: 400;
+  color: var(--clr-txt-3);
 
-  div.help-page__link {
-    text-align: center;
-  }
+  width: 100%;
+  height: auto;
+}
 
-  a.help-page__issues {
-    text-decoration: none;
-    color: #a60210;
-  }
+section.help-page__box-bottom,
+section.help-page__box-middle {
+  flex: 0;
 
-  h4.help-page__desc {
-    font-weight: 400;
-    color: gray;
-  }
+  min-width: 60ch;
+  max-width: 160ch;
+  margin-left: 10%;
+  margin-right: 10%;
 
-  section.help-page__box-bottom{
-    margin-top: 2em;
-  }
+  padding: 3em;
 
+  background-color: var(--clr-bg-1);
+}
+
+div.help-page__link {
+  text-align: center;
+}
+
+a.help-page__issues {
+  text-decoration: none;
+}
+
+h4.help-page__desc {
+  font-weight: 400;
+  color: var(--clr-txt-3);
+}
+
+section.help-page__box-bottom{
+  margin-top: 2em;
+}
+
+section.help-page__box-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  align-items: flex-start;
+}
+@media (max-width: 500px) {
   section.help-page__box-bottom {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    align-items: flex-start;
+    flex-direction: column;
   }
-  @media (max-width: 500px) {
-    section.help-page__box-bottom {
-      flex-direction: column;
-    }
-  }
+}
 
-  div.help-page__dictionary,
-  div.help-page__tutorial {
-    flex: 1;
-    height: 100%;
-  }
+div.help-page__dictionary,
+div.help-page__tutorial {
+  flex: 1;
+  height: 100%;
+}
 
-  h3.help-page__topic {
-    font-size: larger;
-  }
+h3.help-page__topic {
+  font-size: larger;
+}
 
-  h4.help-page__dictionary__ul-phrase {
-    color: black;
-    font-size: medium;
-    margin: 0;
-  }
+h4.help-page__dictionary__ul-phrase {
+  color: var(--clr-txt-1);
+  font-size: medium;
+  margin: 0;
+}
 
-  ul.help-page__dictionary__ul {
-    color: gray;
-    font-size: smaller;
-  }
+ul.help-page__dictionary__ul {
+  color: var(--clr-txt-3);
+  font-size: smaller;
+}
 
-  ul.help-page__dictionary__ul > li,
-  ol.help-page__tutorial__ol > li {
-    margin-bottom: 2em;
-  } 
+ul.help-page__dictionary__ul > li,
+ol.help-page__tutorial__ol > li {
+  margin-bottom: 2em;
+} 
 
-  ul.help-page__dictionary__ul > li::marker {
-    color: #a60210;
-  }
+ul.help-page__dictionary__ul > li::marker {
+  color: var(--clr-red);
+}
 
+div.help-page__dictionary {
+  border-right: var(--clr-bg-3) 1px dashed;
+}
+@media (max-width: 500px) {
   div.help-page__dictionary {
-    border-right: lightgray 1px dashed;
+    border: none;
   }
-  @media (max-width: 500px) {
-    div.help-page__dictionary {
-      border: none;
-    }
-  }
+}
 
-  ol.help-page__tutorial__ol {
-    color: gray;
-    font-size: medium;
-  }
+ol.help-page__tutorial__ol {
+  color: var(--clr-txt-3);
+  font-size: medium;
+}
 
+div.help-page__dictionary,
+div.help-page__tutorial {
+  padding: 2em;
+}
+@media (max-width: 500px) {
   div.help-page__dictionary,
   div.help-page__tutorial {
-    padding: 2em;
+    padding: 0;
   }
-  @media (max-width: 500px) {
-    div.help-page__dictionary,
-    div.help-page__tutorial {
-      padding: 0;
-    }
-  }
+}

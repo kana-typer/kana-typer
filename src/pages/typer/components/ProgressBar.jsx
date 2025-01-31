@@ -23,7 +23,7 @@ function ProgressBar({ timer, maxTimer, isFinished, hueStart = 110, hueEnd = 10 
   const hue = useMemo(() => hueEnd + ((hueStart - hueEnd) * percentage / 100), [percentage])
 
   return (
-    <div className='progress-bar'>
+    <div className='typer__progress-bar'>
       <div className='bar' style={{ 
         width: `${percentage}%`,
         backgroundColor: `hsl(${hue}, 100%, 40%)`,

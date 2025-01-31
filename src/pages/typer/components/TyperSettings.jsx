@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
+
 import FormGroup from '../../../components/FormGroup'
 import FormCheckbox from '../../../components/FormCheckbox'
 import FormText from '../../../components/FormText'
@@ -10,7 +13,7 @@ import '../css/TyperSettings.css'
 import { useTranslation } from 'react-i18next'
 
 const MoraFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid='typer-settings__filter-mora' legend='Mora'>
+  return <FormGroup uid={`typer-settings__filter-mora ${filters?.use ? 'using' : ''}`} legend='Mora'>
     <FormGroup uid='typer-settings__filter-mora__scripts' legend='Scripts'>
       <ul>
         {(filters?.scripts ?? []).map(script => (
@@ -53,7 +56,7 @@ const MoraFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 const WordsFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid='typer-settings__filter-words' legend='Words'>
+  return <FormGroup uid={`typer-settings__filter-words ${filters?.use ? 'using' : ''}`} legend='Words'>
     <FormGroup uid='typer-settings__filter-words__categories' legend='Categories'>
       <ul>
         {(filters?.categories ?? []).map(category => (
@@ -76,32 +79,14 @@ const WordsFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 const TyperFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid='typer-settings__filter-typer' legend='Typer'>
-    <FormText className='typer-settings__text'
+  return <FormGroup uid='typer-settings__filter-typer using' legend='Typer'>
+    <FormText className={`typer-settings__text`}
       uid='filter-typer__time'
       label='time'
       type='number'
       value={filters?.time || 0}
       min={0}
       onChange={e => setFiltersProp('time', Number(e.target.value))}
-    />
-    <FormCheckbox className='typer-settings__checkbox'
-      uid='filter-typer__incognito'
-      label='incognito'
-      checked={filters?.incognito ?? false}
-      onChange={e => setFiltersProp('incognito', e.target.checked)}
-    />
-    <FormSelect className='typer-settings__select'
-      uid='filter-typer__furigana'
-      label='furigana'
-      value={filters?.furigana ?? 'auto'}
-      onChange={e => setFiltersProp('furigana', e.target.value)}
-      options={<>
-        <option value='auto'>auto</option>
-        <option value='romaji'>romaji</option>
-        <option value='hiragana'>hiragana</option>
-        <option value='none'>none</option>
-      </>}
     />
   </FormGroup>
 }
@@ -112,11 +97,14 @@ function TyperSettings({ typerFilters, setTyperFiltersProp, toggleTyper }) {
   return (
     <>
       <section className="typer-settings__box-top">
-          <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
-          <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
+        <h1 className="typer-settings__header">{t('customizeDetails.customizeIntro1')}</h1>
+        <h3 className="typer-settings__description">{t('customizeDetails.customizeIntro2')}</h3>
       </section>
 
-      <button className='typer-page__begin' onClick={() => toggleTyper(true)}>{t('customizeDetails.start')}</button>
+      <button className='typer-page__begin btn' onClick={() => toggleTyper(true)}>
+        <FontAwesomeIcon icon={faPlay} />
+        <span>{t('customizeDetails.start')}</span>
+      </button>
       
       <section className="typer-settings">
         <MoraFilterFields 

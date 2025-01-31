@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlocker } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
 
+import { useTranslation } from 'react-i18next'
 import { useTyperData } from '../../../context/TyperDataContext'
 
 import useMemoWithPreviousValue from '../../../hooks/useMemoWithPreviousValue'
@@ -15,12 +18,11 @@ import { checkRomajiValidityOfKana, getRandomKanaFromMap } from '../../../utils/
 
 import '../css/Typer.css'
 
-import { useTranslation } from 'react-i18next'
 
 const DEFAULT_TIME = 12
 
 function Typer({ typerSettings, toggleFiltersClickability }) {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   // JSDOM-specific functions that need to be regenerated every time, sadly
   // TODO: find a fix for this - regenerating function definitions every time is unoptimized
@@ -44,7 +46,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [userInput, setUserInput] = useState('')
   const userInputRef = useRef(null)
   const [preCountdown, startPreCountdown] = useCountdown( // timer to get user ready for typing
-    3, 
+    4, 
     undefined, 
     () => startCountdown(),
   )
@@ -61,13 +63,11 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
 
   const typerData = useMemoWithPreviousValue([], prevValue => {
     if (typerMap === null) {
-      // // console.debug(`typerPool is null - loading`)
       setIsLoading(true)
       return prevValue
     }
 
     setIsLoading(false)
-    // // console.debug(`typerPool finished loading`)
 
     const moraWidth = getMoraeWidth('オ')
     const moraToFitOnScreen = Math.ceil(window.innerWidth / (moraWidth + moraeLetterSpacing))
@@ -94,7 +94,6 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   })
 
   const updateUserInput = (e) => {
-    // // console.debug(`update user input`)
     // TODO: set userInput as what they typed and then give them at least 100ms before checking the kana, so that they can glimpse at what they typed into the field
 
     if (isLoading || isFinished || !isStarted)
@@ -163,30 +162,30 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
 
   return (
     <div className='typer-wrapper'>
-      <div className='typer'>
-        <Kana 
-          typerIndex={typerIndex}
-          typerData={typerData}
-          correctHits={userCorrectHits}
-          incorrectHits={userIncorrectHits}
-          getMoraeWidth={getMoraeWidth}
-        />
-        <input
-          ref={userInputRef}
-          type='text' 
-          value={userInput} 
-          onChange={updateUserInput} 
-          placeholder={t('typerDetails.type')}
-        />
+      <div className="typer-mask">
+        <div className='typer'>
+          <Kana 
+            isLoading={isLoading}
+            typerIndex={typerIndex}
+            typerData={typerData}
+            correctHits={userCorrectHits}
+            incorrectHits={userIncorrectHits}
+            getMoraeWidth={getMoraeWidth}
+          />
+          <input
+            ref={userInputRef}
+            type='text' 
+            value={userInput} 
+            onChange={updateUserInput} 
+            placeholder={t('typerDetails.type')}
+          />
+        </div>
       </div>
       {initTimer && <ProgressBar 
         timer={countdown} 
         maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
         isFinished={isFinished} 
       />}
-      <div className='typer-page__restart'>
-        <button className='typer-page__restart-button'>Restart</button>
-      </div>
       <Stats 
         correctHits={userCorrectHits}
         incorrectHits={userIncorrectHits}
@@ -194,14 +193,14 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         isFinished={isFinished} 
       />
       <div className={`pre-countdown ${isStarted ? 'hidden' : ''}`}>
-        {isLoading ? 'Loading' : preCountdown + 1}
+        {isLoading ? <FontAwesomeIcon icon={faSpinner} className='spinner' /> : preCountdown}
       </div>
       {blocker.state === 'blocked' ? (
         <div className='typer-page__modal'>
           <div className='typer-page__button-box'>
             <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
-            <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
-            <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
+            <button className='typer-page__leave btn' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
+            <button className='typer-page__cancel btn btn-alt-1' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
           </div>
         </div>
       ) : null}

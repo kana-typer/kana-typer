@@ -4,7 +4,6 @@ main {
 
 main > nav + * {
   flex: 1;
-  
 }
 
 .typer-settings > form {
@@ -16,29 +15,33 @@ main > nav + * {
 }
 
 div.typer-page__select {
-    width: 90%;
+  width: 90%;
 
-    margin-top: 2em;
-    padding: 1em 2em;
+  margin-top: 2em;
+  padding: 1em 2em;
 
-    text-align: center;
+  text-align: center;
 
-    font-weight: 500;
+  font-weight: 500;
 }
 
 nav.typer-page__left-nav{
-  z-index: 10;
-
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: -19em;
+  top: 3.5rem;
+  left: -16.3em;
   overflow: visible;
-  width: 20em;
+  width: 17em;
   height: 100%;
-  background-color: #F7F7F7;
+  background-color: var(--clr-bg-1);
   transition: left 0.3s ease;
+  z-index: 21;
+  padding-top: .3rem;
 
+  box-shadow: calc(var(--bxs-radius) + 12px) 0px var(--bxs-spread) -10px var(--bxs-color);
+  -webkit-box-shadow: calc(var(--bxs-radius) + 12px) 0px var(--bxs-spread) -10px var(--bxs-color);
+  -moz-box-shadow: calc(var(--bxs-radius) + 12px) 0px var(--bxs-spread) -10px var(--bxs-color);
 }
 
 nav.typer-page__left-nav.expanded {
@@ -58,11 +61,25 @@ nav.typer-page__left-nav.expanded {
   justify-content: end;
   padding-right: 0.3em;
   font-size: 1.5em;
-  color: #a60210;
-  background-color: #F7F7F7;
-  border-radius: 0 10px 10px 0;
+  color: var(--clr-red);
+  background-color: var(--clr-bg-1);
+  border-radius: 0 var(--brd-radius) var(--brd-radius) 0;
   z-index: 1000;
   cursor: pointer;
+  transition: color .1s linear;
+
+  box-shadow: 
+    calc(var(--bxs-radius) + 10px) 0px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) 15px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) -15px var(--bxs-spread) -10px var(--bxs-color);
+  -webkit-box-shadow: 
+    calc(var(--bxs-radius) + 10px) 0px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) 15px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) -15px var(--bxs-spread) -10px var(--bxs-color);
+  -moz-box-shadow: 
+    calc(var(--bxs-radius) + 10px) 0px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) 15px var(--bxs-spread) -10px var(--bxs-color),
+    calc(var(--bxs-radius) + 10px) -15px var(--bxs-spread) -10px var(--bxs-color);
 }
 
 .nav-arrow:hover {
@@ -73,22 +90,24 @@ img.typer-page__logo {
   padding: 1em;
 }
 
-ul.typer-page__ul{
+ul.typer-page__ul {
   margin-top: 1em;
 
-  padding-left:1em;
-  padding-right:1em;
+  padding-left: 1em;
+  padding-right: 1em;
 
-  transition:all .3s ease;
+  transition: all .1s linear;
 }
 
-.typer-page__ul li{
+.typer-page__ul li {
   width: 90%;
 
   font-weight: 500;
 
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 div.typer-page__icon {
@@ -97,36 +116,45 @@ div.typer-page__icon {
 
   margin-left: .5em;
   margin-right: 1em;
+  width: 3em; 
+
+  font-family: var(--fnt-family-jap);
+
+  word-break: keep-all;
 }
 
-.typer-page__ul hr{
+.typer-page__ul hr {
   width: 15em;
+  color: var(--clr-bg-3);
+  border-style: dashed;
 }
 
-.typer-page__left-nav button{
-  background-color: #F7F7F7;
-  color: #0a0a0a;
+.typer-page__left-nav button {
+  background-color: var(--clr-bg-1);
+  color: var(--clr-txt-1);
   
   font-family: inherit;
   font-size: 1em;
 
-  border-radius: 10px;
+  border-radius: var(--brd-radius);
   border: none;
 
   cursor: pointer;
 
   width: 100%;
   padding: .5em 1em;
+
+  transition: all .1s linear;
+  transition-property: color, background-color;
 }
 
-.typer-page__left-nav button:hover{
-  background-color: #a60210;
-  color: #F7F7F7;
-  border: none;
+.typer-page__left-nav button:hover {
+  background-color: var(--clr-red);
+  color: var(--clr-white);
 }
 
 button.typer-page__begin {
-  background-color: #a60210;
+  background-color: var(--clr-red);
 
   width: 10em;
   height: 2em;
@@ -139,8 +167,11 @@ button.typer-page__begin {
   border-radius: 10px;
 }
 
+button.typer-page__begin > span {
+  flex: 1;
+  padding-right: 1.6rem;
+}
+
 button.typer-page__begin:hover {
-  background-color: rgb(100, 0, 0);
-  color: #F7F7F7;
-  border: none;
+  opacity: .7;
 }

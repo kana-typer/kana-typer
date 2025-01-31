@@ -12,12 +12,13 @@ main {
 section.user-page__box-top {
   flex: 0;
 
+  max-width: 200ch;
   width: 100%;
 
   margin-top: 2em;
   padding: 1em 2em;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -40,7 +41,7 @@ h3.user-page__description {
   margin-top: 0;
 
   font-weight: 400;
-  color: gray;
+  color: var(--clr-txt-2);
 
   width: 100%;
   height: auto;
@@ -48,16 +49,16 @@ h3.user-page__description {
 
 section.user-page__box-bottom {
   flex: 0;
+ 
+  min-width: 30ch;
+  max-width: 80ch;
+  width: 100%;
 
-  min-width: 50%;
-
-  margin-left: 5%;
-  margin-right: 5%;
   margin-bottom: 2em;
   
   padding: 3em 5em;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -75,7 +76,7 @@ section.user-page__grid {
 
   width: 100%;
 
-  border-radius: 10px;
+  border-radius: var(--brd-radius);
 }
 
 @media (max-width: 800px) {
@@ -87,7 +88,7 @@ section.user-page__grid {
 div.user-page__profile-pic {
   border-radius: 50%;
 
-  background-color: #a60210;
+  background-color: var(--clr-red);
 
   width: 7em;
   height: 7em;
@@ -133,29 +134,13 @@ h4.user-page__profile__content {
   font-weight: 400;
 }
 
-button.user-page__logout {
-  padding: .5em 1em;
-
-  margin-top: 2em;
-
-  color: #f7f7f7;;
-  background-color: #606060;
-
-  font-family: inherit;
-  font-size: 1em;
-  text-decoration: none;
-
-  border-radius: 10px;
-  border: none;
-}
-
 hr.user-page__line {
   width: 100%;
 
   margin-top: 3em;
   margin-bottom: 3em;
 
-  border: dashed 1px lightgray;
+  border: dashed 1px var(--clr-bg-3);
 }
 
 h1.user-page__settings-text, h1.user-page__profile-text {
@@ -174,55 +159,20 @@ section.user-page__settings {
   flex-direction: column;
   gap: 1em;
   justify-content: space-evenly;
+  align-items: center;
 
   width: 100%;
 }
 
-button.user-page__reset {
-  padding: .5em 1em;
-
-  margin-left: 0;
-
-  color: #f7f7f7;;
-  background-color: #606060;
-
-  font-family: inherit;
-  font-size: 1em;
-  text-decoration: none;
-
-  border-radius: 10px;
-  border: none;
+section.user-page__settings > button {
+  width: 52ch;
 }
 
-button:hover.user-page__reset, button:hover.user-page__logout {
-  color: darkgray;
-  background-color: rgb(72, 72, 72);
+section.user-page__settings > button > span {
+  flex: 1;
+  padding-right: 1.6rem;
 }
 
-button.user-page__delete {
-  padding: .5em 1em;
-
-  margin-left: 0;
-
-  color: #f7f7f7;;
-  background-color: #a60210;
-
-  font-family: inherit;
-  font-size: 1em;
-  text-decoration: none;
-
-  border-radius: 10px;
-  border: none;
-}
-
-button:hover.user-page__delete {
-  color: darkgray;
-  background-color: rgb(100, 0, 0);
-}
-
-button.user-page__logout, button.user-page__reset, button.user-page__delete {
-  align-self: center;
-  width: 15em;
-
-  cursor: pointer;
+section.user-page__settings > button.user-page__logout {
+  width: 25ch;
 }

@@ -1,16 +1,10 @@
-import { Navigate, useLocation } from 'react-router-dom'
-
 import { useTranslation } from 'react-i18next'
-import { useGoogleAuth } from '../../context/GoogleAuthContext'
 
 import '../css/TermsOfServicePage.css'
 
 
 function TermsOfServicePage() {
-  const { currentUser } = useGoogleAuth()
-  const location = useLocation()
-
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <>

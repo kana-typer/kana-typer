@@ -1,17 +1,20 @@
+import { useMemo } from 'react'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useGoogleAuth } from '../../context/GoogleAuthContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket, faFileCircleExclamation, faArrowRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+import { updateUserMapField } from '../../utils/db'
+
 import '../css/UserPage.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
-import { Navigate, useLocation } from 'react-router-dom'
-
-import { useTranslation } from 'react-i18next'
-import { useGoogleAuth } from '../../context/GoogleAuthContext'
-
-import { updateUserMapField } from '../../utils/db'
-import { useMemo } from 'react'
 
 function UserPage() {
   const { currentUser, userData, signOut, deleteAccount } = useGoogleAuth()
   const location = useLocation()
+  const navigate = useNavigate()
 
   const signedOnData = useMemo(() => {
     if (userData === null)
@@ -19,15 +22,15 @@ function UserPage() {
     return userData.signedOn.toDate().toLocaleDateString()
   }, [userData])
 
-  if (currentUser === null || currentUser.isAnonymous)
-    return <Navigate to='/login' state={{ from: location }} replace />
-
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
 
   const resetProgress = async () => {
     await updateUserMapField('progress', {})
     alert('Progress has been reset')
   }
+
+  if (currentUser === null || currentUser.isAnonymous)
+    return <Navigate to='/login' state={{ from: location }} replace />
 
   return (
     <>
@@ -60,14 +63,25 @@ function UserPage() {
           </ul>
         </section>
 
-        <button className='user-page__logout' onClick={signOut}>{t('accountDetails.logOut')}</button>
-        
-        <hr className='user-page__line' />
-
         <section className='user-page__settings'>
+          <button className='user-page__logout btn btn-alt-1' onClick={signOut}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+            <span>{t('accountDetails.logOut')}</span>
+          </button>
+          <hr className='user-page__line' />
           <h1 className='user-page__settings-text'>{t('accountDetails.accountSettings')}</h1>
-          <button className='user-page__reset' onClick={resetProgress}>{t('accountDetails.resetAcc')}</button>
-          <button className='user-page__delete' onClick={deleteAccount}>{t('accountDetails.deleteAcc')}</button>
+          <button className='user-page__tos btn btn-alt-2' onClick={() => navigate('/tos')}>
+            <FontAwesomeIcon icon={faFileCircleExclamation} />
+            <span>{t('loginPage.termsOfPolicy2')}</span>
+          </button>
+          <button className='user-page__reset btn btn-alt-1' onClick={resetProgress}>
+            <FontAwesomeIcon icon={faArrowRotateRight} />
+            <span>{t('accountDetails.resetAcc')}</span>
+          </button>
+          <button className='user-page__delete btn' onClick={deleteAccount}>
+            <FontAwesomeIcon icon={faTrash} />
+            <span>{t('accountDetails.deleteAcc')}</span>
+          </button>
         </section>
       </section>
     </>

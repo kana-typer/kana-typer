@@ -1,11 +1,43 @@
-.typer-wrapper {
+main {
   position: relative;
+}
+
+.typer-wrapper {
+  --clr-backdrop: #f7f7f7b3;
+
+  position: absolute;
+  top: 0;
+  left: calc(-1 * var(--mrg-page-hor));
 
   height: auto;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3rem;
+
   overflow-x: hidden;
 
+  width: calc(100% + var(--mrg-page-hor) * 2);
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .typer-wrapper {
+    --clr-backdrop: #0a0a0ab3;
+  }
+}
+
+.typer-mask {
   width: 100%;
+
+  mask-image: linear-gradient(
+    to right, 
+    transparent 5%, 
+    black 50%, 
+    black 85%, 
+    transparent 95%);
+  mask-repeat: no-repeat; 
 }
 
 .typer {
@@ -15,13 +47,15 @@
 
   position: relative;
 
-  transform: translateX(calc(50% - var(--kana-font-size) / 2));
+  margin-top: 3rem;
+
+  transform: translateX(calc(50% - var(--fnt-size-kana) / 2));
 }
 
 .typer > input[type=text] {
   padding: .3em .3em;
 
-  color: black;
+  color: var(--clr-txt-1);
   background-color: transparent;
   border: none;
 
@@ -32,8 +66,6 @@
 }
 
 .pre-countdown {
-  border: 1px solid red;
-
   position: absolute;
   top: 0;
   left: 0;
@@ -48,7 +80,9 @@
   align-items: center;
 
   font-size: 4rem;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: var(--clr-backdrop);
+  
+  z-index: 19;
 }
 
 .pre-countdown.hidden {
@@ -56,38 +90,38 @@
   opacity: 0;
 }
 
-div.typer-page__restart {
-  display: flex;
-  justify-content: space-around;
-}
+.typer-page__restart {
+  width: max-content;
+  margin: 0 auto;
+  padding: .6em;
 
-button.typer-page__restart-button {
-  flex: 1;
+  display: grid;
+  place-items: center;
 
-  max-width: 8em;
-  height: 3em;
+  border: 1px solid transparent;
+  border-radius: 50%;
 
-  margin-top: 3em;
+  font-size: 2.4rem;
+  color: var(--clr-dark-white);
+  background-color: var(--clr-red);
 
   cursor: pointer;
-
-  font-weight: 400;
-  font-size: 25px;
-
-  color: #E7E7E7;
-  background-color: #a60210;
-
-  border-radius: 10px;
-  border: none;
+  transition: opacity .1s linear;
 }
 
-button.typer-page__restart-button:hover {
-  color: gray;
-  background-color: rgb(100, 0, 0);
+.typer-page__restart:hover {
+  opacity: .7;
+}
+
+.typer-page__restart.hidden {
+  pointer-events: none;
+  opacity: 0;
 }
 
 div.typer-page__modal {
   position: fixed;
+
+  padding-bottom: 6rem;
   
   top: 0;
   left: 0;
@@ -97,48 +131,32 @@ div.typer-page__modal {
 
   align-content: center;
 
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--clr-backdrop);
+
+  z-index: 19;
 }
 
 p.typer-page__question {
+  grid-column: 1 / end;
   font-weight: 600;
-  font-size: 50px;
+  font-size: 3rem
 }
 
 div.typer-page__button-box {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(2, max-content);
   gap: 1em;
-  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
 
-  color: #a60210;
+  color: var(--clr-txt-1);
 }
 
-button.typer-page__leave, button.typer-page__cancel {
-  width: 10em;
-  height: 2em;
-
-  cursor: pointer;
-
-  font-size: 25px;
-
-  border: none;
-  border-radius: 10px;
-}
-
-button.typer-page__leave {
-  background-color: #a60210;
-}
-
+button.typer-page__leave,
 button.typer-page__cancel {
-  background-color: gray;
-}
-
-
-button.typer-page__leave:hover {
-  background-color: rgb(100, 0, 0);
-}
-
-button.typer-page__cancel:hover{
-  background-color: darkgray;
+  justify-content: center;
+  font-size: 1.2rem;
+  width: min-content;
 }

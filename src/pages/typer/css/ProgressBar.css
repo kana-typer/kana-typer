@@ -1,14 +1,19 @@
-.progress-bar {
+.typer__progress-bar {
   --progress-bar-height: .7rem;
   --progress-bar-hue-start: 110;
   --progress-bar-hue-end: 10;
   --progress-bar-hue: var(--progress-bar-hue-start);
 
-  margin: 1rem;
-  margin-right: 2rem;
+  margin-left: calc(1rem + var(--mrg-page-hor));
+  margin-right: calc(2rem + var(--mrg-page-hor));
+
+  height: .7rem;
+
+  border-radius: var(--brd-radius);
+  background-color: var(--clr-bg-3);
 }
 
-.progress-bar .bar {
+.typer__progress-bar .bar {
   position: relative;
 
   width: 0%;
@@ -20,7 +25,7 @@
   transition: width 1s linear;
 }
 
-.progress-bar .icon {
+.typer__progress-bar .icon {
   position: absolute;
   top: calc(var(--progress-bar-height) * -1 * 2);
   right: -2rem;

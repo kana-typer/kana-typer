@@ -63,7 +63,16 @@ export default function _GoogleAuthProvider({ children }) {
       console.log('Successfully signed in:', result)
     }
     catch (error) {
-      console.error('Error during Google sign-in:', error)
+      console.log(error)
+      switch (error?.code) {
+        case 'auth/popup-closed-by-user':
+          console.info('Sign-in popup closed by user')
+          setIsSigningIn(false)
+          break
+        default:
+          console.error('Error during Google sign-in:', error)
+          setIsSigningIn(false)
+      }
     }
   }
   

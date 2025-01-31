@@ -15,12 +15,11 @@ import TermsOfServicePage from './pages/termsOfService/TermsOfServicePage.jsx'
 
 import './css/main.css'
 
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: process.env.NODE_ENV === 'development' ? null : <ErrorPage />, // disabled custom error page in dev, as default one may show useful debug info
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'help',

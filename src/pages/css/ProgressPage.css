@@ -13,12 +13,13 @@ main {
 section.progress-page__box-top {
   flex: 0;
 
+  max-width: 200ch;
   width: 100%;
 
   margin-top: 2em;
   padding: 1em 2em;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
   display: flex;
   flex-direction: column;
@@ -41,7 +42,7 @@ h3.progress-page__description {
   margin-top: 0;
 
   font-weight: 400;
-  color: gray;
+  color: var(--clr-txt-3);
 
   width: 100%;
   height: auto;
@@ -55,9 +56,9 @@ div.progress-page__container {
 
   height: fit-content;
 
-  min-width: 50%;
-  margin-left: 10%;
-  margin-right: 10%;
+  min-width: 30ch;
+  max-width: 180ch;
+  width: calc(100% - 60ch);
 }
 
 form.progress-page__form {
@@ -73,16 +74,16 @@ input.progress-page__search-input {
   padding: .5em 1em;
   margin-right: .5em;
 
-  color: #0a0a0a;
-  background-color: #f7f7f7;
+  color: var(--clr-txt-1);
+  background-color: var(--clr-bg-1);
 
   width: auto;
 
   font-family: inherit;
   font-size: 1em;
 
-  border-radius: 10px;
-  border: solid 1px #e5e5e5;
+  border-radius: var(--brd-radius);
+  border: solid 1px var(--clr-txt-3);
 }
 
 button.progress-page__search-button {
@@ -90,15 +91,15 @@ button.progress-page__search-button {
 
   width:auto;
 
-  color: #f7f7f7;;
-  background-color: #a60210;
+  color: var(--clr-bg-1);
+  background-color: var(--clr-txt-accent);
 
   cursor: pointer;
 
   font-family: inherit;
   font-size: 1em;
 
-  border-radius: 10px;
+  border-radius: var(--brd-radius);
   border: none;
 
   display: flex;
@@ -106,20 +107,13 @@ button.progress-page__search-button {
   align-items: center;
 }
 
-button:hover.progress-page__search-button {
-  color: darkgray;
-  background-color: rgb(100, 0, 0);
-}
-
 i.fa-solid {
   margin-right: .5em;
 }
 
 section.progress {
-  min-width: 50%;
+  min-width: 30ch;
   height: max-content;
-
-  margin-top: 2em;
 }
 
 .progress ul {
@@ -137,30 +131,30 @@ section.progress {
   padding: 0;
   left: 0;
 
-  border-radius: 10px;
+  border-radius: var(--brd-radius);
 }
 
 .progress ul li {
   padding: .5em;
   width: auto;
 
-  background-color: #f7f7f7;
+  background-color: var(--clr-bg-1);
 
-  border-radius: 10px;
+  border-radius: var(--brd-radius);
 }
 
 .progress h3 {
   text-align: center;
 
-  color: rgb(40, 40, 40);
+  color: var(--clr-txt-1);
 }
 
 .progress-bar {
   height: .7rem;
 
-  border-radius: 25px;
+  border-radius: var(--brd-radius);
 
-  background-color: lightgrey;
+  background-color: var(--clr-bg-3);
 
   margin: 1rem;
 }
@@ -169,5 +163,7 @@ section.progress {
   width: 25%;
   height: .7rem;
 
-  background-color: rgb(40, 40, 40);
+  border-radius: var(--brd-radius);
+
+  background-color: var(--clr-txt-1);
 }

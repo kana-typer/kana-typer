@@ -136,10 +136,6 @@ div.typer-page__modal {
   z-index: 19;
 }
 
-.typer-page__button-box {
-  
-}
-
 p.typer-page__question {
   grid-column: 1 / end;
   font-weight: 600;

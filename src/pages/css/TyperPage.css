@@ -30,9 +30,9 @@ nav.typer-page__left-nav{
   flex-direction: column;
   position: fixed;
   top: 3.5rem;
-  left: -14.5em;
+  left: -16.3em;
   overflow: visible;
-  width: 15em;
+  width: 17em;
   height: 100%;
   background-color: var(--clr-bg-1);
   transition: left 0.3s ease;

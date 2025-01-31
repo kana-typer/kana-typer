@@ -374,21 +374,32 @@ export const checkRomajiValidityOfKana = (givenRomaji, targetKana, sourceMap) =>
     return false
 
   const getKana = (key) => sourceMap.get(key)?.map(({ kana }) => kana) || []
+  const validRomajis = [...sourceMap.keys()].filter(romaji => romaji.includes(givenRomaji))
+  const hasCorrectKana = validRomajis.reduce((acc, romaji) => [...acc, ...getKana(romaji)], []).includes(targetKana)
+
   const endsOnVowel = 'aiueo'.split('').some(vowel => givenRomaji.endsWith(vowel))
+  const endsOnN = givenRomaji.endsWith('n')
+
   const validRomaji = sourceMap.has(givenRomaji)
-  const isCorrectKana = getKana(givenRomaji).some((kana) => kana === targetKana)
   const kanaInMap = getKana(givenRomaji).includes(targetKana)
 
-  console.debug('checkRomajiValidityOfKana(givenRomaji =', givenRomaji, ', targetKana =', targetKana, ', sourceMap =', sourceMap, ') (getKana =, ', getKana(givenRomaji), 'endsOnVowel =', endsOnVowel, ', validRomaji =', validRomaji, ', isCorrectKana =', isCorrectKana, ', kanaInMap =', kanaInMap, ')')
+  console.debug('checkRomajiValidityOfKana(givenRomaji =', givenRomaji, ', targetKana =', targetKana, ', sourceMap =', sourceMap, ') (getKana =, ', getKana(givenRomaji), 'validRomajis =, ', validRomajis, 'hasCorrectKana =, ', hasCorrectKana, 'endsOnVowel =', endsOnVowel, ', validRomaji =', validRomaji, ', kanaInMap =', kanaInMap, ')')
 
-  // romaji ends on vowel - may be valid morae
-  if (endsOnVowel && validRomaji && isCorrectKana)
-    return kanaInMap // may be valid but not in map - return inclusion result
+  // check if romaji might be valid
+  if ((endsOnVowel || endsOnN) && validRomaji) {
 
-  // specific check for n to not conflict with na, ni, etc.
-  if (givenRomaji.endsWith('n') && validRomaji && isCorrectKana && kanaInMap)
+    // romaji has no plausible kana found
+    if (validRomajis.length === 0 || !hasCorrectKana)
+      return false
+
+    // romaji has correct kana but it is the wrong kana
+    if (hasCorrectKana && !kanaInMap)
+      return undefined
+
+    // correct kana
     return true
+  }
 
-  // romaji might be partial, i.e. user not finished writing it
+  // not valid romaji - plausibly not done typing
   return undefined
 }

@@ -165,10 +165,14 @@ section.user-page__settings {
 }
 
 section.user-page__settings > button {
-  width: 40ch;
+  width: 52ch;
 }
 
 section.user-page__settings > button > span {
   flex: 1;
   padding-right: 1.6rem;
+}
+
+section.user-page__settings > button.user-page__logout {
+  width: 25ch;
 }

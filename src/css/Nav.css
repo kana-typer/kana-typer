@@ -97,6 +97,7 @@ ul.main-navigation__list > li {
   align-items: center;
   gap: .3em;
 
+  cursor: pointer;
   transition: opacity .1s linear;
 }
 

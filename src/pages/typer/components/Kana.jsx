@@ -3,12 +3,20 @@ import { useMemo } from 'react'
 import '../css/Kana.css'
 
 function Kana({
+  isLoading,
   typerIndex, 
   typerData, 
   correctHits,
   incorrectHits,
   getMoraeWidth,
 }) {
+  if (isLoading)
+    typerData = [{
+      kana: '「Kana Typer」',
+      furigana: '...',
+      translation: '...',
+    }]
+
   const transformOffset = useMemo(() => {
     const moraeOnTheLeft = typerData
       .slice(0, typerIndex)
@@ -24,7 +32,6 @@ function Kana({
     >
       {typerData.map(({ kana, furigana, reading, translation }, index) => {
         const fullFurigana = reading ? `${furigana} (${reading})` : furigana
-        // const translation = index % 2 == 0 ? ' ' : 'text text' // TODO: if translation is too long, it breaks the width of the .morae box
         let colorClassName = ''
 
         if (index === typerIndex)

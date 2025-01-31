@@ -165,6 +165,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
       <div className="typer-mask">
         <div className='typer'>
           <Kana 
+            isLoading={isLoading}
             typerIndex={typerIndex}
             typerData={typerData}
             correctHits={userCorrectHits}

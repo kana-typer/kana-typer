@@ -45,7 +45,7 @@ function Kana({
         }
 
         return (
-          <span key={index} className={`morae ${colorClassName}`}>
+          <span key={index} className={`morae ${colorClassName}`} style={{ '--kana-width': `${getMoraeWidth(kana)}px` }}>
             <i className='morae__furigana'>{fullFurigana}</i>
             <hr />
             <i className='morae__translation'>{translation}</i>

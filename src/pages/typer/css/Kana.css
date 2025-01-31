@@ -16,6 +16,7 @@
   flex-direction: column;
   align-items: center;
 
+
   color: var(--clr-kana);
 }
 
@@ -36,6 +37,11 @@
   opacity: .4;
   height: 1.8rem;
   padding: 0 .5em;
+  width: var(--kana-width);
+  text-align: center;
+  overflow-x: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
 }
 
 .typer > .kana .morae.correct .morae__furigana,
@@ -48,6 +54,16 @@
   height: 1.2rem;
   font-family: var(--fnt-family);
   padding: 0 .5em;
+  width: var(--kana-width);
+  text-align: center;
+  overflow-x: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+}
+
+.typer > .kana > .morae.current > .morae__furigana,
+.typer > .kana > .morae.current > .morae__translation {
+  overflow-x: visible;
 }
 
 .typer > .kana > .morae > hr {

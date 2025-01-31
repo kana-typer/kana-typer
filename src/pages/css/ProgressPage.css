@@ -152,7 +152,7 @@ section.progress {
 .progress-bar {
   height: .7rem;
 
-  border-radius: 25px;
+  border-radius: var(--brd-radius);
 
   background-color: var(--clr-bg-3);
 

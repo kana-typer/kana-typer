@@ -1,11 +1,38 @@
-.typer-wrapper {
+main {
   position: relative;
+}
+
+.typer-wrapper {
+  --clr-backdrop: #f7f7f7b3;
+
+  position: absolute;
+  top: 0;
+  left: calc(-1 * var(--mrg-page-hor));
 
   height: auto;
 
   overflow-x: hidden;
 
+  width: calc(100% + var(--mrg-page-hor) * 2);
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .typer-wrapper {
+    --clr-backdrop: #0a0a0ab3;
+  }
+}
+
+.typer-mask {
   width: 100%;
+
+  mask-image: linear-gradient(
+    to right, 
+    transparent 5%, 
+    black 50%, 
+    black 85%, 
+    transparent 95%);
+  mask-repeat: no-repeat; 
 }
 
 .typer {
@@ -15,13 +42,15 @@
 
   position: relative;
 
-  transform: translateX(calc(50% - var(--kana-font-size) / 2));
+  margin-top: 3rem;
+
+  transform: translateX(calc(50% - var(--fnt-size-kana) / 2));
 }
 
 .typer > input[type=text] {
   padding: .3em .3em;
 
-  color: black;
+  color: var(--clr-txt-1);
   background-color: transparent;
   border: none;
 
@@ -32,8 +61,6 @@
 }
 
 .pre-countdown {
-  border: 1px solid red;
-
   position: absolute;
   top: 0;
   left: 0;
@@ -48,7 +75,9 @@
   align-items: center;
 
   font-size: 4rem;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: var(--clr-backdrop);
+  
+  z-index: 19;
 }
 
 .pre-countdown.hidden {
@@ -61,7 +90,7 @@ div.typer-page__restart {
   justify-content: space-around;
 }
 
-button.typer-page__restart-button {
+/* button.typer-page__restart-button {
   flex: 1;
 
   max-width: 8em;
@@ -79,15 +108,17 @@ button.typer-page__restart-button {
 
   border-radius: 10px;
   border: none;
-}
+} */
 
-button.typer-page__restart-button:hover {
+/* button.typer-page__restart-button:hover {
   color: gray;
   background-color: rgb(100, 0, 0);
-}
+} */
 
 div.typer-page__modal {
   position: fixed;
+
+  padding-bottom: 6rem;
   
   top: 0;
   left: 0;
@@ -97,12 +128,14 @@ div.typer-page__modal {
 
   align-content: center;
 
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--clr-backdrop);
+
+  z-index: 19;
 }
 
 p.typer-page__question {
   font-weight: 600;
-  font-size: 50px;
+  font-size: 3rem
 }
 
 div.typer-page__button-box {
@@ -111,10 +144,10 @@ div.typer-page__button-box {
   gap: 1em;
   align-items: center;
 
-  color: #a60210;
+  color: var(--clr-txt-1);
 }
 
-button.typer-page__leave, button.typer-page__cancel {
+/* button.typer-page__leave, button.typer-page__cancel {
   width: 10em;
   height: 2em;
 
@@ -132,13 +165,13 @@ button.typer-page__leave {
 
 button.typer-page__cancel {
   background-color: gray;
-}
+} */
 
 
-button.typer-page__leave:hover {
+/* button.typer-page__leave:hover {
   background-color: rgb(100, 0, 0);
 }
 
 button.typer-page__cancel:hover{
   background-color: darkgray;
-}
+} */

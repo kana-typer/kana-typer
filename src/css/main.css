@@ -7,7 +7,9 @@
   --clr-light-gray: #d4d4d4;
   --clr-dark-gray: #555;
   --clr-red: #a60210;
-  --clr-light-red: #ee2222;
+  --clr-light-red: #e40f0f;
+  --clr-green: #0a990a;
+  --clr-light-green: #20c020;
   --clr-blue: #020887;
   --clr-light-blue: #2e5eaa;
 
@@ -18,8 +20,8 @@
   --clr-bg-1: var(--clr-white);
   --clr-bg-2: var(--clr-dark-white);
   --clr-bg-3: var(--clr-light-gray);
-  --clr-success: var(--clr-light-green);
-  --clr-failure: var(--clr-light-red);
+  --clr-success: var(--clr-green);
+  --clr-failure: var(--clr-red);
 
   --fnt-size: 1rem;
   --fnt-size-kana: 4rem;
@@ -61,6 +63,8 @@
     --clr-bg-1: var(--clr-black);
     --clr-bg-2: var(--clr-light-black);
     --clr-bg-3: var(--clr-dark-gray);
+    --clr-success: var(--clr-light-green);
+    --clr-failure: var(--clr-light-red);
   }
 }
 

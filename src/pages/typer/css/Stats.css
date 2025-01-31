@@ -8,24 +8,23 @@ div.typer-page__stats {
   justify-content: space-around;
 
   min-width: 25em;
-  margin-left: 10%;
-  margin-right: 10%;
   margin-top: 5em;
 
   padding: 2em;
 
-  font-size: 20px;
+  font-size: 1.3rem;
 
-  background-color: #F7F7F7;
-  color: gray;
-  border-radius: 15px;
+  background-color: var(--clr-bg-1);
+  color: var(--clr-txt-3);
+  border-radius: var(--brd-radius);
 }
 
-td.typer-page__stats-title{
+td.typer-page__stats-title {
   min-width: 10em;
 }
 
-td.typer-page__stats-result{
+td.typer-page__stats-result {
+  color: var(--clr-txt-2);
   margin-left: 6em;
   font-weight: bold;
   text-align: left;

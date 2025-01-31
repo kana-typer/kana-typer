@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlocker } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 import { useTranslation } from 'react-i18next'
 import { useTyperData } from '../../../context/TyperDataContext'
@@ -46,7 +46,7 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
   const [userInput, setUserInput] = useState('')
   const userInputRef = useRef(null)
   const [preCountdown, startPreCountdown] = useCountdown( // timer to get user ready for typing
-    3, 
+    4, 
     undefined, 
     () => startCountdown(),
   )
@@ -185,9 +185,6 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         maxTimer={typerSettings?.time ?? DEFAULT_TIME} 
         isFinished={isFinished} 
       />}
-      {/* <div className='typer-page__restart'>
-        <button className='typer-page__restart-button'>Restart</button>
-      </div> */}
       <Stats 
         correctHits={userCorrectHits}
         incorrectHits={userIncorrectHits}
@@ -195,14 +192,14 @@ function Typer({ typerSettings, toggleFiltersClickability }) {
         isFinished={isFinished} 
       />
       <div className={`pre-countdown ${isStarted ? 'hidden' : ''}`}>
-        {isLoading ? <FontAwesomeIcon icon={faSpinner} className='spinner' /> : preCountdown + 1}
+        {isLoading ? <FontAwesomeIcon icon={faSpinner} className='spinner' /> : preCountdown}
       </div>
       {blocker.state === 'blocked' ? (
         <div className='typer-page__modal'>
           <div className='typer-page__button-box'>
             <p className='typer-page__question'>{t('customizeDetails.timerLeave')}</p>
-            <button className='typer-page__leave' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
-            <button className='typer-page__cancel' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
+            <button className='typer-page__leave btn' onClick={() => blocker.proceed()}>{t('customizeDetails.timerLeaveYes')}</button>
+            <button className='typer-page__cancel btn btn-alt-1' onClick={() => blocker.reset()}>{t('customizeDetails.timerLeaveNo')}</button>
           </div>
         </div>
       ) : null}

@@ -37,6 +37,11 @@
   height: 1.8rem;
 }
 
+.typer > .kana .morae.correct .morae__furigana,
+.typer > .kana .morae.incorrect .morae__furigana {
+  opacity: 1;
+}
+
 .typer > .kana .morae__translation {
   font-size: .2em;
   height: 1.2rem;

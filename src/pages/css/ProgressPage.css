@@ -163,5 +163,7 @@ section.progress {
   width: 25%;
   height: .7rem;
 
+  border-radius: var(--brd-radius);
+
   background-color: var(--clr-txt-1);
 }

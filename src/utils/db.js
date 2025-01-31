@@ -1,5 +1,5 @@
 import { auth, db } from '../config/firebase'
-import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 
 /**
  * Gets current user's entry in database and returns singular field from it.

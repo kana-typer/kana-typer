@@ -11,7 +11,7 @@ export const getUniqueData = (newData, oldData, key) => (
 )
 
 /**
- * 
+ * Returns a map of occurences of specific values in given array as { value -> sum }
  * @param {any[]} values 
  */
 export const getMapOfOccurences = (values) => {

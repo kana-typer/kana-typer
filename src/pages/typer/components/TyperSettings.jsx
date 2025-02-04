@@ -13,7 +13,7 @@ import '../css/TyperSettings.css'
 import { useTranslation } from 'react-i18next'
 
 const MoraFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid={`typer-settings__filter-mora ${filters?.use ? 'using' : ''}`} legend='Mora'>
+  return <FormGroup uid={filters?.use ? 'typer-settings__filter-mora__using' : 'typer-settings__filter-mora'} legend='Mora'>
     <FormGroup uid='typer-settings__filter-mora__scripts' legend='Scripts'>
       <ul>
         {(filters?.scripts ?? []).map(script => (
@@ -56,7 +56,7 @@ const MoraFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 const WordsFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid={`typer-settings__filter-words ${filters?.use ? 'using' : ''}`} legend='Words'>
+  return <FormGroup uid={filters?.use ? 'typer-settings__filter-words__using' : 'typer-settings__filter-words'} legend='Words'>
     <FormGroup uid='typer-settings__filter-words__categories' legend='Categories'>
       <ul>
         {(filters?.categories ?? []).map(category => (
@@ -79,7 +79,7 @@ const WordsFilterFields = ({ filters, setFiltersProp }) => {
 }
 
 const TyperFilterFields = ({ filters, setFiltersProp }) => {
-  return <FormGroup uid='typer-settings__filter-typer using' legend='Typer'>
+  return <FormGroup uid='typer-settings__filter-typer__using' legend='Typer'>
     <FormText className={`typer-settings__text`}
       uid='filter-typer__time'
       label='time'

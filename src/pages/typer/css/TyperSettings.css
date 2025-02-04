@@ -60,7 +60,9 @@ section.typer-settings > * {
   pointer-events: none;
 }
 
-section.typer-settings > .using {
+section.typer-settings > #typer-settings__filter-mora__using, 
+section.typer-settings > #typer-settings__filter-words__using, 
+section.typer-settings > #typer-settings__filter-typer__using {
   opacity: 1;
   filter: blur(0);
   pointer-events: all;

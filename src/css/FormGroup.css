@@ -1,11 +1,11 @@
-fieldset#form-group {
+fieldset.form-group {
   border-color: var(--clr-txt-3);
   border-style: solid;
 
   color: var(--clr-txt-1);
 }
 
-fieldset#form-group > legend {
+fieldset.form-group > legend {
   color: var(--clr-txt-1);
 
   font-weight: 500;

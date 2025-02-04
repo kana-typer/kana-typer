@@ -64,7 +64,6 @@ export default function TyperDataProvider({ children }) {
    */
   const loadProgressDataFromDb = async () => {
     console.debug(`loading user progress data from db`)
-    // // const sampleData = { 'あ': 5 }
     return await getUserField('progress') || {}
   }
 
@@ -78,9 +77,6 @@ export default function TyperDataProvider({ children }) {
    * @returns array of objects from databse, or null if no additional data was needed to be queried
    */
   const loadFromDbByFilter = async (filters, group, source, collectionName, propertyName) => {
-    // console.debug(`loading ${collectionName} from db`)
-    // // const sample = await import('../data/db-sample.json')
-
     let data = null
 
     if (filters.use) {
@@ -97,9 +93,8 @@ export default function TyperDataProvider({ children }) {
 
       // If specific groups already occur in source, connection to db will be skipped
       if (occurences.length < 1 || occurences.some(x => x === false)) {
-        // // data = sample?.[collectionName]?.filter(obj => uniqueGroups.includes(obj?.[propertyName])) || null
         console.warn(group, uniqueGroups)
-        data = (await getDocuments(collectionName, [[propertyName, 'in', uniqueGroups]])) ?? null // TODO: on 'all words' -> 'hiragana' -> 'all words' this will throw 'snapshot.empty is true'
+        data = (await getDocuments(collectionName, [[propertyName, 'in', uniqueGroups]])) ?? null
       } else {
         console.debug(`loading ${collectionName} aborted - raw data of ${group} already exists in context`)
       }
@@ -116,7 +111,6 @@ export default function TyperDataProvider({ children }) {
    * Updates typerData and typerPool.
    */
   const updateTyperData = async () => {
-    // // console.debug('updating typer context data')
     const data = { ...typerData }
 
     // Get user progress first as it is needed to generate proper furigana for maps
@@ -134,7 +128,6 @@ export default function TyperDataProvider({ children }) {
       // Append only new objects
       const uniqueMora = getUniqueData(newRawMora, data.mora.raw, 'symbol')
       data.mora.raw.push(...uniqueMora)
-      // // console.debug(`added ${uniqueMora?.length || 0} new raw mora items`)
 
       // Update modifiers if there is a need to
       const modifierValues = [
@@ -142,21 +135,15 @@ export default function TyperDataProvider({ children }) {
         ...Object.values(data.modifiers.yoon.hiragana),
         ...Object.values(data.modifiers.yoon.katakana),
       ]
-      // // const modifiersMissing = modifierValues.some(x => [null, undefined].includes(x))
       const modifiersMissing = modifierValues.some(isNullOrUndefined)
 
       if (modifiersMissing) {
         data.modifiers = generateModifiers(data.mora.raw, data.modifiers)
-        // // console.debug(`added missing mora modifiers`)
-      } else {
-        // // console.debug(`no new mora modifiers added`)
       }
     }
 
     // Create new mora map
-    // TODO: needs to be done so that we generate only what we need from filters - once generated, we cannot filter it, which is bad - needs to change
     data.mora.map = generateMoraMap(data.mora.raw, data.modifiers, data.progress, typerFilters.mora)
-    // // console.debug(`generated new mora map of size ${data.mora.map.size}`)
 
     // Get words only if specified by filters
     const newRawWords = await loadFromDbByFilter(
@@ -170,28 +157,21 @@ export default function TyperDataProvider({ children }) {
       // Append only new objects
       const uniqueWords = getUniqueData(newRawWords, data.words.raw, 'kana')
       data.words.raw.push(...uniqueWords)
-      // // console.debug(`added ${uniqueWords?.length || 0} new raw words items`)
     }
 
     // Create new words map
-    // TODO: same as with creating new more map
     data.words.map = generateWordsMap(data.words.raw, data.progress, typerFilters.words)
-      // // console.debug(`generated new words map of size ${data.words.map.size}`)
 
     setTyperData(() => {
-      // // console.debug(`staging state change for typer data`, data)
       return data
     })
 
     setTyperPool(() => {
-      // // console.debug(`staging state change for typer pool using generated data maps`)
       return new Map([...data.mora.map, ...data.words.map])
     })
   }
 
   const updateUserProgress = async (correctHits, incorrectHits) => {
-    // // const correct = Object.values(correctHits).reduce(addToMapOfOccurences, new Map())
-    // // const incorrect = Object.values(incorrectHits).reduce(addToMapOfOccurences, new Map())
     const correct = getMapOfOccurences(Object.values(correctHits))
     const incorrect = getMapOfOccurences(Object.values(incorrectHits))
     const newProgress = { ...typerData.progress }
@@ -282,7 +262,6 @@ export default function TyperDataProvider({ children }) {
             : oldValue.filter(item => item !== value)
       }
 
-      // // console.debug(`staging state chage for typer filters with new filter ${prop}=${value} in ${set}`)
       return {
         ...prev,
         [set]: {

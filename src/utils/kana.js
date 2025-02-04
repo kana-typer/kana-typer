@@ -165,7 +165,7 @@ export const pickFurigana = (furigana, progress) => {
  * @returns {Map<string, Array<{ key: string, kana: string, furigana: string, translation: string | null, reading: string | null }>>} a map of all possible combinations with only the data necessary to generate a randomly chosen typer pool and proper UX
  */
 export const generateMoraMap = (source, modifiers, progress, filters) => {
-  const yoons = ['ya', 'yu', 'yo'] // TODO: should be changed to use yoons from modifiers[script].keys()?
+  const yoons = ['ya', 'yu', 'yo']
   const map = new Map([])
 
   source.forEach(({ symbol, ...mora }) => {
@@ -258,7 +258,7 @@ export const generateMoraMap = (source, modifiers, progress, filters) => {
 
     console.debug('generateMoraMap(source =', source, ', modifiers =', modifiers, ', progress =', progress, ', filters =', filters, ') foreach symbol =', symbol, ': rest =', mora, 'skip =', skip, ' (scripts, types, extended) sokuon =', hasSokuon && filters.sokuon === true, 'yoon =', hasYoon && filters.yoon === true, 'items =', items)
 
-    items.forEach(({ key, ...data }) => { // TODO: not too optimal :/
+    items.forEach(({ key, ...data }) => {
       if (map.has(key)) {
         map.set(key, [...map.get(key), data])
       } else {

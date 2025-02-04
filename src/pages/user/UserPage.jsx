@@ -72,7 +72,7 @@ function UserPage() {
           <h1 className='user-page__settings-text'>{t('accountDetails.accountSettings')}</h1>
           <button className='user-page__tos btn btn-alt-2' onClick={() => navigate('/tos')}>
             <FontAwesomeIcon icon={faFileCircleExclamation} />
-            <span>{t('loginPage.termsOfPolicy2')}</span>
+            <span>{t('accountDetails.accountToS')}</span>
           </button>
           <button className='user-page__reset btn btn-alt-1' onClick={resetProgress}>
             <FontAwesomeIcon icon={faArrowRotateRight} />

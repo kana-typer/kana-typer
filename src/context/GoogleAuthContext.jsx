@@ -16,7 +16,6 @@ export default function _GoogleAuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user)
       setIsSigningIn(false)
-      console.log('New user', user)
 
       if (user === null) {
         setUserData(null)
@@ -91,18 +90,6 @@ export default function _GoogleAuthProvider({ children }) {
     try {
       await deleteUser(user)
       console.log('Account deleted')
-
-      // TODO: throws insufficient permission as account was deleted;
-      // TODO: cannot delete data first as account might need re-authentication
-      // const userRef = doc(db, 'users', user.uid)
-
-      // try {
-      //   await deleteDoc(userRef)
-      //   console.log('Account data cleaned up')
-      // }
-      // catch (error) {
-      //   console.error('Error during account data cleanup:', error)
-      // }
     } catch (error) {
       console.error('Error during account deletion:', error)
 
